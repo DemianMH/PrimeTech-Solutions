@@ -30,6 +30,7 @@ const cityCoordinates: Record<string, [number, number]> = {
   moscow: [55.7558, 37.6176],
   dubai: [25.2048, 55.2708],
   singapore: [1.3521, 103.8198],
+  "zapopan": [20.72111, -103.38742], 
 };
 
 const locationToAngles = (lat: number, long: number): [number, number] => [
@@ -46,8 +47,7 @@ export default function Globe({
   markerColor = [0.1, 0.8, 1],
   glowColor = [1, 1, 1],
   markers = [
-    { location: [37.7595, -122.4367], size: 0.03 },
-    { location: [40.7128, -74.006], size: 0.1 },
+    { location: [20.72111, -103.38742], size: 0.05, },
   ],
   scale = 1,
   className = "aspect-square w-full max-w-[600px]",
