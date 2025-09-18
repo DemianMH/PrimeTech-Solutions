@@ -129,7 +129,7 @@ export default function HeroUI({
                 size="lg"
                 className="w-full md:w-auto rounded-xl px-8 py-6 text-lg font-semibold border-2 backdrop-blur-sm"
               >
-                <a href="#portafolio">
+                <a href="/portafolio">
                   <span className="bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
                     {secondaryCTA}
                   </span>
