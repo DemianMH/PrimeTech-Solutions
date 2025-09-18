@@ -18,10 +18,10 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
     <a
       href={url}
       onClick={onPress}
-      className="block p-3 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+      className="block p-3 hover:bg-gray-800 rounded-lg transition-colors"
     >
-      <h4 className="font-medium text-gray-900 dark:text-white">{heading}</h4>
-      <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{info}</p>
+      <h4 className="font-medium text-white">{heading}</h4>
+      <p className="text-sm text-gray-400 mt-1">{info}</p>
     </a>
   );
 };
@@ -108,5 +108,53 @@ export const testimonials = [
     company: "Apex Enterprises",
     message: "Su servicio de ciberseguridad es de primer nivel. Detectaron vulnerabilidades que ni siquiera sabíamos que teníamos. Ahora operamos con mucha más tranquilidad.",
     time: "Ayer",
+  },
+];
+
+export const portfolioProjects = [
+  {
+    id: 1,
+    number: "01",
+    title: "Sorteo Mike & Co",
+    description: "Plataforma de e-commerce desarrollada para la gestión y ejecución de sorteos en línea. Un diseño moderno y un sistema de pago seguro para una experiencia de usuario excepcional.",
+    tags: ["Desarrollo Web", "E-commerce", "Plataforma de Sorteos", "Diseño UI/UX"],
+    imageUrl: "/portafolio/sorteomikeco.png",
+    liveUrl: "https://sorteomikeco.com",
+  },
+  {
+    id: 2,
+    number: "02",
+    title: "CZC Projects",
+    description: "Sitio web corporativo para una constructora, enfocado en mostrar un portafolio de proyectos de alto impacto. Diseño elegante, profesional y totalmente adaptable a dispositivos móviles.",
+    tags: ["Desarrollo Web", "Sitio Corporativo", "Diseño Adaptable"],
+    imageUrl: "/portafolio/czcprojects.png",
+    liveUrl: "https://czcprojects.com.mx",
+  },
+  {
+    id: 3,
+    number: "03",
+    title: "Tersus Clean",
+    description: "Landing page optimizada para la conversión, diseñada para una empresa de servicios de limpieza. El objetivo fue crear una presencia digital clara, directa y efectiva para captar nuevos clientes.",
+    tags: ["Landing Page", "Diseño Web", "Optimización de Conversión"],
+    imageUrl: "/portafolio/tersusclean.png",
+    liveUrl: "https://tersusclean.com.mx",
+  },
+  {
+    id: 4,
+    number: "04",
+    title: "Revive the Fire",
+    description: "Página web para un evento o comunidad, con un diseño inspirador y dinámico. Se integraron funcionalidades para el registro y la comunicación con los asistentes.",
+    tags: ["Diseño Web", "Página de Evento", "Gestión de Contenido"],
+    imageUrl: "/portafolio/revivethefire.png",
+    liveUrl: "https://revivethefire.info",
+  },
+  {
+    id: 5,
+    number: "05",
+    title: "Portofino Conway",
+    description: "Sitio web de e-commerce para un restaurante o negocio de comida, permitiendo a los clientes ver el menú y realizar pedidos en línea de forma fácil e intuitiva.",
+    tags: ["Desarrollo Web", "E-commerce", "Restaurantes", "Pedidos en Línea"],
+    imageUrl: "/portafolio/portofinoconway.png",
+    liveUrl: "https://portofinoconway.com",
   },
 ];
