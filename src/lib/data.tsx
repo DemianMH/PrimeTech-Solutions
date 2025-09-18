@@ -291,3 +291,85 @@ export const servicesData = {
     }
   }
 };
+
+const WHATSAPP_NUMBER = "523334862414";
+
+const generateWhatsAppLink = (productName: string) => {
+  const message = `Hola, estoy interesado en el producto: *${productName}*. ¿Podrían darme más información?`;
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+};
+
+export const shopProducts = [
+  {
+    id: 1,
+    name: "Sistema POS All-in-One para Retail",
+    category: "Punto de Venta",
+    idealFor: "Boutiques, tiendas de abarrotes, y pequeños comercios.",
+    features: ["Pantalla táctil de 15\"", "Lector de código de barras", "Software de inventario pre-instalado"],
+    imageUrl: "https://images.pexels.com/photos/4199490/pexels-photo-4199490.jpeg",
+    whatsappUrl: generateWhatsAppLink("Sistema POS All-in-One para Retail"),
+  },
+  {
+    id: 2,
+    name: "Laptop Empresarial de Alto Rendimiento",
+    category: "Laptops",
+    idealFor: "Profesionales móviles, ejecutivos y equipos de ventas.",
+    features: ["Procesador Core i7", "16GB RAM, 512GB SSD", "Diseño ligero y batería de larga duración"],
+    imageUrl: "https://images.pexels.com/photos/811587/pexels-photo-811587.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    whatsappUrl: generateWhatsAppLink("Laptop Empresarial de Alto Rendimiento"),
+  },
+  {
+    id: 3,
+    name: "PC Armada para Oficina de Alto Flujo",
+    category: "PC Armadas",
+    idealFor: "Oficinas, contadores y puestos administrativos.",
+    features: ["Componentes optimizados para ofimática", "Gabinete sobrio y profesional", "Bajo consumo energético"],
+    imageUrl: "https://images.pexels.com/photos/26966416/pexels-photo-26966416.jpeg",
+    whatsappUrl: generateWhatsAppLink("PC Armada para Oficina de Alto Flujo"),
+  },
+  {
+    id: 4,
+    name: "Kit de Infraestructura de Red para PyMEs",
+    category: "Estructura de Redes",
+    idealFor: "Pequeñas y medianas empresas que buscan una red estable y segura.",
+    features: ["Router de alta capacidad", "Switch de 24 puertos", "Access Point Wi-Fi 6"],
+    imageUrl: "https://images.pexels.com/photos/1148820/pexels-photo-1148820.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    whatsappUrl: generateWhatsAppLink("Kit de Infraestructura de Red para PyMEs"),
+  },
+  {
+    id: 5,
+    name: "Sistema de Videovigilancia IP (4 Cámaras)",
+    category: "Cámaras",
+    idealFor: "Almacenes, oficinas y locales comerciales que requieren seguridad.",
+    features: ["Cámaras Full HD con visión nocturna", "Grabador NVR con 1TB de almacenamiento", "Acceso remoto desde el móvil"],
+    imageUrl: "https://images.pexels.com/photos/13031873/pexels-photo-13031873.jpeg",
+    whatsappUrl: generateWhatsAppLink("Sistema de Videovigilancia IP (4 Cámaras)"),
+  },
+  {
+    id: 6,
+    name: "Workstation para Diseño y Edición",
+    category: "PC Armadas",
+    idealFor: "Diseñadores gráficos, arquitectos y editores de video.",
+    features: ["Tarjeta gráfica NVIDIA RTX", "32GB RAM de alta velocidad", "Almacenamiento SSD NVMe ultrarrápido"],
+    imageUrl: "https://images.pexels.com/photos/2399840/pexels-photo-2399840.jpeg",
+    whatsappUrl: generateWhatsAppLink("Workstation para Diseño y Edición"),
+  },
+    {
+    id: 7,
+    name: "Rack de Comunicaciones (Site)",
+    category: "Sites",
+    idealFor: "Empresas que necesitan centralizar y proteger sus servidores y equipo de red.",
+    features: ["Gabinete de 42U con ventilación", "Organizador de cables vertical", "PDU para distribución de energía"],
+    imageUrl: "https://images.pexels.com/photos/442150/pexels-photo-442150.jpeg",
+    whatsappUrl: generateWhatsAppLink("Rack de Comunicaciones (Site)"),
+  },
+  {
+    id: 8,
+    name: "Terminal Móvil para Restaurantes",
+    category: "Punto de Venta",
+    idealFor: "Restaurantes, bares y food trucks para tomar órdenes en sitio.",
+    features: ["Dispositivo Android robusto", "Impresora de tickets térmica integrada", "Software para gestión de mesas"],
+    imageUrl: "https://images.pexels.com/photos/12935041/pexels-photo-12935041.jpeg",
+    whatsappUrl: generateWhatsAppLink("Terminal Móvil para Restaurantes"),
+  },
+];
