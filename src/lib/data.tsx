@@ -61,7 +61,7 @@ export const navLinks = [
     ),
   },
   { text: "Diseño Gráfico", url: "/diseno-grafico" },
-  { text: "Cursos", url: "/cursos" },
+  { text: "Tienda", url: "/tienda" },
   { text: "Portafolio", url: "/portafolio" },
 ];
 
@@ -158,3 +158,136 @@ export const portfolioProjects = [
     liveUrl: "https://portofinoconway.com",
   },
 ];
+
+export const servicesData = {
+  desarrollo: {
+    hero: {
+      title: "Desarrollo de Software a Medida",
+      tagline: "Construimos las herramientas digitales que impulsan tu visión y escalan tu negocio.",
+      imageUrl: "https://images.pexels.com/photos/943096/pexels-photo-943096.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    },
+    introduction: {
+      title: "¿Tu software actual limita tu crecimiento?",
+      content: "Muchas empresas operan con herramientas genéricas que no se adaptan a sus procesos únicos. Esto genera ineficiencia, limita la innovación y te deja un paso por detrás de la competencia. En PrimeTech, no creemos en soluciones universales."
+    },
+    features: [
+      { title: "Aplicaciones Web y Móviles", description: "Desde PWA's hasta apps nativas, creamos experiencias fluidas y atractivas para tus usuarios en cualquier dispositivo." },
+      { title: "Plataformas SaaS", description: "Desarrollamos modelos de Software como Servicio robustos y escalables, listos para monetizar tu idea." },
+      { title: "Integración de API's", description: "Conectamos tus sistemas existentes, automatizamos flujos de trabajo y centralizamos tu información." },
+      { title: "Mantenimiento y Evolución", description: "Tu software crecerá contigo. Ofrecemos soporte continuo y desarrollo evolutivo para adaptarnos a tus futuras necesidades." }
+    ],
+    process: {
+      title: "Nuestro Proceso: De la Idea al Impacto",
+      steps: [
+        { name: "Descubrimiento", description: "Analizamos tus objetivos y desafíos para definir la estrategia tecnológica perfecta." },
+        { name: "Diseño UI/UX", description: "Creamos interfaces intuitivas y atractivas que garantizan una experiencia de usuario memorable." },
+        { name: "Desarrollo Ágil", description: "Construimos tu solución en ciclos iterativos, permitiendo flexibilidad y entregas rápidas." },
+        { name: "Lanzamiento y Soporte", description: "Desplegamos la aplicación y te acompañamos para asegurar su éxito y rendimiento a largo plazo." }
+      ]
+    }
+  },
+  "soporte-it": {
+    hero: {
+      title: "Soporte IT y Help Desk",
+      tagline: "Tu tranquilidad es nuestra prioridad. Operaciones fluidas, problemas resueltos.",
+      imageUrl: "https://images.pexels.com/photos/577514/pexels-photo-577514.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    },
+    introduction: {
+      title: "¿Problemas técnicos que frenan a tu equipo?",
+      content: "Cada minuto de inactividad es una pérdida de productividad y dinero. Un equipo sin soporte técnico eficiente se frustra y no puede alcanzar su máximo potencial. Estamos aquí para ser tu departamento de IT de confianza."
+    },
+    features: [
+      { title: "Help Desk Remoto e In situ", description: "Soporte rápido y eficaz para resolver cualquier incidencia de tus empleados, donde sea que estén." },
+      { title: "Mantenimiento Proactivo", description: "Monitoreamos tus sistemas 24/7 para prevenir problemas antes de que ocurran, garantizando la máxima disponibilidad." },
+      { title: "Gestión de Infraestructura", description: "Administramos tus servidores, redes y dispositivos para que funcionen de manera óptima y segura." },
+      { title: "Consultoría Tecnológica", description: "Te asesoramos en la adquisición y implementación de nuevas tecnologías para mejorar tu competitividad." }
+    ],
+    process: {
+      title: "Cómo Garantizamos tu Operatividad",
+      steps: [
+        { name: "Auditoría Inicial", description: "Evaluamos tu infraestructura actual para identificar puntos débiles y oportunidades de mejora." },
+        { name: "Plan de Acción", description: "Diseñamos una estrategia de soporte personalizada y un plan de mantenimiento proactivo." },
+        { name: "Ejecución y Soporte", description: "Implementamos las mejoras y activamos nuestros canales de Help Desk para asistencia inmediata." },
+        { name: "Reportes y Optimización", description: "Te entregamos informes periódicos de rendimiento y te proponemos optimizaciones continuas." }
+      ]
+    }
+  },
+  ciberseguridad: {
+    hero: {
+      title: "Ciberseguridad Avanzada",
+      tagline: "Protegemos tu activo más valioso: tu información. Adelántate a las amenazas.",
+      imageUrl: "https://images.pexels.com/photos/5380642/pexels-photo-5380642.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    },
+    introduction: {
+      title: "¿Estás preparado para un ciberataque?",
+      content: "En el mundo digital actual, la pregunta no es si sufrirás un ataque, sino cuándo. Una brecha de seguridad puede costar millones en pérdidas y dañar irreparablemente tu reputación. La prevención es la mejor estrategia."
+    },
+    features: [
+      { title: "Análisis de Vulnerabilidades", description: "Realizamos pruebas de penetración (pentesting) para descubrir y corregir fallos de seguridad en tus sistemas." },
+      { title: "Monitoreo de Red 24/7", description: "Vigilancia constante de tu red para detectar y responder a actividades sospechosas en tiempo real." },
+      { title: "Seguridad Cloud", description: "Configuramos y gestionamos la seguridad de tus entornos en la nube (AWS, Azure, Google Cloud) para proteger tus datos." },
+      { title: "Capacitación de Empleados", description: "Entrenamos a tu equipo para que reconozcan intentos de phishing y otras tácticas de ingeniería social, tu primera línea de defensa." }
+    ],
+    process: {
+      title: "Nuestro Escudo de Protección",
+      steps: [
+        { name: "Evaluación de Riesgos", description: "Identificamos los activos críticos de tu empresa y las amenazas potenciales a las que se enfrentan." },
+        { name: "Diseño de Arquitectura Segura", description: "Creamos una estrategia de defensa en capas, implementando las mejores prácticas y herramientas." },
+        { name: "Implementación y Monitoreo", description: "Desplegamos las soluciones de seguridad y comenzamos la vigilancia activa de tu ecosistema digital." },
+        { name: "Respuesta a Incidentes", description: "En caso de un incidente, nuestro equipo actúa de inmediato para contener la amenaza y minimizar el impacto." }
+      ]
+    }
+  },
+    redes: {
+    hero: {
+      title: "Infraestructura de Redes",
+      tagline: "Conectividad robusta, segura y de alta velocidad. La columna vertebral de tu negocio.",
+      imageUrl: "https://images.pexels.com/photos/327533/pexels-photo-327533.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    },
+    introduction: {
+      title: "¿Tu red actual es un cuello de botella?",
+      content: "Una red lenta, inestable o mal configurada afecta directamente la productividad de tu equipo y la experiencia de tus clientes. Una infraestructura de red moderna es esencial para soportar las demandas de aplicaciones en la nube, videoconferencias y transferencia de datos."
+    },
+    features: [
+      { title: "Diseño y Cableado Estructurado", description: "Planificamos e implementamos redes físicas y Wi-Fi optimizadas para la máxima cobertura y rendimiento." },
+      { title: "Configuración de Firewalls y VPNs", description: "Aseguramos el perímetro de tu red y habilitamos conexiones remotas seguras para tus colaboradores." },
+      { title: "Gestión de Ancho de Banda", description: "Optimizamos el tráfico de tu red para priorizar aplicaciones críticas y garantizar una operación fluida." },
+      { title: "Soluciones Wi-Fi de Alta Densidad", description: "Implementamos redes inalámbricas capaces de soportar cientos de dispositivos conectados simultáneamente en oficinas y eventos." }
+    ],
+    process: {
+      title: "Construyendo tu Autopista Digital",
+      steps: [
+        { name: "Análisis de Requisitos", description: "Entendemos tus necesidades actuales y futuras de conectividad y seguridad." },
+        { name: "Diseño de la Solución", description: "Elaboramos un plano detallado de la arquitectura de red, seleccionando los equipos adecuados." },
+        { name: "Implementación y Pruebas", description: "Instalamos y configuramos todos los componentes, realizando pruebas exhaustivas para validar el rendimiento." },
+        { name: "Monitoreo y Mantenimiento", description: "Ofrecemos servicios de gestión continua para asegurar que tu red opere siempre al máximo nivel." }
+      ]
+    }
+  },
+  hardware: {
+    hero: {
+      title: "Soluciones de Hardware",
+      tagline: "Equipos de alto rendimiento, reparaciones expertas y asesoría para tu inversión tecnológica.",
+      imageUrl: "https://images.pexels.com/photos/459654/pexels-photo-459654.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    },
+    introduction: {
+      title: "¿El equipo obsoleto está lastrando tu potencial?",
+      content: "Trabajar con ordenadores lentos, servidores sobrecargados o periféricos defectuosos es una fuente constante de frustración y baja productividad. Invertir en el hardware adecuado es fundamental para que tu equipo pueda trabajar sin límites y con la máxima eficiencia."
+    },
+    features: [
+      { title: "Venta de Equipo Personalizado", description: "Ensamblamos ordenadores y estaciones de trabajo a medida, optimizados para tus cargas de trabajo específicas (diseño, desarrollo, etc.)." },
+      { title: "Adquisición de Servidores y Redes", description: "Te asesoramos en la compra e instalación de servidores, switches y otros equipos de infraestructura de red." },
+      { title: "Reparación y Actualización", description: "Diagnosticamos y reparamos fallos en ordenadores y portátiles. Realizamos actualizaciones (RAM, SSD) para extender su vida útil." },
+      { title: "Consultoría de Compra", description: "Analizamos tus necesidades y presupuesto para recomendarte las mejores opciones de hardware del mercado, evitando gastos innecesarios." }
+    ],
+     process: {
+      title: "Nuestro Enfoque en Hardware",
+      steps: [
+        { name: "Evaluación de Necesidades", description: "Conversamos contigo para entender qué tareas realizarás y cuál es el rendimiento esperado." },
+        { name: "Selección y Cotización", description: "Investigamos y te presentamos las mejores opciones de componentes o equipos que se ajusten a tus requisitos." },
+        { name: "Ensamblaje e Instalación", description: "Si es un equipo a medida, lo ensamblamos con los más altos estándares. Si es equipo pre-construido, lo instalamos y configuramos." },
+        { name: "Soporte y Garantía", description: "Te ofrecemos garantía por nuestro trabajo y soporte post-venta para cualquier duda o inconveniente." }
+      ]
+    }
+  }
+};
