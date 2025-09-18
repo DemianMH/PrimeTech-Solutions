@@ -1,10 +1,8 @@
 "use client";
-import { useEffect, useState, useRef } from "react";
+import { useRef } from "react";
 import { motion, useTransform, useScroll } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import LustreText from "@/components/ui/lustretext";
-import { useTheme } from "next-themes";
 import Globe from "@/components/ui/globe";
 import { cn } from "@/lib/utils";
 
@@ -38,35 +36,18 @@ interface HeroUIProps {
   secondaryCTA?: string;
   features?: string[];
   className?: string;
-  globeBaseColor?: {
-    light: [number, number, number];
-    dark: [number, number, number];
-  };
-  globeMarkerColor?: {
-    light: [number, number, number];
-    dark: [number, number, number];
-  };
-  globeGlowColor?: {
-    light: [number, number, number];
-    dark: [number, number, number];
-  };
 }
 
 export default function HeroUI({
   title = "PrimeTech Solutions",
   subtitle = "Tecnología y Creatividad Sin Límites",
-  description = "Componentes animados, accesibles y personalizables para tu web.",
+  description = "Transformamos ideas en soluciones digitales robustas, seguras y a la medida de tus necesidades.",
   badgeText = "✨ Soluciones Integrales 360",
   primaryCTA = "Explorar Servicios",
   secondaryCTA = "Ver Portafolio",
   features = [],
   className = "",
-  globeBaseColor = { light: [0.98, 0.98, 0.98], dark: [0.12, 0.12, 0.12] },
-  globeMarkerColor = { light: [0.2, 0.5, 0.9], dark: [0.1, 0.8, 1] },
-  globeGlowColor = { light: [0.3, 0.3, 0.3], dark: [1, 1, 1] },
 }: HeroUIProps) {
-  const { theme } = useTheme();
-  const [mounted, setMounted] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -74,14 +55,10 @@ export default function HeroUI({
   });
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
-  useEffect(() => { setMounted(true) }, []);
-
-  if (!mounted) return null;
-
   return (
     <section ref={ref} className={cn("relative overflow-hidden min-h-[90vh] flex items-center", className)}>
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#374151_1px,transparent_1px)] [background-size:16px_16px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(#374151_1px,transparent_1px)] [background-size:16px_16px]" />
         <motion.div
           className="absolute top-20 left-1/4 w-60 h-60 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[30rem] lg:h-[30rem] bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-full blur-[100px]"
           animate={{ scale: [1, 1.2, 1], rotate: [0, 180, 360] }}
@@ -100,9 +77,9 @@ export default function HeroUI({
           >
             <div className="w-full h-[220px] md:h-[300px] lg:h-[400px] xl:h-[450px]">
               <Globe
-                baseColor={theme === "dark" ? globeBaseColor.dark : globeBaseColor.light}
-                markerColor={theme === "dark" ? globeMarkerColor.dark : globeMarkerColor.light}
-                glowColor={theme === "dark" ? globeGlowColor.dark : globeGlowColor.light}
+                baseColor={[0.12, 0.12, 0.12]}
+                markerColor={[0.1, 0.8, 1]}
+                glowColor={[1, 1, 1]}
               />
             </div>
           </motion.div>
@@ -120,6 +97,7 @@ export default function HeroUI({
             <motion.h1
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight"
               variants={textVariants}
+              style={{ textShadow: "0 0 12px rgba(59, 130, 246, 0.5)" }}
             >
               <span className="block bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-400 bg-clip-text text-transparent">
                 {title}
@@ -137,30 +115,28 @@ export default function HeroUI({
             </motion.div>
 
             <motion.div
-              className="flex gap-4 mt-6 max-[375px]:flex-col max-[375px]:w-full max-[375px]:gap-3"
+              className="flex flex-col md:flex-row gap-4 mt-8 w-full md:w-auto"
               variants={textVariants}
             >
-              <Button size="lg" className="group relative overflow-hidden rounded-xl px-8 py-6 text-lg font-semibold shadow-xl max-[375px]:w-full max-[375px]:px-4 max-[375px]:py-4">
-                {/* EL ÚNICO CAMBIO ESTÁ AQUÍ ABAJO: Eliminamos 'bg-white' y 'dark:bg-black' */}
-                <LustreText
-                  text={primaryCTA}
-                  speed={6}
-                  className="relative z-10 bg-transparent text-[clamp(0.75rem,2vw,1.25rem)]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <Button asChild size="lg" className="w-full md:w-auto rounded-xl px-8 py-6 text-lg font-semibold shadow-xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:scale-105 transition-transform duration-300">
+                <a href="#servicios">
+                  {primaryCTA}
+                </a>
               </Button>
-
               <Button
+                asChild
                 variant="outline"
                 size="lg"
-                className="rounded-xl px-8 py-6 text-lg font-semibold border-2 backdrop-blur-sm max-[375px]:w-full max-[375px]:px-4 max-[375px]:py-4"
+                className="w-full md:w-auto rounded-xl px-8 py-6 text-lg font-semibold border-2 backdrop-blur-sm"
               >
-                <span className="bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
-                  {secondaryCTA}
-                </span>
+                <a href="#portafolio">
+                  <span className="bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
+                    {secondaryCTA}
+                  </span>
+                </a>
               </Button>
             </motion.div>
-
+            
             <motion.div
               className="flex items-center gap-8 mt-12 opacity-70"
               variants={textVariants}

@@ -1,4 +1,7 @@
 import HeroUI from "@/components/ui/heroui";
+import { FeaturesSection } from "@/components/ui/features-section";
+import { ScrollingLogos } from "@/components/ui/scrolling-logos";
+import { TestimonialsSection } from "@/components/ui/testimonials-section";
 
 export default function HomePage() {
   return (
@@ -17,6 +20,9 @@ export default function HomePage() {
           "Ciberseguridad",
         ]}
       />
+      <FeaturesSection />
+      <ScrollingLogos />
+      <TestimonialsSection />
     </div>
   );
 }
