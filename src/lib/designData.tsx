@@ -1,91 +1,125 @@
-
+import React from 'react';
 
 const WHATSAPP_NUMBER = "523334862414";
 
-const generateWhatsAppLink = (productName: string, designOption: boolean = false) => {
-  let message = `¡Ahoy! Estoy interesado en el tesoro: *${productName}*. ¿Podrían darme más información?`;
-  if (designOption) {
-    message = `¡Ahoy! Quisiera una cotización para el tesoro *${productName}* incluyendo un diseño personalizado.`;
-  }
+const generateWhatsAppLink = (productName: string) => {
+  const message = `¡Ahoy! Estoy interesado en el tesoro: *${productName}*. ¿Podrían darme más información y una cotización?`;
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 };
 
-// --- ESTRATEGIA DE PRECIOS AUTOMATIZADA ---
-// Esta función calcula el precio final para el cliente.
-// El margen de ganancia es más alto para productos baratos y se ajusta para ser competitivo en productos caros.
-// ¡Siempre es mayor al 30%!
-const calculatePrice = (basePrice: number) => {
-  let markup = 0.40; // Margen para productos de más de $1000 (40%)
-  if (basePrice <= 50) markup = 1.5; // Margen para productos muy baratos (150%)
-  else if (basePrice <= 100) markup = 1.0; // (100%)
-  else if (basePrice <= 400) markup = 0.8; // (80%)
-  else if (basePrice <= 1000) markup = 0.5; // (50%)
-  
-  const finalPrice = basePrice * (1 + markup);
-  return Math.ceil(finalPrice / 10) * 10; // Redondea el precio final para que sea un número limpio
-};
-
-const calculateDesignPrice = (basePrice: number) => {
-    if (basePrice < 500) return 250;
-    if (basePrice < 1500) return 450;
-    return 700;
-};
-
-// --- LISTA DE PRECIOS BASE ---
-// ¡ESTA ES LA ÚNICA LISTA QUE NECESITAS EDITAR EN EL FUTURO!
-// Aquí pones tus precios de revendedor.
+// Esta es la lista de productos base sin precios
 const baseProducts = [
-    { name: "Lona front", unit: "m²", price: 85, imageName: "lona-front.png" },
-    { name: "Lona mesh", unit: "m²", price: 226, imageName: "lona-mesh.png" },
-    { name: "Vinil blanco brillante", unit: "m²", price: 165, imageName: "vinil-brillante.png" },
-    { name: "Vinil microperforado", unit: "m²", price: 240, imageName: "vinil-microperforado.png" },
-    { name: "Vinil transparente", unit: "m²", price: 195, imageName: "vinil-transparente.png" },
-    { name: "Iman automotriz", unit: "ml", price: 550, imageName: "iman-automotriz.png" },
-    { name: "Corte de vinil (colores basicos)", unit: "ml", price: 210, imageName: "corte-vinil.png" },
-    { name: "Tarjetas de Presentación (Laminado Mate)", unit: "Millar", price: 250, imageName: "tarjetas-laminado-mate.png" },
-    { name: "Volantes a Color 1/4 Carta", unit: "Millar", price: 390, imageName: "volantes-cuarto-carta.png" },
-    { name: "Volantes a Color 1/2 Carta", unit: "Millar", price: 600, imageName: "volantes-media-carta.png" },
-    { name: "Hojas membretadas a color", unit: "Millar", price: 1200, imageName: "hojas-membretadas.png" },
-    { name: "Notas de Remisión c/copia y folio", unit: "Millar", price: 1200, imageName: "notas-remision.png" },
-    { name: "Folders", unit: "Ciento", price: 1650, imageName: "folders.png" },
-    { name: "Gafete PVC", unit: "Pieza", price: 55, imageName: "gafete-pvc.png" },
-    { name: "Rollup Publicitario", unit: "Pieza", price: 945, imageName: "rollup.png" },
-    { name: "Display Araña 80x180", unit: "Pieza", price: 265, imageName: "display-arana.png" },
-    { name: "Taza blanca 11 oz", unit: "Pieza", price: 39, imageName: "taza-blanca.png" },
-    { name: "Taza Mágica 11oz", unit: "Pieza", price: 63, imageName: "taza-magica.png" },
-    { name: "Playera sublimada (frente)", unit: "Pieza", price: 158, imageName: "playera-sublimada.png" },
-    { name: "Mousepad", unit: "Pieza", price: 45, imageName: "mousepad.png" },
+    { name: "Lona front", unit: "M2", imageName: "lona-front.png" },
+    { name: "Lona mesh", unit: "M2", imageName: "lona-mesh.png" },
+    { name: "Lona translucida", unit: "M2", imageName: "lona-translucida.png" },
+    { name: "Lona blanca con terminados", unit: "M2", imageName: "lona-terminados.png" },
+    { name: "Lona mate", unit: "m2", imageName: "lona-mate.png" },
+    { name: "Vinil blanco brillante", unit: "M2", imageName: "vinil-brillante.png" },
+    { name: "Vinil blanco mate", unit: "M2", imageName: "vinil-mate.png" },
+    { name: "Vinil microperforado", unit: "M2", imageName: "vinil-microperforado.png" },
+    { name: "Vinil transparente (*140cm)", unit: "M2", imageName: "vinil-transparente.png" },
+    { name: "Vinil estatico (transp/blanco)", unit: "M2", imageName: "vinil-estatico.png" },
+    { name: "Vinil holografico (*150cm)", unit: "ML", imageName: "vinil-holografico.png" },
+    { name: "Vinil Reflejante 3m", unit: "ML", imageName: "vinil-reflejante-3m.png" },
+    { name: "Vinil color impreso", unit: "ML", imageName: "vinil-color-impreso.png" },
+    { name: "Vinil esmerilado (*120cm)", unit: "ML", imageName: "vinil-esmerilado.png" },
+    { name: "Vinil blanco brillante/mate c/suaje", unit: "ML", imageName: "vinil-blanco-suaje.png" },
+    { name: "Vinil transparente con suaje", unit: "ML", imageName: "vinil-transparente-suaje.png" },
+    { name: "Vinil de color con suaje", unit: "ML", imageName: "vinil-color-suaje.png" },
+    { name: "Vinil Reflejante 3m con suaje", unit: "ML", imageName: "vinil-reflejante-suaje.png" },
+    { name: "Vinil laminado vinil transparente", unit: "m2", imageName: "vinil-laminado.png" },
+    { name: "Tarjetas solo frente barniz brillante", unit: "MILLAR", imageName: "tarjetas-frente-brillante.png" },
+    { name: "Tarjetas frente y vuelta brillante", unit: "MILLAR", imageName: "tarjetas-fv-brillante.png" },
+    { name: "Tarjeta laminadas mate", unit: "MILLAR", imageName: "tarjetas-laminado-mate.png" },
+    { name: "Volantes 1/2 carta frente", unit: "MILLAR", imageName: "volantes-media-frente.png" },
+    { name: "5 mil volantes 1/2 carta solo frente", unit: "MILLAR", imageName: "5mil-volantes.png" },
+    { name: "10 mil volantes 1/2 carta solo frente", unit: "MILLAR", imageName: "10mil-volantes.png" },
+    { name: "Tripticos", unit: "MILLAR", imageName: "tripticos.png" },
+    { name: "Carpetas barniz brillante", unit: "MILLAR", imageName: "carpetas-brillante.png" },
+    { name: "Volantes 1/2 carta frente y vuelta", unit: "MILLAR", imageName: "volantes-media-fv.png" },
+    { name: "Volantes bond color 1/2 carta", unit: "MILLAR", imageName: "volantes-bond-color.png" },
+    { name: "Volantes bond 1 tinta 1/2 carta", unit: "MILLAR", imageName: "volantes-bond-1tinta.png" },
+    { name: "Hojas membretadas color bond carta 90gr", unit: "MILLAR", imageName: "hojas-membretadas-carta-90gr.png" },
+    { name: "Hojas membretadas 1 tinta bond carta 90gr", unit: "MILLAR", imageName: "hojas-membretadas-1tinta.png" },
+    { name: "Hojas membretadas 2 tintas bond carta 90gr", unit: "MILLAR", imageName: "hojas-membretadas-2tintas.png" },
+    { name: "Hojas membretadas color bond Oficio 90gr", unit: "MILLAR", imageName: "hojas-membretadas-oficio.png" },
+    { name: "Hojas membretadas color bond 120gr", unit: "CIENTO", imageName: "hojas-membretadas-120gr.png" },
+    { name: "Notas 1/2 carta 1 tinta 1 copia c/folio", unit: "MILLAR", imageName: "notas-media-copia.png" },
+    { name: "Notas 1/4 carta 1 tinta 1 copia c/folio", unit: "MILLAR", imageName: "notas-cuarto-copia.png" },
+    { name: "Notas bond 1/2 carta 1 tinta c/folio", unit: "MILLAR", imageName: "notas-bond-media.png" },
+    { name: "Notas bond 1/4 carta 1 tinta c/folio", unit: "MILLAR", imageName: "notas-bond-cuarto.png" },
+    { name: "Notas bond 1/4 oficio", unit: "MILLAR", imageName: "notas-bond-oficio.png" },
+    { name: "Recetas Medicas media carta bond 90gr", unit: "MILLAR", imageName: "recetas-bond-90gr.png" },
+    { name: "Recetas Medicas media carta color bond 120gr", unit: "MILLAR", imageName: "recetas-color-120gr.png" },
+    { name: "Notas tamaño carta F/V 1 tinta 1 copia c/folio", unit: "MILLAR", imageName: "notas-carta-fv-copia.png" },
+    { name: "Folders", unit: "Ciento", imageName: "folders.png" },
+    { name: "Rollup", unit: "PIEZA", imageName: "rollup.png" },
+    { name: "Display 60x160", unit: "PIEZA", imageName: "display-60x160.png" },
+    { name: "Display 80x180", unit: "PIEZA", imageName: "display-80x180.png" },
+    { name: "Taza blanca 11 oz 9x20cm", unit: "PIEZA", imageName: "taza-blanca.png" },
+    { name: "Taza Magica 11oz 9x20", unit: "PIEZA", imageName: "taza-magica.png" },
+    { name: "Taza blanca interior color 9x20cm", unit: "PIEZA", imageName: "taza-interior-color.png" },
+    { name: "Playera sublimada solo frente 21x28", unit: "PIEZA", imageName: "playera-sublimada-frente.png" },
+    { name: "Playera sublimada frente y espalda 21x28", unit: "PIEZA", imageName: "playera-sublimada-fv.png" },
+    { name: "Mousepad", unit: "PIEZA", imageName: "mousepad.png" },
+    { name: "Pin 5.8 cm (minimo 24 pzas)", unit: "Pieza", imageName: "pin-58mm.png" },
+    { name: "Playera estampada DTF pecho adulto", unit: "PIEZA", imageName: "playera-dtf-adulto.png" },
+    { name: "Playera estampada DTF pecho niño", unit: "PIEZA", imageName: "playera-dtf-nino.png" },
+    { name: "Iman automotriz", unit: "ML", imageName: "iman-automotriz.png" },
+    { name: "Pelicula back light", unit: "ML", imageName: "pelicula-backlight.png" },
+    { name: "Tela bandera", unit: "ML", imageName: "tela-bandera.png" },
+    { name: "Canvas 150cm", unit: "ML", imageName: "canvas.png" },
+    { name: "Trovicel 3mm 120x100cm", unit: "ML", imageName: "trovicel-3mm.png" },
+    { name: "Lamina completa trovicel 3mm 120x240 cm", unit: "LAMINA", imageName: "lamina-trovicel.png" },
+    { name: "Coroplast 120x100 cm", unit: "ML", imageName: "coroplast.png" },
+    { name: "Lamina completa coroplast 120x240 cm", unit: "LAMINA", imageName: "lamina-coroplast.png" },
+    { name: "Estireno cal 15 140x118", unit: "LAMINA", imageName: "estireno-cal15.png" },
+    { name: "Estireno cal 15 Frente y vuelta 140x118", unit: "LAMINA", imageName: "estireno-cal15-fv.png" },
+    { name: "DTF (*58cm)", unit: "ml", imageName: "dtf.png" },
+    { name: "Couche 300gr", unit: "PIEZA", imageName: "couche-300gr.png" },
+    { name: "Couche 150gr", unit: "PIEZA", imageName: "couche-150gr.png" },
+    { name: "Opalina 240gr", unit: "PIEZA", imageName: "opalina-240gr.png" },
+    { name: "Adherible Fasson", unit: "PIEZA", imageName: "adherible-fasson.png" },
+    { name: "Albanene", unit: "PIEZA", imageName: "albanene.png" },
+    { name: "Barniz antigraffiti", unit: "M2", imageName: "barniz-antigraffiti.png" },
+    { name: "Laminado floor graphic (*140)", unit: "ML", imageName: "laminado-floor-graphic.png" },
+    { name: "Corte de vinil colores basicos (*58cm)", unit: "ML", imageName: "corte-vinil-58cm.png" },
+    { name: "Corte de vinil colores basicos (*120cm)", unit: "ML", imageName: "corte-vinil-120cm.png" },
+    { name: "Corte de vinil Esmerilado (*58cm)", unit: "ML", imageName: "corte-vinil-esmerilado-58cm.png" },
+    { name: "Corte de vinil Esmerilado (*120cm)", unit: "ML", imageName: "corte-vinil-esmerilado-120cm.png" },
+    { name: "Corte de vinil textil colores basicos (*48cm)", unit: "ML", imageName: "corte-vinil-textil.png" },
+    { name: "Corte de vinil espejo (*58cm)", unit: "ML", imageName: "corte-vinil-espejo.png" },
+    { name: "Corte de vinil fluorescente (*58cm)", unit: "ML", imageName: "corte-vinil-fluorescente.png" },
+    { name: "Vinil textil impreso con suaje", unit: "ML", imageName: "vinil-textil-impreso.png" },
+    { name: "Barniz brillante para digital", unit: "PZA", imageName: "barniz-brillante.png" },
+    { name: "Redondeo cada esquina", unit: "PZA", imageName: "redondeo-esquina.png" },
+    { name: "Doblez", unit: "PZA", imageName: "doblez.png" },
+    { name: "Ojillos extras", unit: "PIEZA", imageName: "ojillos.png" },
+    { name: "Laminado vinil transparente", unit: "M2", imageName: "laminado-transparente.png" },
 ];
 
-// --- CÓDIGO AUTOMÁTICO (NO TOCAR) ---
-// Este código toma la lista de arriba y genera los productos finales con precios calculados y categorías.
 const allProducts = baseProducts.map(p => {
-    const finalPrice = calculatePrice(p.price);
-    const designPrice = calculateDesignPrice(p.price);
     const categoryMap: { [key: string]: string } = {
-        lona: "Lonas y Viniles", vinil: "Lonas y Viniles",
-        tarjetas: "Papelería", volantes: "Papelería", hojas: "Papelería", notas: "Papelería", recetarios: "Papelería", folders: "Papelería",
+        lona: "Lonas", vinil: "Viniles",
+        tarjetas: "Papelería", volantes: "Papelería", hojas: "Papelería", notas: "Papelería", recetas: "Papelería", folders: "Papelería", couche: "Papelería", opalina: "Papelería", adherible: "Papelería", albanene: "Papelería",
         rollup: "Displays", display: "Displays",
-        taza: "Promocionales", playera: "Promocionales", mousepad: "Promocionales", gafete: "Promocionales",
-        iman: "Materiales Especiales",
+        taza: "Promocionales", playera: "Promocionales", mousepad: "Promocionales", gafete: "Promocionales", pin: "Promocionales",
+        iman: "Materiales Especiales", pelicula: "Materiales Especiales", tela: "Materiales Especiales", canvas: "Materiales Especiales", trovicel: "Materiales Especiales", coroplast: "Materiales Especiales", estireno: "Materiales Especiales", dtf: "Materiales Especiales",
+        barniz: "Acabados", laminado: "Acabados", corte: "Acabados", redondeo: "Acabados", doblez: "Acabados", ojillos: "Acabados",
     };
-    const assignedCategory = Object.keys(categoryMap).find(key => p.name.toLowerCase().includes(key)) || "Otros";
+    const assignedCategory = Object.keys(categoryMap).find(key => p.name.toLowerCase().includes(key));
     
     return {
         name: p.name,
         unit: p.unit,
-        price: finalPrice,
-        designPrice: designPrice,
-        category: categoryMap[assignedCategory] || "Otros",
+        category: assignedCategory ? categoryMap[assignedCategory] : "Otros",
         image: `/diseño-grafico/${p.imageName}`,
         whatsappUrl: generateWhatsAppLink(p.name),
-        whatsappDesignUrl: generateWhatsAppLink(p.name, true),
     }
 });
 
 export const printProducts = allProducts;
 
-// --- DATOS ADICIONALES (Redes Sociales y Portafolio) ---
 export const socialMediaPlans = [
   {
     name: "Plan Navegante",

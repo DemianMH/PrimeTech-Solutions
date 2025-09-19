@@ -43,12 +43,17 @@ const DisenoGraficoPage = () => {
     const categories = useMemo(() => ["Todos", ...Array.from(new Set(printProducts.map(p => p.category)))], []);
     const filteredProducts = useMemo(() => filter === 'Todos' ? printProducts : printProducts.filter(p => p.category === filter), [filter]);
 
-    const portfolioRef = useRef(null);
-    const { scrollYProgress } = useScroll({ target: portfolioRef, offset: ["start end", "end start"] });
-    const x = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
-
     return (
-        <div className="bg-[#F8F3E9] text-gray-800 font-sans" >
+        <div 
+          className="bg-[#F8F3E9] text-gray-800 font-sans" 
+          style={{ 
+            backgroundImage: "url('/onepiece.png')", 
+            backgroundAttachment: 'fixed',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center center'
+          }}
+        >
             <ThemedNavbar />
             
             <header className="relative min-h-screen flex items-center justify-center overflow-hidden text-center p-4">
@@ -62,7 +67,7 @@ const DisenoGraficoPage = () => {
                     <h1 className="text-5xl md:text-8xl font-black text-gray-900 mt-4" style={{ fontFamily: "'IM Fell English SC', serif" }}>
                         La Gran Era del <span className="text-blue-600">Diseño</span>
                     </h1>
-                    <div className="mt-4 text-xl text-black max-w-2xl mx-auto">
+                    <div className="mt-4 text-xl text-gray-700 max-w-2xl mx-auto">
                         Zarpamos juntos en busca de los tesoros más grandes: una marca memorable, publicidad impactante y redes sociales que conquisten los siete mares.
                     </div>
                     <Button asChild size="lg" className="mt-8 bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg px-8 py-6 rounded-full hover:scale-105 transition-transform">
@@ -127,12 +132,12 @@ const DisenoGraficoPage = () => {
                                 <Image src={p.image} alt={p.name} width={400} height={300} className="w-full h-40 object-cover" />
                                 <div className="p-4 flex flex-col flex-grow">
                                     <h3 className="text-md font-bold truncate flex-grow">{p.name}</h3>
-                                    <p className="text-xl font-black text-blue-600 my-1">${p.price} <span className="text-sm font-normal text-gray-500">/ {p.unit}</span></p>
-                                    <p className="text-xs text-gray-500">+${p.designPrice} por diseño.</p>
-                                    <div className="mt-3 flex flex-col gap-2">
-                                        <Button asChild size="sm" className="w-full bg-green-600 hover:bg-green-700 text-white"><a href={p.whatsappUrl} target="_blank" rel="noopener noreferrer"><FaWhatsapp className="mr-2"/>Cotizar</a></Button>
-                                        <Button asChild size="sm" variant="outline" className="w-full text-gray-800 border-gray-800"><a href={p.whatsappDesignUrl} target="_blank" rel="noopener noreferrer">Cotizar con Diseño</a></Button>
-                                    </div>
+                                    <p className="text-gray-600 text-sm mt-1 mb-4">Unidad: {p.unit}</p>
+                                    <Button asChild size="sm" className="w-full bg-green-600 hover:bg-green-700 text-white mt-auto">
+                                        <a href={p.whatsappUrl} target="_blank" rel="noopener noreferrer">
+                                            <FaWhatsapp className="mr-2"/>Cotizar
+                                        </a>
+                                    </Button>
                                 </div>
                             </motion.div>
                         ))}
