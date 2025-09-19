@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'PrimeTech Solutions',
     description: 'Soluciones Integrales 360',
-    images: ['/logo-text-white.png'], 
+    images: ['/logo-text-color.png'], 
   },
 };
 
