@@ -98,16 +98,28 @@ export const logos = [
 
 export const testimonials = [
   {
-    name: "Ana Gonzalez",
-    company: "Innovate Inc",
-    message: "El equipo de PrimeTech superó todas nuestras expectativas. El software que desarrollaron es robusto, rápido y exactamente lo que necesitábamos. ¡100% recomendados!",
-    time: "11:34 AM",
+    name: "Jasmin Rosales",
+    company: "Mike & Co",
+    message: "Hola, le pasaré tu contacto a un amigo, me encantó tu trabajo 🙏🏻",
+    time: "06:34 PM",
   },
   {
-    name: "Carlos Rodriguez",
-    company: "Apex Enterprises",
-    message: "Su servicio de ciberseguridad es de primer nivel. Detectaron vulnerabilidades que ni siquiera sabíamos que teníamos. Ahora operamos con mucha más tranquilidad.",
+    name: "Joel",
+    company: "Tersus Clean",
+    message: "Quiero que sepas que mi esposa y yo estamos muy complacidos con tu trabajo, realmente te has esforzarsado mucho por dejarnos satisfechos, no sabes cuánto valoro eso, si necesitas un video de recomendación o algo, dime por favor.",
+    time: "september 1, 2025",
+  },
+  {
+    name: "Alan Viera",
+    company: "Portofino Conway",
+    message: "Te la aventaste de volada, muchas gracias por todo el apoyo y la paciencia, quedamos muy contentos con el resultado final.",
     time: "Ayer",
+  },
+  {
+    name: "Kirk David Vigen",
+    company: "Revive the Fire Ministries",
+    message: "Thanks again. I'll let you know when we want to make changes or add content to the site... and if I get the chance, I'll recommend you to others.",
+    time: "agoust 19, 2025",
   },
 ];
 

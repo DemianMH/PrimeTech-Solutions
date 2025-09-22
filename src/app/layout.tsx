@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     description: "Soluciones Integrales 360",
     images: [
       {
-        url: '/logo-text-white.png', 
+        url: '/logo-text-color.png', 
         width: 1200, 
         height: 630, 
         alt: 'Logo de PrimeTech Solutions',
