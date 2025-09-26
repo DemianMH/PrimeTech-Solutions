@@ -144,9 +144,3 @@ export const socialMediaPlans = [
   }
 ];
 
-export const designPortfolio = [
-    { id: 1, image: "/diseño-grafico/1.png", title: "Branding para Cafetería 'El Ancla Dorada'", category: "Identidad de Marca" },
-    { id: 2, image: "/diseño-grafico/2.png", title: "Menú del Tesoro para 'La Taberna del Kraken'", category: "Diseño Editorial" },
-    { id: 3, image: "/diseño-grafico/3.png", title: "Campaña 'Se Busca' para Redes Sociales", category: "Marketing Digital" },
-    { id: 4, image: "/diseño-grafico/4.png", title: "Logotipo para 'Navegantes Tech'", category: "Identidad de Marca" },
-];
