@@ -1,9 +1,9 @@
 "use client";
-import React, { useState, useMemo, useRef } from "react";
+import React, { useState, useMemo } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { motion, AnimatePresence} from "framer-motion";
 import Image from "next/image";
-import { printProducts, socialMediaPlans, designPortfolio } from "@/lib/designData";
+import { printProducts, socialMediaPlans} from "@/lib/designData";
 import { Button } from "@/components/ui/button";
 import { FaWhatsapp } from "react-icons/fa";
 import { Check, Compass } from "lucide-react";
@@ -146,18 +146,6 @@ const DisenoGraficoPage = () => {
                 </div>
             </section>
 
-            <section id="logbook" className="py-24">
-                <div className="container mx-auto px-4">
-                    <h2 className="text-5xl font-bold text-center mb-12" style={{ fontFamily: "'IM Fell English SC', serif" }}>Bitácora de Viaje</h2>
-                    <div className="flex gap-8 pb-4 overflow-x-auto">
-                        {designPortfolio.map((item) => (
-                            <div key={item.id} className="flex-shrink-0 w-80 h-96 rounded-lg shadow-lg overflow-hidden border-4 border-black">
-                                <Image src={item.image} alt={item.title} width={400} height={500} className="w-full h-full object-cover"/>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
         </div>
     );
 };
