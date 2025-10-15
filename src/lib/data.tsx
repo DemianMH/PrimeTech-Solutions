@@ -169,6 +169,15 @@ export const portfolioProjects = [
     imageUrl: "/portafolio/portofinoconway.png",
     liveUrl: "https://portofinoconway.com",
   },
+  {
+  "id": 6,
+  "number": "06",
+  "title": "Bere Cardenas Cosmetologia",
+  "description": "Desarrollamos una plataforma web sofisticada y serena para una especialista en cosmetología. El sitio está enfocado en la experiencia de usuario, permitiendo a los clientes explorar un catálogo de servicios detallado, conocer más sobre la experta y agendar citas de manera intuitiva y sencilla. La interfaz, limpia y moderna, refleja la profesionalidad y el ambiente relajante de la cosmetóloga.",
+  "tags": ["Desarrollo Web", "Diseño UI/UX", "Salud y Belleza", "Reservas Online", "Catálogo de Servicios"],
+  "imageUrl": "/portafolio/berecardenas.png",
+  "liveUrl": "https://berecardenascosmetologia.com.mx/"
+},
 ];
 
 export const servicesData = {
