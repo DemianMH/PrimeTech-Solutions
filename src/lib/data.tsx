@@ -173,8 +173,8 @@ export const portfolioProjects = [
   "id": 6,
   "number": "06",
   "title": "Bere Cardenas Cosmetologia",
-  "description": "Desarrollamos una plataforma web sofisticada y serena para una especialista en cosmetología. El sitio está enfocado en la experiencia de usuario, permitiendo a los clientes explorar un catálogo de servicios detallado, conocer más sobre la experta y agendar citas de manera intuitiva y sencilla. La interfaz, limpia y moderna, refleja la profesionalidad y el ambiente relajante de la cosmetóloga.",
-  "tags": ["Desarrollo Web", "Diseño UI/UX", "Salud y Belleza", "Reservas Online", "Catálogo de Servicios"],
+  "description": "Plataforma E-learning integral para una profesional de la cosmetología, diseñada para la impartición y gestión de cursos en línea. La solución permite a los docentes construir y administrar un catálogo de cursos, incluyendo temarios y clases en video. Los alumnos pueden inscribirse, seguir su progreso y obtener certificados al finalizar, todo dentro de un sistema robusto con perfiles para estudiantes y administradores.",
+  "tags": ["Desarrollo Web", "Plataforma E-learning", "LMS", "Cursos Online", "Certificaciones Digitales", "Diseño UI/UX"],
   "imageUrl": "/portafolio/berecardenas.png",
   "liveUrl": "https://berecardenascosmetologia.com.mx/"
 },
