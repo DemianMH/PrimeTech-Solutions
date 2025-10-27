@@ -178,6 +178,15 @@ export const portfolioProjects = [
   "imageUrl": "/portafolio/berecardenas.png",
   "liveUrl": "https://berecardenascosmetologia.com.mx/"
 },
+{
+  "id": 7,
+  "number": "07",
+  "title": "INAPECC CONSULTORÍA",
+  "description": "Landing page profesional para INAPECC CONSULTORÍA, diseñada para destacar sus servicios de consultoría a instituciones educativas, profesionales y empresas que buscan la excelencia y el cumplimiento normativo en sus programas. La página presenta un diseño limpio y moderno, con secciones claras que describen las áreas de especialización, testimonios de clientes y un formulario de contacto para facilitar la comunicación con potenciales clientes.",
+  "tags": ["Desarrollo Web", "Landing page", "LMS", "Página personal", "Servicios", "Diseño UI/UX"],
+  "imageUrl": "/portafolio/inapecc.png",
+  "liveUrl": "https://consultoriainapecc.com/"
+},
 ];
 
 export const servicesData = {
