@@ -43,7 +43,7 @@ const Footer = () => {
              <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Contacto</h3>
              <div className="mt-4 flex items-center space-x-2 text-gray-400">
                 <Phone size={16} />
-                <a href="https://wa.me/523334862414" target="_blank" rel="noopener noreferrer" className="text-base hover:text-white">33 3486 2414</a>
+                <a href="https://wa.me/523334862414" target="_blank" rel="noopener noreferrer" className="text-base hover:text-white">33 3062 0287</a>
              </div>
           </div>
         </div>
