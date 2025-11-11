@@ -1,6 +1,6 @@
 import React from 'react';
 
-const WHATSAPP_NUMBER = "523334862414";
+const WHATSAPP_NUMBER = "523330620287";
 
 const generateWhatsAppLink = (productName: string) => {
   const message = `¡Ahoy! Estoy interesado en el tesoro: *${productName}*. ¿Podrían darme más información y una cotización?`;

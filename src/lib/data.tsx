@@ -322,7 +322,7 @@ export const servicesData = {
   }
 };
 
-const WHATSAPP_NUMBER = "523334862414";
+const WHATSAPP_NUMBER = "523330620287";
 
 const generateWhatsAppLink = (productName: string) => {
   const message = `Hola, estoy interesado en el producto: *${productName}*. ¿Podrían darme más información?`;

@@ -100,7 +100,7 @@ const ContactoPage = () => {
           <motion.div className="p-8 bg-gray-900/50 rounded-xl border border-gray-800 text-center" variants={itemVariants}>
             <Phone className="h-10 w-10 mx-auto text-blue-500" />
             <h3 className="text-2xl font-bold mt-4">Vía Telefónica</h3>
-            <a href="tel:+523334862414" className="mt-2 text-gray-400 hover:text-blue-400 transition-colors">33 3486 2414</a>
+            <a href="tel:+523330620287" className="mt-2 text-gray-400 hover:text-blue-400 transition-colors">33 3062 0287</a>
           </motion.div>
         </motion.div>
       </section>

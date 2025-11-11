@@ -6,7 +6,7 @@ import { FaWhatsapp } from "react-icons/fa"; // 1. Importamos el ícono correcto
 export const WhatsAppFAB = () => {
   return (
     <motion.a
-      href="https://wa.me/523334862414"
+      href="https://wa.me/523330620287"
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg"
