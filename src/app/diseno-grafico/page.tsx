@@ -6,7 +6,7 @@ import Image from "next/image";
 import { printProducts, socialMediaPlans} from "@/lib/designData";
 import { Button } from "@/components/ui/button";
 import { FaWhatsapp } from "react-icons/fa";
-import { Check, Compass } from "lucide-react";
+import { Check, Compass, Smartphone } from "lucide-react"; // Se agregó Smartphone
 
 const ThemedNavbar = () => {
     const navLinks = [
@@ -70,9 +70,21 @@ const DisenoGraficoPage = () => {
                     <div className="mt-4 text-xl text-gray-700 max-w-2xl mx-auto">
                         Zarpamos juntos en busca de los tesoros más grandes: una marca memorable, publicidad impactante y redes sociales que conquisten los siete mares.
                     </div>
-                    <Button asChild size="lg" className="mt-8 bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg px-8 py-6 rounded-full hover:scale-105 transition-transform">
-                        <a href="#treasure">Descubrir Tesoros</a>
-                    </Button>
+                    
+                    {/* Botones de acción principal */}
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8 items-center">
+                        <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg px-8 py-6 rounded-full hover:scale-105 transition-transform">
+                            <a href="#treasure">Descubrir Tesoros</a>
+                        </Button>
+                        
+                        <Button asChild size="lg" className="bg-purple-600 hover:bg-purple-700 text-white font-bold text-lg px-8 py-6 rounded-full hover:scale-105 transition-transform border-2 border-purple-400 shadow-lg shadow-purple-500/20">
+                            <Link href="/invitaciones/crear" className="flex items-center gap-2">
+                                <Smartphone size={24} />
+                                <span>Crear Invitación Digital</span>
+                            </Link>
+                        </Button>
+                    </div>
+
                 </motion.div>
             </header>
 

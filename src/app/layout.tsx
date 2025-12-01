@@ -1,20 +1,16 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { WhatsAppFAB } from "@/components/ui/whatsapp-fab";
+// Quitamos la importación directa del FAB aquí
 import MainLayoutWrapper from "@/components/ui/main-layout-wrapper";
 import { SnowEffect } from "@/components/ui/snow-effect";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-
   metadataBase: new URL('https://primetech-solutions.netlify.app/'),
-  
   title: "PrimeTech Solutions",
   description: "Soluciones Integrales 360: Desarrollo de Software, Soporte IT y Diseño Gráfico.",
-  
-
   openGraph: {
     title: "PrimeTech Solutions",
     description: "Soluciones Integrales 360",
@@ -29,8 +25,6 @@ export const metadata: Metadata = {
     locale: 'es_MX',
     type: 'website',
   },
-
- 
   twitter: {
     card: 'summary_large_image',
     title: 'PrimeTech Solutions',
@@ -51,7 +45,7 @@ export default function RootLayout({
           <MainLayoutWrapper>
             {children}
           </MainLayoutWrapper>
-          <WhatsAppFAB />
+          {/* El WhatsAppFAB se movió dentro del MainLayoutWrapper para controlarlo mejor */}
       </body>
     </html>
   );
