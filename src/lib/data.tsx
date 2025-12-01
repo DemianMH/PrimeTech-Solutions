@@ -187,6 +187,15 @@ export const portfolioProjects = [
   "imageUrl": "/portafolio/inapecc.png",
   "liveUrl": "https://consultoriainapecc.com/"
 },
+{
+  "id": 8,
+  "number": "08",
+  "title": "RIFAS EL GUERO",
+  "description": "Landing page profesional para Rifas el guero diseñada para destacar sus servicios de organización y gestión de sorteos en línea. La página presenta un diseño atractivo y funcional, con secciones que describen los tipos de rifas ofrecidas, testimonios de clientes satisfechos y un formulario de contacto para facilitar la comunicación con potenciales participantes.",
+  "tags": ["Desarrollo Web", "Landing page", "Página personal", "Servicios", "Diseño UI/UX", "E-commerce", "Plataforma de Sorteos"],
+  "imageUrl": "/portafolio/rifaselguero.png",
+  "liveUrl": "https://rifaselguero.com.mx/"
+},
 ];
 
 export const servicesData = {
@@ -402,4 +411,5 @@ export const shopProducts = [
     imageUrl: "https://images.pexels.com/photos/12935041/pexels-photo-12935041.jpeg",
     whatsappUrl: generateWhatsAppLink("Terminal Móvil para Restaurantes"),
   },
+  
 ];
