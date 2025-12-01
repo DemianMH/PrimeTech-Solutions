@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { WhatsAppFAB } from "@/components/ui/whatsapp-fab";
 import MainLayoutWrapper from "@/components/ui/main-layout-wrapper";
+import { SnowEffect } from "@/components/ui/snow-effect";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -46,6 +47,7 @@ export default function RootLayout({
   return (
     <html lang="es" className="dark" suppressHydrationWarning>
       <body className={inter.className}>
+          <SnowEffect />
           <MainLayoutWrapper>
             {children}
           </MainLayoutWrapper>

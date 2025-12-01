@@ -1,5 +1,5 @@
 import React from "react";
-import { Code, ShieldCheck, LifeBuoy, Palette } from "lucide-react";
+import { Code, ShieldCheck, LifeBuoy, Palette,Bot } from "lucide-react";
 
 interface FeatureItemProps {
   heading: string;
@@ -57,6 +57,11 @@ export const navLinks = [
           url="/servicios/redes"
           info="Conectividad robusta y segura."
         />
+        <FeatureItem
+        heading="Chatbots y Automatización"
+        url="/servicios/chatbots"
+        info="IA que trabaja por ti 24/7."
+        />
       </div>
     ),
   },
@@ -86,6 +91,11 @@ export const services = [
     title: "Diseño Gráfico Profesional",
     description: "Construimos identidades de marca impactantes, desde logos y branding hasta material de impresión y publicidad digital.",
   },
+  {
+  icon: <Bot className="h-8 w-8 text-emerald-500" />, // Color verde esmeralda
+  title: "Chatbots y Automatizaciones",
+  description: "Implementamos asistentes virtuales inteligentes y flujos automatizados para optimizar tu atención al cliente y ventas.",
+},
 ];
 
 export const logos = [
@@ -328,7 +338,34 @@ export const servicesData = {
         { name: "Soporte y Garantía", description: "Te ofrecemos garantía por nuestro trabajo y soporte post-venta para cualquier duda o inconveniente." }
       ]
     }
+  },
+  chatbots: {
+  hero: {
+    title: "Chatbots y Automatización con IA",
+    tagline: "Convierte visitantes en clientes automáticamente, mientras disfrutas de las fiestas.",
+    // Imagen de una casa acogedora con luces navideñas (Visualmente atractiva)
+    imageUrl: "https://images.pexels.com/photos/6153343/pexels-photo-6153343.jpeg"
+  },
+  introduction: {
+    title: "¿Tu negocio duerme mientras tus clientes buscan?",
+    content: "La inmediatez lo es todo. Con nuestros Chatbots inteligentes y automatizaciones, tu empresa estará abierta 24/7, respondiendo dudas, agendando citas y cerrando ventas incluso durante la cena de Navidad."
+  },
+  features: [
+    { title: "Atención 24/7", description: "Tus clientes obtienen respuestas instantáneas en cualquier momento, sin esperas ni horarios festivos." },
+    { title: "Integración WhatsApp & Redes", description: "Centraliza tus conversaciones de WhatsApp, Instagram y Messenger en un solo cerebro inteligente." },
+    { title: "Calificación de Leads", description: "El bot filtra automáticamente a los clientes potenciales reales de los curiosos, ahorrando tiempo a tu equipo de ventas." },
+    { title: "Automatización de Procesos", description: "Desde agendar citas hasta generar facturas, deja que el software haga el trabajo repetitivo." }
+  ],
+  process: {
+    title: "Implementación Inteligente",
+    steps: [
+      { name: "Análisis de Flujos", description: "Estudiamos las preguntas frecuentes y los procesos de venta de tu negocio." },
+      { name: "Diseño Conversacional", description: "Creamos guiones y flujos naturales que reflejan la personalidad de tu marca." },
+      { name: "Entrenamiento de IA", description: "Configuramos y entrenamos al bot para que entienda el contexto y responda con precisión." },
+      { name: "Lanzamiento y Optimización", description: "Desplegamos el asistente y monitoreamos sus conversaciones para mejorarlo continuamente." }
+    ]
   }
+},
 };
 
 const WHATSAPP_NUMBER = "523330620287";
