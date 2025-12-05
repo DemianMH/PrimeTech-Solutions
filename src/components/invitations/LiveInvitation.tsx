@@ -1,13 +1,12 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, MapPin, Gift, Music, Play, Pause, Clock, Sparkles } from 'lucide-react';
+import { Calendar, MapPin, Gift, Music, Play, Pause, Clock, Sparkles, Utensils } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { InvitationData, eventConfig } from '@/lib/invitationData';
 import { cn } from '@/lib/utils';
 
-// Diccionario de iconos para el itinerario
 const iconMap: Record<string, any> = {
     church: { icon: '⛪', bg: 'bg-amber-100 text-amber-600' },
     rings: { icon: '💍', bg: 'bg-blue-100 text-blue-600' },
@@ -67,7 +66,6 @@ export default function LiveInvitation({ data, previewMode = false }: { data: In
     if (data.musicUrl && !previewMode) { setTimeout(() => toggleMusic(), 500); }
   };
 
-  // --- MEGA LISTA DE TEMAS ---
   const getThemeStyles = () => {
     const themes: Record<string, any> = {
         // Sólidos Clásicos
@@ -129,7 +127,15 @@ export default function LiveInvitation({ data, previewMode = false }: { data: In
       <header className="relative h-[60vh] flex flex-col justify-end items-center pb-12 text-center text-white">
         <div className="absolute inset-0 bg-black/40 z-10" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10" />
-        {data.coverImage ? <Image src={data.coverImage} alt="Cover" fill className="object-cover z-0" /> : <div className={cn("absolute inset-0 z-0 flex items-center justify-center text-6xl", theme.accent)}>{config.icon}</div>}
+        {data.coverMedia?.url ? (
+            data.coverMedia.type === 'video' ? (
+                <video src={data.coverMedia.url} autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0" />
+            ) : (
+                <Image src={data.coverMedia.url} alt="Cover" fill className="object-cover z-0" />
+            )
+        ) : (
+            <div className={cn("absolute inset-0 z-0 flex items-center justify-center text-6xl", theme.accent)}>{config.icon}</div>
+        )}
         <div className="relative z-20 px-6 w-full max-w-md">
             <motion.div initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }}>
                 <span className="inline-block px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[10px] font-bold tracking-[0.2em] uppercase border border-white/20 mb-4">{config.labels.host}</span>
@@ -181,7 +187,7 @@ export default function LiveInvitation({ data, previewMode = false }: { data: In
 
           {config.sections.hasReception && data.reception?.name && (
             <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="text-center pt-8 border-t border-current/10">
-                <Music size={24} className="mx-auto mb-3 opacity-40" />
+                <Utensils size={24} className="mx-auto mb-3 opacity-40" />
                 <h2 className="text-xs font-bold uppercase tracking-[0.2em] opacity-50 mb-1">{config.labels.reception}</h2>
                 <h3 className="text-xl font-bold">{data.reception.name}</h3>
                 <p className="opacity-70 text-sm mb-2">{data.reception.address}</p>

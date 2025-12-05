@@ -5,7 +5,7 @@ import LiveInvitation from '@/components/invitations/LiveInvitation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Sparkles, Save, ArrowLeft, Palette, User, MapPin, Gift, Monitor, Smartphone, Loader2, CreditCard, Upload, Trash2, Plus, Clock, AlertCircle } from 'lucide-react';
+import { Sparkles, Save, ArrowLeft, Palette, User, MapPin, Gift, Monitor, Smartphone, Loader2, CreditCard, Upload, Trash2, Plus, Clock, AlertCircle, Video } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
@@ -18,7 +18,7 @@ const initialData: InvitationData = {
     themeColor: 'gold', 
     font: 'elegant',
     musicUrl: '',
-    coverImage: '',
+    coverMedia: { url: '', type: 'image' },
     gallery: [],
     hosts: ['', ''],
     eventDate: new Date().toISOString().split('T')[0],
@@ -41,6 +41,16 @@ const itineraryIcons = [
     { id: 'bus', emoji: '🚌', label: 'Transporte' },
 ];
 
+const countryCodes = [
+    { code: '+52', label: '🇲🇽 México (+52)' },
+    { code: '+1', label: '🇺🇸 USA (+1)' },
+    { code: '+34', label: '🇪🇸 España (+34)' },
+    { code: '+57', label: '🇨🇴 Colombia (+57)' },
+    { code: '+54', label: '🇦🇷 Argentina (+54)' },
+    { code: '+56', label: '🇨🇱 Chile (+56)' },
+    { code: '+51', label: '🇵🇪 Perú (+51)' },
+];
+
 const solidColors = ['navy','black','gold','rose','blue','purple','green','orange','yellow','sky', 'red', 'teal', 'emerald', 'indigo', 'fuchsia', 'slate'];
 const gradientColors = ['sunset', 'ocean', 'royal', 'forest', 'midnight', 'berry', 'fire', 'aurora'];
 
@@ -50,6 +60,10 @@ export default function BuilderPage() {
     const [activeSection, setActiveSection] = useState<'design' | 'content' | 'place' | 'itinerary' | 'gifts'>('design');
     const [viewMode, setViewMode] = useState<'desktop' | 'mobile'>('mobile');
     
+    // Estado local para el teléfono (separado)
+    const [phoneCode, setPhoneCode] = useState('+52');
+    const [phoneNumber, setPhoneNumber] = useState('');
+
     const [showSaveModal, setShowSaveModal] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
     const [uploadingFile, setUploadingFile] = useState<string | null>(null);
@@ -57,7 +71,7 @@ export default function BuilderPage() {
 
     const config = eventConfig[data.type] || eventConfig.boda;
 
-    const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, field: 'musicUrl' | 'coverImage') => {
+    const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, field: 'musicUrl' | 'coverMedia') => {
         const file = e.target.files?.[0];
         if (!file) return;
 
@@ -65,8 +79,15 @@ export default function BuilderPage() {
             if (!file.type.includes('audio')) return alert('Solo se permiten archivos de audio (MP3).');
             if (file.size > 10 * 1024 * 1024) return alert('El audio debe pesar menos de 10MB.');
         } else {
-            if (!file.type.includes('image')) return alert('Solo se permiten imágenes (JPG, PNG).');
-            if (file.size > 5 * 1024 * 1024) return alert('La imagen debe pesar menos de 5MB.');
+            // Lógica para portada (Foto o Video)
+            const isVideo = file.type.includes('video');
+            const isImage = file.type.includes('image');
+            
+            if (!isVideo && !isImage) return alert('Solo se permiten Imágenes (JPG/PNG) o Videos (MP4).');
+            if (file.size > 25 * 1024 * 1024) return alert('El archivo debe pesar menos de 25MB.');
+            
+            // Si es video, verificar duración (aprox por tamaño, o advertencia)
+            // No podemos validar duración exacta sin cargar metadata, pero el límite de MB ayuda.
         }
 
         setUploadingFile(field);
@@ -74,7 +95,13 @@ export default function BuilderPage() {
             const storageRef = ref(storage, `uploads/${Date.now()}-${file.name}`);
             await uploadBytes(storageRef, file);
             const url = await getDownloadURL(storageRef);
-            setData(prev => ({ ...prev, [field]: url }));
+            
+            if (field === 'coverMedia') {
+                const type = file.type.includes('video') ? 'video' : 'image';
+                setData(prev => ({ ...prev, coverMedia: { url, type } }));
+            } else {
+                setData(prev => ({ ...prev, [field]: url }));
+            }
         } catch (error) {
             console.error("Error subiendo archivo:", error);
             alert("Error al subir el archivo.");
@@ -111,9 +138,12 @@ export default function BuilderPage() {
         const newConfig = eventConfig[newType];
         setData((prev) => {
             const currentRegistryType = prev.giftRegistry?.type || 'mesa';
+            // Resetear hosts si cambia la estructura
+            const newHosts = newConfig.sections.multiHost ? ['', ''] : [''];
             return {
                 ...prev,
                 type: newType,
+                hosts: newHosts,
                 themeColor: newConfig.defaultColor,
                 font: newConfig.defaultFont,
                 giftRegistry: { 
@@ -143,9 +173,14 @@ export default function BuilderPage() {
                 { id: '3', time: '20:00', icon: 'dinner', description: 'Cena' },
             ]
         }));
+        setPhoneNumber('3312345678');
     };
 
     const handlePreSave = () => {
+        // Concatenar teléfono antes de guardar
+        const fullPhone = `${phoneCode.replace('+','')}${phoneNumber}`;
+        setData(prev => ({ ...prev, whatsappNumber: fullPhone }));
+
         const names = data.hosts.filter(h => h.trim() !== '').join('-y-') || 'evento';
         const rawSlug = `${data.type}-${names}`;
         
@@ -172,6 +207,7 @@ export default function BuilderPage() {
         try {
             const finalData: InvitationData = {
                 ...data,
+                whatsappNumber: `${phoneCode.replace('+','')}${phoneNumber}`, // Asegurar guardar numero actualizado
                 slug: clientInfo.slug,
                 clientName: clientInfo.name,
                 clientPhone: clientInfo.phone,
@@ -197,6 +233,13 @@ export default function BuilderPage() {
         } finally {
             setIsSaving(false);
         }
+    };
+
+    // Actualizar un host específico
+    const updateHost = (index: number, value: string) => {
+        const newHosts = [...data.hosts];
+        newHosts[index] = value;
+        setData({...data, hosts: newHosts});
     };
 
     const inputStyle = "bg-slate-800 border-slate-700 text-white rounded-lg p-3 text-sm focus:ring-2 focus:ring-blue-500 w-full";
@@ -258,7 +301,8 @@ export default function BuilderPage() {
                                     onClick={() => setData({...data, themeColor: c})}
                                     className={cn(
                                         "w-10 h-10 rounded-full border-2 transition-transform hover:scale-110",
-                                        data.themeColor === c ? "border-white scale-110 ring-2 ring-blue-500" : "border-transparent opacity-50"
+                                        "border border-slate-500 shadow-sm", // Borde añadido para visibilidad
+                                        data.themeColor === c ? "border-white scale-110 ring-2 ring-blue-500" : "opacity-70"
                                     )}
                                     style={{ backgroundColor: c === 'navy' ? '#0f172a' : c === 'gold' ? '#d6d3d1' : c }}
                                     title={c}
@@ -273,7 +317,8 @@ export default function BuilderPage() {
                                     onClick={() => setData({...data, themeColor: c})}
                                     className={cn(
                                         "w-10 h-10 rounded-full border-2 transition-transform hover:scale-110",
-                                        data.themeColor === c ? "border-white scale-110 ring-2 ring-blue-500" : "border-transparent opacity-70"
+                                        "border border-slate-500 shadow-sm",
+                                        data.themeColor === c ? "border-white scale-110 ring-2 ring-blue-500" : "opacity-80"
                                     )}
                                     style={{ 
                                         background: c === 'sunset' ? 'linear-gradient(to bottom right, #ffedd5, #fecdd3)' : 
@@ -307,8 +352,39 @@ export default function BuilderPage() {
                 <div className="space-y-6">
                     <div>
                         <Label className={labelStyle}>{config.labels.host}</Label>
-                        <Input className={inputStyle} placeholder="Nombre(s)" value={data.hosts.join(',')} onChange={(e) => setData({...data, hosts: e.target.value.split(',')})} />
+                        
+                        {/* INPUTS SEPARADOS PARA NOMBRES */}
+                        {config.sections.multiHost ? (
+                             <div className="grid grid-cols-2 gap-3">
+                                <div>
+                                    <span className="text-[10px] text-slate-500 mb-1 block">Nombre 1 (Ej. Novia)</span>
+                                    <Input 
+                                        className={inputStyle} 
+                                        placeholder="Nombre 1" 
+                                        value={data.hosts[0] || ''} 
+                                        onChange={(e) => updateHost(0, e.target.value)} 
+                                    />
+                                </div>
+                                <div>
+                                    <span className="text-[10px] text-slate-500 mb-1 block">Nombre 2 (Ej. Novio)</span>
+                                    <Input 
+                                        className={inputStyle} 
+                                        placeholder="Nombre 2" 
+                                        value={data.hosts[1] || ''} 
+                                        onChange={(e) => updateHost(1, e.target.value)} 
+                                    />
+                                </div>
+                             </div>
+                        ) : (
+                            <Input 
+                                className={inputStyle} 
+                                placeholder="Nombre del Festejado/a" 
+                                value={data.hosts[0] || ''} 
+                                onChange={(e) => updateHost(0, e.target.value)} 
+                            />
+                        )}
                     </div>
+
                     {config.sections.hasAge && (
                          <div>
                             <Label className={labelStyle}>Edad a cumplir</Label>
@@ -321,17 +397,22 @@ export default function BuilderPage() {
                     </div>
 
                     <div className="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
-                        <Label className={labelStyle}>Foto de Portada</Label>
+                        <Label className={labelStyle}>Foto o Video de Portada</Label>
                         <div className="flex gap-4 items-center">
-                            {data.coverImage && (
-                                <img src={data.coverImage} className="w-16 h-16 object-cover rounded-lg border border-slate-600" />
+                            {data.coverMedia?.url && (
+                                data.coverMedia.type === 'video' ? (
+                                    <video src={data.coverMedia.url} className="w-16 h-16 object-cover rounded-lg border border-slate-600" />
+                                ) : (
+                                    <img src={data.coverMedia.url} className="w-16 h-16 object-cover rounded-lg border border-slate-600" />
+                                )
                             )}
                             <div className="flex-1">
                                 <label className="cursor-pointer flex items-center justify-center gap-2 bg-slate-700 hover:bg-slate-600 text-white p-3 rounded-lg text-sm transition-colors border border-dashed border-slate-500">
-                                    {uploadingFile === 'coverImage' ? <Loader2 className="animate-spin" size={16}/> : <Upload size={16}/>}
-                                    {uploadingFile === 'coverImage' ? 'Subiendo...' : 'Subir Imagen (Max 5MB)'}
-                                    <input type="file" className="hidden" accept="image/png, image/jpeg" onChange={(e) => handleFileUpload(e, 'coverImage')} disabled={!!uploadingFile}/>
+                                    {uploadingFile === 'coverMedia' ? <Loader2 className="animate-spin" size={16}/> : <Upload size={16}/>}
+                                    {uploadingFile === 'coverMedia' ? 'Subiendo...' : 'Subir Imagen o Video (3min Max)'}
+                                    <input type="file" className="hidden" accept="image/png, image/jpeg, video/mp4" onChange={(e) => handleFileUpload(e, 'coverMedia')} disabled={!!uploadingFile}/>
                                 </label>
+                                <p className="text-[10px] text-slate-500 mt-2">Soporta JPG, PNG y MP4 (Videos cortos en loop).</p>
                             </div>
                         </div>
                     </div>
@@ -405,7 +486,25 @@ export default function BuilderPage() {
                 <div className="space-y-6">
                     <div>
                         <Label className={labelStyle}>WhatsApp Confirmación</Label>
-                        <Input className={inputStyle} placeholder="521..." value={data.whatsappNumber} onChange={(e) => setData({...data, whatsappNumber: e.target.value})} />
+                        <div className="flex gap-2">
+                            <select 
+                                className="bg-slate-800 border-slate-700 text-white rounded-lg p-3 text-sm focus:ring-2 focus:ring-blue-500 w-32"
+                                value={phoneCode}
+                                onChange={(e) => setPhoneCode(e.target.value)}
+                            >
+                                {countryCodes.map(c => (
+                                    <option key={c.code} value={c.code}>{c.label}</option>
+                                ))}
+                            </select>
+                            <Input 
+                                className={inputStyle} 
+                                placeholder="Número (10 dígitos)" 
+                                value={phoneNumber} 
+                                onChange={(e) => setPhoneNumber(e.target.value.replace(/[^0-9]/g, ''))} 
+                                type="tel"
+                            />
+                        </div>
+                        <p className="text-[10px] text-slate-500 mt-1">Selecciona país y escribe tu número sin espacios.</p>
                     </div>
                      <div className="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
                         <Label className={labelStyle}>{config.sections.giftLabel}</Label>
