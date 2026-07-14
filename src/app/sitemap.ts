@@ -2,33 +2,45 @@ import type { MetadataRoute } from "next";
 
 const baseUrl = "https://www.primetechsolutions.com.mx";
 
+const routes: Array<{
+  path: string;
+  priority: number;
+  changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
+}> = [
+  {
+    path: "",
+    priority: 1,
+    changeFrequency: "weekly",
+  },
+  {
+    path: "/servicios",
+    priority: 0.95,
+    changeFrequency: "weekly",
+  },
+  {
+    path: "/diseno-grafico",
+    priority: 0.88,
+    changeFrequency: "monthly",
+  },
+  {
+    path: "/portafolio",
+    priority: 0.86,
+    changeFrequency: "weekly",
+  },
+  {
+    path: "/contacto",
+    priority: 0.8,
+    changeFrequency: "monthly",
+  },
+];
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const today = new Date();
+  const lastModified = new Date();
 
-  const routes = [
-    "",
-    "/servicios",
-    "/portafolio",
-    "/contacto",
-    "/diseno-grafico",
-    "/tienda",
-    "/servicios/chatbots",
-    "/servicios/desarrollo",
-    "/servicios/soporte-it",
-    "/servicios/ciberseguridad",
-    "/servicios/redes",
-    "/servicios/hardware",
-  ];
-
-  return routes.map((route) => {
-    const changeFrequency = route === "" ? "weekly" : "monthly";
-    const priority = route === "" ? 1 : route === "/servicios" ? 0.9 : 0.75;
-
-    return {
-      url: `${baseUrl}${route}`,
-      lastModified: today,
-      changeFrequency,
-      priority,
-    };
-  });
+  return routes.map((route) => ({
+    url: `${baseUrl}${route.path}`,
+    lastModified,
+    changeFrequency: route.changeFrequency,
+    priority: route.priority,
+  }));
 }
