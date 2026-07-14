@@ -1,49 +1,201 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Link from "next/link";
 import "./globals.css";
-// Quitamos la importación directa del FAB aquí
-import MainLayoutWrapper from "@/components/ui/main-layout-wrapper";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], display: "swap" });
+const siteUrl = "https://www.primetechsolutions.com.mx";
+const whatsappText = encodeURIComponent(
+  "Hola Demian, quiero mejorar mi negocio con sitio web, WhatsApp, chatbot o automatización. ¿Me puedes orientar?"
+);
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://primetech-solutions.netlify.app/'),
-  title: "PrimeTech Solutions",
-  description: "Soluciones Integrales 360: Desarrollo de Software, Soporte IT y Diseño Gráfico.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default:
+      "PrimeTech Solutions | Sitios Web, Chatbots IA y Automatización WhatsApp en Guadalajara",
+    template: "%s | PrimeTech Solutions",
+  },
+  description:
+    "Creamos sitios web, catálogos digitales, chatbots con IA, automatizaciones WhatsApp, CRM GoHighLevel, ecommerce y soporte IT para negocios de Zapopan, Guadalajara y Jalisco.",
+  keywords: [
+    "sitios web Guadalajara",
+    "sitios web Zapopan",
+    "chatbots WhatsApp Guadalajara",
+    "automatización WhatsApp",
+    "ManyChat México",
+    "GoHighLevel México",
+    "agencia web Jalisco",
+    "ecommerce Guadalajara",
+    "catálogo digital WhatsApp",
+    "automatización de ventas con IA",
+  ],
+  authors: [{ name: "PrimeTech Solutions" }],
+  creator: "PrimeTech Solutions",
+  publisher: "PrimeTech Solutions",
+  alternates: {
+    canonical: siteUrl,
+  },
   openGraph: {
-    title: "PrimeTech Solutions",
-    description: "Soluciones Integrales 360",
+    type: "website",
+    locale: "es_MX",
+    url: siteUrl,
+    siteName: "PrimeTech Solutions",
+    title:
+      "PrimeTech Solutions | IA, WhatsApp, sitios web y automatización para negocios",
+    description:
+      "Ayudamos a negocios de Jalisco a vender más rápido por WhatsApp con sitios web, catálogos, chatbots, CRM y automatizaciones.",
     images: [
       {
-        url: '/logo-text-color.png', 
-        width: 1200, 
-        height: 630, 
-        alt: 'Logo de PrimeTech Solutions',
+        url: "/logo-text-color.png",
+        width: 1200,
+        height: 630,
+        alt: "PrimeTech Solutions",
       },
     ],
-    locale: 'es_MX',
-    type: 'website',
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'PrimeTech Solutions',
-    description: 'Soluciones Integrales 360',
-    images: ['/logo-text-color.png'], 
+    card: "summary_large_image",
+    title: "PrimeTech Solutions | Sitios web y automatización WhatsApp",
+    description:
+      "Soluciones digitales para captar clientes, vender por WhatsApp y automatizar procesos comerciales.",
+    images: ["/logo-text-color.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+const navItems = [
+  { href: "/#servicios", label: "Servicios" },
+  { href: "/#ia-whatsapp", label: "IA + WhatsApp" },
+  { href: "/portafolio", label: "Portafolio" },
+  { href: "/#paquetes", label: "Paquetes" },
+  { href: "/contacto", label: "Contacto" },
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "PrimeTech Solutions",
+  url: siteUrl,
+  telephone: "+52 33 3062 0287",
+  areaServed: ["Zapopan", "Guadalajara", "Jalisco", "México"],
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Zapopan",
+    addressRegion: "Jalisco",
+    addressCountry: "MX",
+  },
+  description:
+    "Sitios web, chatbots con IA, automatización WhatsApp, CRM GoHighLevel, ecommerce y soporte IT para negocios de Jalisco.",
+  sameAs: [
+    "https://www.facebook.com/primetechsolutions",
+    "https://www.instagram.com/primetechsolutions",
+    "https://www.linkedin.com/company/primetech-solutions",
+  ],
+  makesOffer: [
+    "Sitios web para negocios",
+    "Chatbots con IA para WhatsApp",
+    "Automatización ManyChat",
+    "CRM GoHighLevel",
+    "Ecommerce y catálogos digitales",
+    "Soporte IT empresarial",
+  ],
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className="dark" suppressHydrationWarning>
-      <body className={inter.className}>
-          <MainLayoutWrapper>
-            {children}
-          </MainLayoutWrapper>
-          {/* El WhatsAppFAB se movió dentro del MainLayoutWrapper para controlarlo mejor */}
+    <html lang="es-MX" className="scroll-smooth">
+      <body className={`${inter.className} min-h-screen bg-slate-950 text-slate-50 antialiased`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+
+        <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/75 backdrop-blur-2xl">
+          <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8" aria-label="Navegación principal">
+            <Link href="/" className="group flex items-center gap-3" aria-label="PrimeTech Solutions inicio">
+              <span className="grid h-10 w-10 place-items-center rounded-2xl border border-cyan-300/30 bg-cyan-400/10 text-sm font-black text-cyan-200 shadow-lg shadow-cyan-500/20 transition group-hover:scale-105">
+                PT
+              </span>
+              <span className="leading-tight">
+                <span className="block text-sm font-black tracking-tight sm:text-base">PrimeTech</span>
+                <span className="block text-[10px] uppercase tracking-[0.24em] text-cyan-200/80">Solutions</span>
+              </span>
+            </Link>
+
+            <div className="hidden items-center gap-1 lg:flex">
+              {navItems.map((item) => (
+                <Link key={item.href} href={item.href} className="rounded-full px-4 py-2 text-sm font-semibold text-slate-300 transition hover:bg-white/10 hover:text-white">
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+
+            <div className="hidden items-center gap-3 lg:flex">
+              <a href={`https://wa.me/523330620287?text=${whatsappText}`} className="rounded-full bg-cyan-300 px-5 py-2.5 text-sm font-black text-slate-950 shadow-lg shadow-cyan-400/20 transition hover:-translate-y-0.5 hover:bg-white">
+                Cotizar por WhatsApp
+              </a>
+            </div>
+
+            <details className="group relative lg:hidden">
+              <summary className="list-none rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-bold text-white marker:hidden">
+                Menú
+              </summary>
+              <div className="absolute right-0 mt-3 w-72 overflow-hidden rounded-3xl border border-white/10 bg-slate-950/95 p-3 shadow-2xl shadow-black/40 backdrop-blur-xl">
+                {navItems.map((item) => (
+                  <Link key={item.href} href={item.href} className="block rounded-2xl px-4 py-3 text-sm font-semibold text-slate-200 hover:bg-white/10">
+                    {item.label}
+                  </Link>
+                ))}
+                <a href={`https://wa.me/523330620287?text=${whatsappText}`} className="mt-2 block rounded-2xl bg-cyan-300 px-4 py-3 text-center text-sm font-black text-slate-950">
+                  Cotizar por WhatsApp
+                </a>
+              </div>
+            </details>
+          </nav>
+        </header>
+
+        <main>{children}</main>
+
+        <footer className="border-t border-white/10 bg-slate-950 px-4 py-12">
+          <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-[1.2fr_.8fr_.8fr]">
+            <div>
+              <p className="text-lg font-black">PrimeTech Solutions</p>
+              <p className="mt-3 max-w-md text-sm leading-6 text-slate-400">
+                Tecnología comercial para negocios de Jalisco: sitios web, automatización WhatsApp, IA, ecommerce, CRM y soporte IT.
+              </p>
+            </div>
+            <div>
+              <p className="font-bold text-white">Servicios</p>
+              <div className="mt-3 grid gap-2 text-sm text-slate-400">
+                <Link href="/#servicios" className="hover:text-cyan-200">Servicios digitales</Link>
+                <Link href="/#ia-whatsapp" className="hover:text-cyan-200">Chatbots IA</Link>
+                <Link href="/portafolio" className="hover:text-cyan-200">Portafolio</Link>
+              </div>
+            </div>
+            <div>
+              <p className="font-bold text-white">Contacto</p>
+              <div className="mt-3 grid gap-2 text-sm text-slate-400">
+                <a href={`https://wa.me/523330620287?text=${whatsappText}`} className="hover:text-cyan-200">33 3062 0287</a>
+                <a href="mailto:contacto@primetechsolutions.com.mx" className="hover:text-cyan-200">contacto@primetechsolutions.com.mx</a>
+                <span>Zapopan y Guadalajara, Jalisco</span>
+              </div>
+            </div>
+          </div>
+          <div className="mx-auto mt-10 max-w-7xl text-xs text-slate-500">
+            © {new Date().getFullYear()} PrimeTech Solutions. Todos los derechos reservados.
+          </div>
+        </footer>
       </body>
     </html>
   );

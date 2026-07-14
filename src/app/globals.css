@@ -1,86 +1,118 @@
-@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    /* Fondo oscuro pero con un toque muy sutil rojizo para calidez */
-    --background: 0 20% 4%; 
-    --foreground: 0 0% 98%;
-
-    --card: 0 20% 5%;
-    --card-foreground: 0 0% 98%;
-
-    --popover: 0 20% 5%;
-    --popover-foreground: 0 0% 98%;
-
-    /* COLOR TINTO (Wine Red) para botones y elementos principales */
-    --primary: 348 83% 47%; 
-    --primary-foreground: 0 0% 100%;
-
-    /* COLOR VERDE PINO para elementos secundarios */
-    --secondary: 142 70% 25%;
-    --secondary-foreground: 0 0% 100%;
-
-    --muted: 348 20% 15%;
-    --muted-foreground: 348 10% 70%;
-
-    --accent: 142 60% 15%;
-    --accent-foreground: 0 0% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 348 30% 20%;
-    --input: 348 30% 20%;
-    --ring: 348 83% 47%;
-
-    /* Gráficas con tonos navideños */
-    --chart-1: 348 83% 47%; /* Rojo */
-    --chart-2: 142 70% 45%; /* Verde */
-    --chart-3: 45 90% 55%;  /* Dorado */
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%
-  }
+:root {
+  --background: 222 47% 5%;
+  --foreground: 210 40% 98%;
+  --card: 222 47% 7%;
+  --card-foreground: 210 40% 98%;
+  --popover: 222 47% 7%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 188 94% 43%;
+  --primary-foreground: 222 47% 5%;
+  --secondary: 260 84% 64%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 217 33% 18%;
+  --muted-foreground: 215 20% 70%;
+  --accent: 188 94% 43%;
+  --accent-foreground: 222 47% 5%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 217 33% 18%;
+  --input: 217 33% 18%;
+  --ring: 188 94% 43%;
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+* {
+  border-color: hsl(var(--border));
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 15% 5%, rgba(34, 211, 238, .16), transparent 30rem),
+    radial-gradient(circle at 85% 15%, rgba(168, 85, 247, .14), transparent 28rem),
+    radial-gradient(circle at 50% 100%, rgba(14, 165, 233, .12), transparent 34rem),
+    #020617;
+}
+
+::selection {
+  background: rgba(103, 232, 249, .35);
+  color: white;
 }
 
 @layer utilities {
-  /* ... tus animaciones existentes ... */
-  @keyframes shine {
-    from { background-position: 200% 0; }
-    to { background-position: -200% 0; }
+  .text-balance {
+    text-wrap: balance;
   }
-  .animate-shine { animation-name: shine; }
-   @keyframes scroll-right {
+
+  .glass-card {
+    border: 1px solid rgba(255, 255, 255, .10);
+    background: linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.035));
+    box-shadow: 0 24px 80px rgba(0, 0, 0, .28);
+    backdrop-filter: blur(18px);
+  }
+
+  .hero-glow {
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,.08),
+      0 35px 120px rgba(34,211,238,.18),
+      inset 0 0 80px rgba(168,85,247,.08);
+  }
+
+  .gradient-text {
+    background: linear-gradient(90deg, #ffffff 0%, #a5f3fc 42%, #c4b5fd 72%, #ffffff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(circle at center, black, transparent 72%);
+  }
+
+  .marquee-track {
+    animation: marquee 26s linear infinite;
+  }
+
+  .float-slow {
+    animation: floatSlow 8s ease-in-out infinite;
+  }
+
+  .pulse-border {
+    animation: pulseBorder 2.6s ease-in-out infinite;
+  }
+
+  @keyframes marquee {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
   }
-  .animate-scroll-right { animation: scroll-right 5s linear infinite; }
-  
-  /* Animación para la nieve */
-  @keyframes snowfall {
-    0% { transform: translateY(-10vh) translateX(0px); opacity: 1; }
-    100% { transform: translateY(100vh) translateX(20px); opacity: 0; }
+
+  @keyframes floatSlow {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -18px, 0); }
   }
-  .snowflake {
-    position: fixed;
-    top: -10px;
-    color: #FFF;
-    font-size: 1em;
-    font-family: Arial;
-    text-shadow: 0 0 1px #000;
-    z-index: 9999;
-    pointer-events: none;
-    animation: snowfall linear infinite;
+
+  @keyframes pulseBorder {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(34, 211, 238, .25); }
+    50% { box-shadow: 0 0 0 10px rgba(34, 211, 238, 0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: .01ms !important;
+    }
   }
 }
