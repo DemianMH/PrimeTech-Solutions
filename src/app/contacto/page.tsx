@@ -3,7 +3,7 @@ import { ArrowRight, CheckCircle2, Mail, MapPin, MessageCircle, Phone } from "lu
 
 const siteUrl = "https://www.primetechsolutions.com.mx";
 const whatsappText = encodeURIComponent(
-  "Hola Demian, quiero cotizar una solución digital para mi negocio."
+  "Hola Primetech, quiero cotizar una solución digital para mi negocio."
 );
 const whatsappUrl = `https://wa.me/523330620287?text=${whatsappText}`;
 

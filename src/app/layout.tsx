@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"], display: "swap" });
 const siteUrl = "https://www.primetechsolutions.com.mx";
 const whatsappNumber = "523330620287";
 const whatsappText = encodeURIComponent(
-  "Hola Demian, quiero mejorar mi negocio con sitio web, WhatsApp, chatbot o automatización. ¿Me puedes orientar?"
+  "Hola Primetech, quiero mejorar mi negocio con sitio web, WhatsApp, chatbot o automatización. ¿Me puedes orientar?"
 );
 
 export const metadata: Metadata = {

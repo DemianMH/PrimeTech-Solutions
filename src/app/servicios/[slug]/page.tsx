@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 
 const whatsappText = encodeURIComponent(
-  "Hola Demian, quiero información de los servicios de PrimeTech Solutions."
+  "Hola Primetech, quiero información de los servicios de PrimeTech Solutions."
 );
 const whatsappUrl = `https://wa.me/523330620287?text=${whatsappText}`;
 

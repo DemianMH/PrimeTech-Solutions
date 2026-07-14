@@ -18,7 +18,7 @@ import {
 
 const siteUrl = "https://www.primetechsolutions.com.mx";
 const whatsappText = encodeURIComponent(
-  "Hola Demian, quiero cotizar diseño gráfico para mi negocio y conectarlo con web o WhatsApp."
+  "Hola Primetech, quiero cotizar diseño gráfico para mi negocio y conectarlo con web o WhatsApp."
 );
 const whatsappUrl = `https://wa.me/523330620287?text=${whatsappText}`;
 

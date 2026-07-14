@@ -21,7 +21,7 @@ import {
 } from "lucide-react";
 
 const whatsappText = encodeURIComponent(
-  "Hola Demian, vi la nueva web de PrimeTech y quiero un diagnóstico para vender más por WhatsApp / mejorar mi sitio."
+  "Hola Primetech, vi la nueva web de PrimeTech y quiero un diagnóstico para vender más por WhatsApp / mejorar mi sitio."
 );
 const whatsappUrl = `https://wa.me/523330620287?text=${whatsappText}`;
 
@@ -509,7 +509,7 @@ export default function HomePage() {
           </p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <a href={whatsappUrl} className="inline-flex items-center justify-center rounded-full bg-cyan-300 px-7 py-4 font-black text-slate-950 shadow-2xl shadow-cyan-400/20 transition hover:-translate-y-1 hover:bg-white">
-              Hablar con Demian <MessageCircle className="ml-2 h-5 w-5" />
+              Hablar con Primetech <MessageCircle className="ml-2 h-5 w-5" />
             </a>
             <Link href="/servicios" className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-7 py-4 font-black text-white hover:bg-white/10">
               Ver servicios
