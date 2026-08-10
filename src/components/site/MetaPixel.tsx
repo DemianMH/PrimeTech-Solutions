@@ -11,7 +11,7 @@ declare global {
   }
 }
 
-const pixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID;
+const pixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID || "1634168091092411";
 
 function trackMetaEvent(eventName: string, params?: Record<string, unknown>) {
   if (!pixelId || typeof window === "undefined" || typeof window.fbq !== "function") {
@@ -108,3 +108,4 @@ export function MetaPixel() {
     </Suspense>
   );
 }
+
