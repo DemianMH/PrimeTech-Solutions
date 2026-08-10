@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
+import { MetaPixel } from "@/components/site/MetaPixel";
 import { SiteFooter, SiteHeader, WhatsAppFloat } from "@/components/site/SiteShell";
 import { siteConfig } from "@/lib/site";
 
@@ -74,6 +75,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="es">
       <body>
+        <MetaPixel />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
