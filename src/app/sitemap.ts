@@ -1,46 +1,36 @@
 import type { MetadataRoute } from "next";
-
-const baseUrl = "https://www.primetechsolutions.com.mx";
-
-const routes: Array<{
-  path: string;
-  priority: number;
-  changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
-}> = [
-  {
-    path: "",
-    priority: 1,
-    changeFrequency: "weekly",
-  },
-  {
-    path: "/servicios",
-    priority: 0.95,
-    changeFrequency: "weekly",
-  },
-  {
-    path: "/diseno-grafico",
-    priority: 0.88,
-    changeFrequency: "monthly",
-  },
-  {
-    path: "/portafolio",
-    priority: 0.86,
-    changeFrequency: "weekly",
-  },
-  {
-    path: "/contacto",
-    priority: 0.8,
-    changeFrequency: "monthly",
-  },
-];
+import { services, siteConfig } from "@/lib/site";
+import { designProducts } from "@/lib/prime-design";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date();
+  const routes = [
+    "",
+    "/servicios",
+    "/portafolio",
+    "/nosotros",
+    "/contacto",
+    "/prime-design",
+    "/prime-design/catalogo",
+    "/prime-design/branding",
+    "/prime-design/marketing",
+    "/prime-design/portafolio",
+  ];
+  const serviceRoutes = services.map((service) => `/servicios/${service.slug}`);
+  const designRoutes = designProducts.map((product) => `/prime-design/catalogo/${product.slug}`);
 
-  return routes.map((route) => ({
-    url: `${baseUrl}${route.path}`,
-    lastModified,
-    changeFrequency: route.changeFrequency,
-    priority: route.priority,
-  }));
+  const now = new Date();
+
+  return [...routes, ...serviceRoutes, ...designRoutes].map((route) => {
+    const isHome = route === "";
+    const isServiceDetail = route.startsWith("/servicios/");
+    const isDesignProduct = route.startsWith("/prime-design/catalogo/");
+    const isMainWorld = route === "/prime-design" || route === "/servicios" || route === "/portafolio";
+
+    return {
+      url: `${siteConfig.domain}${route}`,
+      lastModified: now,
+      changeFrequency: isHome || isMainWorld ? "weekly" : isDesignProduct ? "monthly" : "monthly",
+      priority: isHome ? 1 : isMainWorld ? 0.92 : isServiceDetail ? 0.88 : isDesignProduct ? 0.74 : 0.7,
+    };
+  });
 }

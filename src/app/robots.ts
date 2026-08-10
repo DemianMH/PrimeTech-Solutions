@@ -1,16 +1,12 @@
 import type { MetadataRoute } from "next";
-
-const baseUrl = "https://www.primetechsolutions.com.mx";
+import { siteConfig } from "@/lib/site";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: [
-      {
-        userAgent: "*",
-        allow: "/",
-      },
-    ],
-    sitemap: `${baseUrl}/sitemap.xml`,
-    host: baseUrl,
+    rules: {
+      userAgent: "*",
+      allow: "/",
+    },
+    sitemap: `${siteConfig.domain}/sitemap.xml`,
   };
 }
