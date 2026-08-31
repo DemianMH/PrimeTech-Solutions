@@ -1356,6 +1356,10 @@ main {
   margin-top: 2rem;
 }
 
+.portfolio-subhead {
+  margin-top: 2.8rem;
+}
+
 .project-card {
   position: relative;
   display: grid;
@@ -1604,6 +1608,160 @@ main {
 .project-link {
   margin-top: auto;
   padding-top: 1.2rem;
+}
+
+.automation-portfolio {
+  position: relative;
+  overflow: hidden;
+  margin-top: 3rem;
+  padding: clamp(1.2rem, 3vw, 2rem);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 2rem;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(20, 184, 166, 0.18), transparent 20rem),
+    radial-gradient(circle at 82% 8%, rgba(37, 99, 235, 0.12), transparent 18rem),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(244, 250, 255, 0.9));
+  box-shadow: 0 28px 80px rgba(15, 23, 42, 0.09);
+}
+
+.automation-portfolio::before {
+  content: "";
+  position: absolute;
+  inset: 1.1rem;
+  border-radius: 1.4rem;
+  background:
+    linear-gradient(rgba(37, 99, 235, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20, 184, 166, 0.08) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
+  pointer-events: none;
+}
+
+.automation-copy {
+  position: relative;
+  z-index: 1;
+  max-width: 850px;
+}
+
+.automation-copy h2 {
+  margin: 0.7rem 0;
+  color: var(--ink);
+  font-size: clamp(2.1rem, 5vw, 4.6rem);
+  line-height: 0.98;
+  font-weight: 950;
+}
+
+.automation-copy p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.automation-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.6rem;
+}
+
+.automation-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 100%;
+  padding: 1.15rem;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 1.35rem;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 18px 42px rgba(15, 23, 42, 0.07);
+  backdrop-filter: blur(14px);
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+
+.automation-card::after {
+  content: "";
+  position: absolute;
+  right: -44px;
+  top: -44px;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.14), transparent 66%);
+}
+
+.automation-card:hover {
+  border-color: rgba(37, 99, 235, 0.2);
+  box-shadow: 0 28px 70px rgba(15, 23, 42, 0.12);
+  transform: translateY(-6px) rotateX(2deg);
+}
+
+.automation-icon {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 18px;
+  color: #fff;
+  background: linear-gradient(135deg, #2563eb, #14b8a6);
+  box-shadow: 0 18px 36px rgba(37, 99, 235, 0.2);
+}
+
+.automation-card > span {
+  display: inline-flex;
+  margin-top: 1rem;
+  color: #2563eb;
+  font-size: 0.78rem;
+  font-weight: 950;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.automation-card h3 {
+  margin: 0.45rem 0 0.55rem;
+  color: var(--ink);
+  font-size: clamp(1.25rem, 2.4vw, 1.85rem);
+  line-height: 1.04;
+  font-weight: 950;
+}
+
+.automation-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.automation-card strong {
+  display: block;
+  margin-top: 0.9rem;
+  color: #0f172a;
+  line-height: 1.45;
+}
+
+.automation-flow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 1rem;
+}
+
+.automation-flow em {
+  position: relative;
+  padding: 0.45rem 0.6rem;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #1e3a8a;
+  font-size: 0.74rem;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.automation-card small {
+  display: block;
+  margin-top: 1rem;
+  color: #64748b;
+  font-weight: 850;
 }
 
 .service-visual-panel {
@@ -2728,6 +2886,7 @@ main {
   .timeline,
   .faq-grid,
   .portfolio-grid,
+  .automation-grid,
   .values-grid,
   .service-detail-grid,
   .portfolio-hero-panel,
@@ -2802,6 +2961,7 @@ main {
   .timeline,
   .faq-grid,
   .portfolio-grid,
+  .automation-grid,
   .values-grid,
   .service-detail-grid,
   .signal-band,

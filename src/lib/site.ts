@@ -292,9 +292,9 @@ export const portfolioProjects = [
     image: "/portafolio/sorteomikeco.png",
     url: "https://sorteomikeco.com",
     description:
-      "Plataforma de venta de boletos para sorteos premium. La experiencia guia al usuario para elegir paquetes, revisar detalles del premio y comprar de forma directa.",
-    impact: "Compra digital clara, paquetes visibles y flujo preparado para conversión.",
-    tags: ["Sorteos", "Ecommerce", "Pagos", "UI/UX"],
+      "Plataforma de sorteos con enfoque comercial: presentación del premio, paquetes visibles, experiencia móvil y ruta directa para comprar o pedir información.",
+    impact: "Convierte interés en intención de compra con una navegación más clara, confiable y preparada para campañas.",
+    tags: ["Sorteos", "Ecommerce", "Pagos", "Conversión"],
   },
   {
     title: "CZC Projects",
@@ -302,9 +302,9 @@ export const portfolioProjects = [
     image: "/portafolio/czcprojects.png",
     url: "https://czcprojects.com.mx",
     description:
-      "Sitio para integradora de soluciones tecnológicas enfocada en cámaras de seguridad, paneles solares, cableado estructurado, Wi-Fi y nodos de red.",
-    impact: "Presencia profesional para explicar servicios tecnicos y captar proyectos de mayor valor.",
-    tags: ["CCTV", "Redes", "Solar", "Corporativo"],
+      "Sitio corporativo para una integradora tecnológica con servicios de CCTV, paneles solares, cableado estructurado, redes, Wi-Fi y nodos.",
+    impact: "Ordena servicios técnicos complejos en una presencia profesional que ayuda a captar proyectos de mayor valor.",
+    tags: ["CCTV", "Redes", "Solar", "B2B"],
   },
   {
     title: "Tersus Clean",
@@ -312,8 +312,8 @@ export const portfolioProjects = [
     image: "/portafolio/tersusclean.png",
     url: "https://tersusclean.com.mx",
     description:
-      "Landing para empresa de limpieza con servicios de lavanderia, tapiceria, hogar, limpieza corporativa y productos especializados.",
-    impact: "Mensaje comercial directo, servicios claros y contacto rápido para cotizaciones.",
+      "Landing para empresa de limpieza con servicios de lavandería, tapicería, hogar, limpieza corporativa y productos especializados.",
+    impact: "Presenta servicios de forma rápida y lleva al usuario hacia cotización por WhatsApp sin fricción.",
     tags: ["Servicios", "Limpieza", "Landing", "WhatsApp"],
   },
   {
@@ -323,7 +323,7 @@ export const portfolioProjects = [
     url: "https://revivethefire.info",
     description:
       "Sitio bilingüe para ministerio y comunidad, con identidad visual, información de contacto y presencia digital para eventos y comunicación.",
-    impact: "Marca institucional más clara y accesible para comunidad internacional.",
+    impact: "Da presencia digital seria, accesible y útil para comunicar mensajes, eventos y canales de contacto.",
     tags: ["Institucional", "Bilingue", "Comunidad", "Web"],
   },
   {
@@ -333,7 +333,7 @@ export const portfolioProjects = [
     url: "https://portofinoconway.com",
     description:
       "Sitio para restaurante italiano con navegación a menú, contacto, horarios, ubicación y accesos directos para ordenar por plataformas externas.",
-    impact: "Experiencia móvil pensada para encontrar información y pedir rápido.",
+    impact: "Reduce pasos para consultar menú, ubicación y pedidos, especialmente desde celular.",
     tags: ["Restaurante", "Menu", "Pedidos", "Local"],
   },
   {
@@ -343,7 +343,7 @@ export const portfolioProjects = [
     url: "https://berecardenascosmetologia.com.mx/",
     description:
       "Plataforma educativa para cosmetología profesional con cursos, presentación de autoridad, acceso de alumnos y enfoque en formación estética.",
-    impact: "Base digital para vender cursos, mostrar trayectoria y gestionar aprendizaje.",
+    impact: "Construye confianza para vender cursos, explicar trayectoria y centralizar la experiencia de alumnos.",
     tags: ["LMS", "Cursos", "Cosmetologia", "Alumnos"],
   },
   {
@@ -353,7 +353,7 @@ export const portfolioProjects = [
     url: "https://consultoriainapecc.com/",
     description:
       "Landing profesional para consultoría pedagógica, gestión RVOE, proyectos curriculares, Acuerdo 286 y desarrollo institucional.",
-    impact: "Contenido ordenado para explicar servicios complejos y generar confianza.",
+    impact: "Convierte servicios educativos complejos en una lectura clara para escuelas, docentes y directivos.",
     tags: ["Consultoria", "Educacion", "RVOE", "Landing"],
   },
   {
@@ -362,9 +362,62 @@ export const portfolioProjects = [
     image: "/portafolio/rifaselguero.png",
     url: "https://rifaselguero.com.mx/",
     description:
-      "Sitio para rifas con verificador de boletos, seccion de ganadores, pagos y contacto directo por WhatsApp.",
-    impact: "Mas confianza para participantes y operacion digital de sorteos.",
+      "Sitio para rifas con verificador de boletos, sección de ganadores, pagos y contacto directo por WhatsApp.",
+    impact: "Aumenta confianza para participantes y mejora la operación digital del sorteo.",
     tags: ["Rifas", "Verificador", "WhatsApp", "Landing"],
+  },
+];
+
+export const automationProjects = [
+  {
+    title: "Seguimiento automático de prospectos",
+    stack: "n8n + WhatsApp + Google Sheets + correo",
+    category: "Ventas",
+    description:
+      "Flujo para recibir prospectos desde formularios o campañas, guardarlos en una base operativa, notificar al equipo y preparar el primer mensaje de seguimiento.",
+    result:
+      "Menos prospectos perdidos, respuesta más rápida y registro ordenado de cada oportunidad.",
+    steps: ["Captura", "Validación", "Registro", "Alerta", "Seguimiento"],
+  },
+  {
+    title: "Cotizaciones y solicitudes centralizadas",
+    stack: "n8n + formularios + correo + hojas de cálculo",
+    category: "Operación",
+    description:
+      "Automatización para ordenar solicitudes de clientes, clasificar servicio requerido, enviar aviso interno y dejar evidencia para seguimiento comercial.",
+    result:
+      "El equipo puede responder con más contexto y priorizar solicitudes urgentes sin revisar varios canales manualmente.",
+    steps: ["Formulario", "Clasificación", "Asignación", "Correo", "Bitácora"],
+  },
+  {
+    title: "Alertas internas para tareas críticas",
+    stack: "n8n + email + calendario + base de datos",
+    category: "Administración",
+    description:
+      "Flujos para recordar vencimientos, pagos, renovaciones, entregas y tareas que no pueden depender de memoria o mensajes sueltos.",
+    result:
+      "Mayor control de fechas, menos retrasos y mejor seguimiento de responsabilidades.",
+    steps: ["Fecha clave", "Regla", "Recordatorio", "Escalamiento", "Cierre"],
+  },
+  {
+    title: "Sincronización entre herramientas",
+    stack: "n8n + CRM + spreadsheets + APIs",
+    category: "Integraciones",
+    description:
+      "Conexión de sistemas para evitar capturas repetidas entre CRM, hojas de cálculo, formularios, correos y reportes internos.",
+    result:
+      "Información más limpia, menos errores humanos y operación preparada para crecer.",
+    steps: ["Entrada", "Normalización", "API", "Actualización", "Reporte"],
+  },
+  {
+    title: "Reportes automáticos de actividad",
+    stack: "n8n + dashboards + email programado",
+    category: "Dirección",
+    description:
+      "Resumen automático de prospectos, solicitudes, tareas o indicadores para tomar decisiones sin pedir reportes manuales cada semana.",
+    result:
+      "Visibilidad del negocio con datos actualizados y menos trabajo administrativo.",
+    steps: ["Datos", "Filtro", "Resumen", "Envío", "Decisión"],
   },
 ];
 
