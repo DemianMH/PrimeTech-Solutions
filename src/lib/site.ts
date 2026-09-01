@@ -289,7 +289,11 @@ export const portfolioProjects = [
   {
     title: "Sorteo Mike & Co",
     category: "Plataforma de sorteos",
-    image: "/portafolio/sorteomikeco.png",
+    images: {
+      desktop: "/portafolio/sorteo-mike-desktop.png",
+      tablet: "/portafolio/sorteo-mike-tablet.png",
+      mobile: "/portafolio/sorteo-mike-mobile.png",
+    },
     url: "https://sorteomikeco.com",
     description:
       "Plataforma de sorteos con enfoque comercial: presentación del premio, paquetes visibles, experiencia móvil y ruta directa para comprar o pedir información.",
@@ -299,7 +303,11 @@ export const portfolioProjects = [
   {
     title: "CZC Projects",
     category: "Sitio corporativo",
-    image: "/portafolio/czcprojects.png",
+    images: {
+      desktop: "/portafolio/czc-projects-desktop.png",
+      tablet: "/portafolio/czc-projects-tablet.png",
+      mobile: "/portafolio/czc-projects-mobile.png",
+    },
     url: "https://czcprojects.com.mx",
     description:
       "Sitio corporativo para una integradora tecnológica con servicios de CCTV, paneles solares, cableado estructurado, redes, Wi-Fi y nodos.",
@@ -309,7 +317,11 @@ export const portfolioProjects = [
   {
     title: "Tersus Clean",
     category: "Landing de conversión",
-    image: "/portafolio/tersusclean.png",
+    images: {
+      desktop: "/portafolio/tersus-clean-desktop.png",
+      tablet: "/portafolio/tersus-clean-tablet.png",
+      mobile: "/portafolio/tersus-clean-mobile.png",
+    },
     url: "https://tersusclean.com.mx",
     description:
       "Landing para empresa de limpieza con servicios de lavandería, tapicería, hogar, limpieza corporativa y productos especializados.",
@@ -319,7 +331,11 @@ export const portfolioProjects = [
   {
     title: "Revive the Fire",
     category: "Sitio institucional",
-    image: "/portafolio/revivethefire.png",
+    images: {
+      desktop: "/portafolio/revive-the-fire-desktop.png",
+      tablet: "/portafolio/revive-the-fire-tablet.png",
+      mobile: "/portafolio/revive-the-fire-mobile.png",
+    },
     url: "https://revivethefire.info",
     description:
       "Sitio bilingüe para ministerio y comunidad, con identidad visual, información de contacto y presencia digital para eventos y comunicación.",
@@ -329,7 +345,11 @@ export const portfolioProjects = [
   {
     title: "Portofino Conway",
     category: "Restaurante",
-    image: "/portafolio/portofinoconway.png",
+    images: {
+      desktop: "/portafolio/portofino-conway-desktop.png",
+      tablet: "/portafolio/portofino-conway-tablet.png",
+      mobile: "/portafolio/portofino-conway-mobile.png",
+    },
     url: "https://portofinoconway.com",
     description:
       "Sitio para restaurante italiano con navegación a menú, contacto, horarios, ubicación y accesos directos para ordenar por plataformas externas.",
@@ -339,7 +359,11 @@ export const portfolioProjects = [
   {
     title: "Bere Cardenas Cosmetologia",
     category: "Cursos y LMS",
-    image: "/portafolio/berecardenas.png",
+    images: {
+      desktop: "/portafolio/bere-cardenas-desktop.png",
+      tablet: "/portafolio/bere-cardenas-tablet.png",
+      mobile: "/portafolio/bere-cardenas-mobile.png",
+    },
     url: "https://berecardenascosmetologia.com.mx/",
     description:
       "Plataforma educativa para cosmetología profesional con cursos, presentación de autoridad, acceso de alumnos y enfoque en formación estética.",
@@ -349,7 +373,11 @@ export const portfolioProjects = [
   {
     title: "INAPECC Consultoria",
     category: "Consultoria educativa",
-    image: "/portafolio/inapecc.png",
+    images: {
+      desktop: "/portafolio/inapecc-desktop.png",
+      tablet: "/portafolio/inapecc-tablet.png",
+      mobile: "/portafolio/inapecc-mobile.png",
+    },
     url: "https://consultoriainapecc.com/",
     description:
       "Landing profesional para consultoría pedagógica, gestión RVOE, proyectos curriculares, Acuerdo 286 y desarrollo institucional.",
@@ -359,65 +387,85 @@ export const portfolioProjects = [
   {
     title: "Rifas El Guero",
     category: "Plataforma de rifas",
-    image: "/portafolio/rifaselguero.png",
+    images: {
+      desktop: "/portafolio/rifas-el-guero-desktop.png",
+      tablet: "/portafolio/rifas-el-guero-tablet.png",
+      mobile: "/portafolio/rifas-el-guero-mobile.png",
+    },
     url: "https://rifaselguero.com.mx/",
     description:
       "Sitio para rifas con verificador de boletos, sección de ganadores, pagos y contacto directo por WhatsApp.",
     impact: "Aumenta confianza para participantes y mejora la operación digital del sorteo.",
     tags: ["Rifas", "Verificador", "WhatsApp", "Landing"],
   },
+  {
+    title: "SADACA Industrial",
+    category: "Rediseño web industrial",
+    images: {
+      desktop: "/portafolio/sadaca-industrial-desktop.png",
+      tablet: "/portafolio/sadaca-industrial-tablet.png",
+      mobile: "/portafolio/sadaca-industrial-mobile.png",
+    },
+    url: "https://sadacaindustrial.com/",
+    description:
+      "Actualización completa de un sitio industrial anterior para presentar maquinaria agroindustrial, cuartos fríos y proyectos llave en mano con una navegación más clara.",
+    impact:
+      "Moderniza la presencia comercial y ayuda a que compradores industriales entiendan capacidades, proceso y vías de cotización desde cualquier dispositivo.",
+    tags: ["Rediseño", "Industria", "Maquinaria", "Cotización"],
+  },
+  {
+    title: "3A RENT",
+    category: "Sitio web de renta",
+    images: {
+      desktop: "/portafolio/3a-rent-desktop.png",
+      tablet: "/portafolio/3a-rent-tablet.png",
+      mobile: "/portafolio/3a-rent-mobile.png",
+    },
+    url: "https://3arent.com.mx/",
+    description:
+      "Sitio nuevo para renta de maquinaria ligera en Zapopan, con catálogo de equipos, cobertura, preguntas frecuentes y contacto directo para solicitar disponibilidad.",
+    impact:
+      "Convierte búsquedas locales en solicitudes de renta al explicar equipos, condiciones y atención sin obligar al usuario a recorrer páginas innecesarias.",
+    tags: ["Sitio nuevo", "Maquinaria", "SEO local", "WhatsApp"],
+  },
 ];
 
 export const automationProjects = [
   {
-    title: "Seguimiento automático de prospectos",
-    stack: "n8n + WhatsApp + Google Sheets + correo",
-    category: "Ventas",
+    client: "KEX",
+    url: "https://kex.com.mx/",
+    title: "Integración comercial y seguimiento de contactos",
+    stack: "n8n + GoHighLevel + Google Sheets + APIs",
+    category: "Automatización e integraciones",
     description:
-      "Flujo para recibir prospectos desde formularios o campañas, guardarlos en una base operativa, notificar al equipo y preparar el primer mensaje de seguimiento.",
+      "Implementación de flujos para conectar la captura de contactos con GoHighLevel, organizar registros en Google Sheets y comunicar herramientas mediante APIs.",
     result:
-      "Menos prospectos perdidos, respuesta más rápida y registro ordenado de cada oportunidad.",
-    steps: ["Captura", "Validación", "Registro", "Alerta", "Seguimiento"],
+      "Un proceso comercial más ordenado, con menos captura manual y mejor continuidad entre la entrada del contacto y su seguimiento.",
+    steps: ["Contacto", "n8n", "GoHighLevel", "Google Sheets", "API"],
   },
   {
-    title: "Cotizaciones y solicitudes centralizadas",
-    stack: "n8n + formularios + correo + hojas de cálculo",
-    category: "Operación",
+    client: "Mundo Scents",
+    url: "https://mundoscents.com/",
+    title: "Ecosistema de cinco chatbots para atención",
+    stack: "5 chatbots + Facebook + Instagram + WhatsApp",
+    category: "Chatbots omnicanal",
     description:
-      "Automatización para ordenar solicitudes de clientes, clasificar servicio requerido, enviar aviso interno y dejar evidencia para seguimiento comercial.",
+      "Diseño y gestión de cinco chatbots con conversaciones guiadas y flujos automatizados para atender mensajes desde Facebook, Instagram y WhatsApp.",
     result:
-      "El equipo puede responder con más contexto y priorizar solicitudes urgentes sin revisar varios canales manualmente.",
-    steps: ["Formulario", "Clasificación", "Asignación", "Correo", "Bitácora"],
+      "Respuestas más consistentes entre canales y una ruta definida para orientar al cliente antes de la intervención del equipo.",
+    steps: ["Facebook / Instagram", "WhatsApp", "Router de intención", "5 chatbots", "Equipo humano"],
   },
   {
-    title: "Alertas internas para tareas críticas",
-    stack: "n8n + email + calendario + base de datos",
-    category: "Administración",
+    client: "Clínica D'Carvalho",
+    url: "https://clinicadcarvalho.com.mx/",
+    title: "Chatbot de orientación y seguimiento",
+    stack: "ManyChat + flujos conversacionales",
+    category: "Automatización de atención",
     description:
-      "Flujos para recordar vencimientos, pagos, renovaciones, entregas y tareas que no pueden depender de memoria o mensajes sueltos.",
+      "Configuración de un chatbot en ManyChat para organizar preguntas iniciales, guiar la conversación y facilitar el seguimiento de personas interesadas en el consultorio.",
     result:
-      "Mayor control de fechas, menos retrasos y mejor seguimiento de responsabilidades.",
-    steps: ["Fecha clave", "Regla", "Recordatorio", "Escalamiento", "Cierre"],
-  },
-  {
-    title: "Sincronización entre herramientas",
-    stack: "n8n + CRM + spreadsheets + APIs",
-    category: "Integraciones",
-    description:
-      "Conexión de sistemas para evitar capturas repetidas entre CRM, hojas de cálculo, formularios, correos y reportes internos.",
-    result:
-      "Información más limpia, menos errores humanos y operación preparada para crecer.",
-    steps: ["Entrada", "Normalización", "API", "Actualización", "Reporte"],
-  },
-  {
-    title: "Reportes automáticos de actividad",
-    stack: "n8n + dashboards + email programado",
-    category: "Dirección",
-    description:
-      "Resumen automático de prospectos, solicitudes, tareas o indicadores para tomar decisiones sin pedir reportes manuales cada semana.",
-    result:
-      "Visibilidad del negocio con datos actualizados y menos trabajo administrativo.",
-    steps: ["Datos", "Filtro", "Resumen", "Envío", "Decisión"],
+      "Atención inicial disponible de forma continua y mejor clasificación de conversaciones antes de pasar a atención personal.",
+    steps: ["Mensaje", "ManyChat", "Menú de opciones", "Datos de contacto", "Seguimiento"],
   },
 ];
 

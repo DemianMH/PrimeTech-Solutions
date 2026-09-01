@@ -1,49 +1,21 @@
 import Link from "next/link";
-import Image from "next/image";
 import {
   ArrowRight,
   ArrowUpRight,
-  BellRing,
-  Bot,
-  BriefcaseBusiness,
-  Building2,
-  Database,
-  Flame,
-  GraduationCap,
   Layers3,
   MonitorSmartphone,
-  ShieldCheck,
   Sparkles,
-  Ticket,
-  Utensils,
-  Workflow,
 } from "lucide-react";
 import { automationProjects, portfolioProjects } from "@/lib/site";
+import { DeviceMockup } from "@/components/site/DeviceMockup";
+import { AutomationWorkflow } from "@/components/site/AutomationWorkflow";
 
 export const metadata = {
   title: "Portafolio",
   description: "Portafolio web y automatizaciones reales de PrimeTech Solutions para negocios.",
 };
 
-function ProjectVector({ index }: { index: number }) {
-  const icons = [Ticket, Building2, Sparkles, Flame, Utensils, GraduationCap, BriefcaseBusiness, ShieldCheck, Bot];
-  const Icon = icons[index % icons.length];
-
-  return (
-    <div className={`project-vector vector-${index % 4}`} aria-hidden="true">
-      <div className="vector-ring" />
-      <div className="vector-chip">
-        <Icon size={30} />
-      </div>
-      <span className="vector-line line-a" />
-      <span className="vector-line line-b" />
-    </div>
-  );
-}
-
 export default function PortfolioPage() {
-  const automationIcons = [Workflow, Bot, BellRing, Database, Sparkles];
-
   return (
     <section className="inner-hero">
       <div className="portfolio-hero-panel">
@@ -75,20 +47,11 @@ export default function PortfolioPage() {
         {portfolioProjects.map((project, index) => (
           <article key={project.title} className={`project-card project-card-${index % 4}`}>
             <a href={project.url} target="_blank" rel="noreferrer" className="project-browser">
-              <ProjectVector index={index} />
-              <div className="browser-bar">
-                <span />
-                <span />
-                <span />
-                <small>{project.url.replace("https://", "").replace("www.", "")}</small>
-              </div>
-              <Image
-                src={project.image}
-                alt={`Captura del proyecto ${project.title}`}
-                width={900}
-                height={620}
-                sizes="(max-width: 980px) 100vw, 55vw"
-                className="project-image"
+              <DeviceMockup
+                title={project.title}
+                desktop={project.images.desktop}
+                tablet={project.images.tablet}
+                mobile={project.images.mobile}
               />
             </a>
             <div className="project-content">
@@ -118,32 +81,26 @@ export default function PortfolioPage() {
           <span className="eyebrow">Automatizaciones implementadas</span>
           <h2>Flujos con n8n, WhatsApp, formularios, correos, hojas de cálculo, CRM y APIs.</h2>
           <p>
-            Estos casos se muestran de forma operativa y anónima para proteger información de clientes,
-            pero reflejan el tipo de soluciones que se pueden implementar para ventas, administración,
-            soporte y seguimiento.
+            Casos implementados para clientes reales. Mostramos el objetivo y las herramientas utilizadas
+            sin exponer información privada, credenciales ni datos internos de sus operaciones.
           </p>
         </div>
         <div className="automation-grid">
-          {automationProjects.map((project, index) => {
-            const Icon = automationIcons[index % automationIcons.length];
-            return (
-              <article className="automation-card" key={project.title}>
-                <div className="automation-icon">
-                  <Icon size={25} />
-                </div>
+          {automationProjects.map((project, index) => (
+            <article className="automation-card" key={project.title}>
+              <div className="automation-card-copy">
                 <span>{project.category}</span>
+                <a className="automation-client" href={project.url} target="_blank" rel="noreferrer">
+                  {project.client} <ArrowUpRight size={15} />
+                </a>
                 <h3>{project.title}</h3>
                 <p>{project.description}</p>
                 <strong>{project.result}</strong>
-                <div className="automation-flow" aria-label={`Flujo de ${project.title}`}>
-                  {project.steps.map((step) => (
-                    <em key={step}>{step}</em>
-                  ))}
-                </div>
                 <small>{project.stack}</small>
-              </article>
-            );
-          })}
+              </div>
+              <AutomationWorkflow client={project.client} steps={project.steps} theme={index} />
+            </article>
+          ))}
         </div>
       </div>
 

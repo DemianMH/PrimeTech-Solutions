@@ -239,11 +239,114 @@ export const marketingServices = [
   },
 ];
 
-export const designPortfolio = [
+export const invitationWebProjects = [
   {
-    title: "Aquí irá tu primer caso de diseño",
-    category: "Branding",
-    image: "/prime-design-portfolio/placeholder.png",
-    description: "Espacio listo para agregar proyectos reales con imagen, descripción, piezas creadas y resultado.",
+    title: "Luz & Fabián",
+    category: "Boda",
+    url: "https://luzyfabian.netlify.app/",
+    description:
+      "Invitación web personalizada con apertura de sobre, identidad floral, información del evento y experiencia enfocada en celular.",
+    images: {
+      desktop: "/prime-design-portfolio/luz-y-fabian-desktop.png",
+      tablet: "/prime-design-portfolio/luz-y-fabian-tablet.png",
+      mobile: "/prime-design-portfolio/luz-y-fabian-mobile.png",
+    },
+  },
+  {
+    title: "Cumpleaños de César Adrián",
+    category: "Cumpleaños infantil",
+    url: "https://cumplecesaradrian.netlify.app/",
+    description:
+      "Invitación digital infantil con portada temática, datos de la celebración y recorrido visual adaptable a cualquier pantalla.",
+    images: {
+      desktop: "/prime-design-portfolio/cumple-cesar-adrian-desktop.png",
+      tablet: "/prime-design-portfolio/cumple-cesar-adrian-tablet.png",
+      mobile: "/prime-design-portfolio/cumple-cesar-adrian-mobile.png",
+    },
+  },
+  {
+    title: "Cumpleaños de Cristian",
+    category: "Cumpleaños",
+    url: "https://cumplecristian.netlify.app/",
+    description:
+      "Invitación web para una celebración de 41 años, con una presentación directa, elegante y pensada para compartirse por mensaje.",
+    images: {
+      desktop: "/prime-design-portfolio/cumple-cristian-desktop.png",
+      tablet: "/prime-design-portfolio/cumple-cristian-tablet.png",
+      mobile: "/prime-design-portfolio/cumple-cristian-mobile.png",
+    },
+  },
+];
+
+export const invitationTemplateProjects = [
+  {
+    title: "Plantilla Ana",
+    category: "Plantilla web",
+    url: "https://cerulean-chaja-b31358.netlify.app/",
+    description:
+      "Concepto personalizable para celebración con composición editorial, efectos suaves y secciones preparadas para adaptar datos, colores e imágenes.",
+    images: {
+      desktop: "/prime-design-portfolio/plantilla-cerulean-desktop.png",
+      tablet: "/prime-design-portfolio/plantilla-cerulean-tablet.png",
+      mobile: "/prime-design-portfolio/plantilla-cerulean-mobile.png",
+    },
+  },
+  {
+    title: "Plantilla Pavel & Alina",
+    category: "Plantilla de boda",
+    url: "https://helpful-sfogliatella-b5b011.netlify.app/",
+    description:
+      "Plantilla web de boda con estética romántica, jerarquía clara y estructura lista para personalizar cada detalle del evento.",
+    images: {
+      desktop: "/prime-design-portfolio/plantilla-helpful-desktop.png",
+      tablet: "/prime-design-portfolio/plantilla-helpful-tablet.png",
+      mobile: "/prime-design-portfolio/plantilla-helpful-mobile.png",
+    },
+  },
+];
+
+export const invitationPublishedProjects = [
+  {
+    title: "Invitación web estilo clásico",
+    category: "Invitación web",
+    url: "https://www.instagram.com/reel/DBujJBDxheK/",
+    image: "/prime-design-portfolio/invitacion-web-clasica-limpia.png",
+    description:
+      "Proyecto web de estilo clásico documentado en video, con una presentación elegante para compartir información de la celebración.",
+  },
+];
+
+export const invitationPdfProjects = [
+  {
+    title: "Boda ranchera",
+    category: "Invitación PDF",
+    url: "https://www.instagram.com/reel/DC2HN9PKFdW/",
+    image: "/prime-design-portfolio/boda-ranchera-pdf-limpia.png",
+    description:
+      "Invitación digital en PDF con una dirección visual ranchera creada para una boda temática.",
+  },
+  {
+    title: "Celebración mágica",
+    category: "Invitación PDF",
+    url: "https://www.instagram.com/reel/DCkGPSQSwlP/",
+    image: "/prime-design-portfolio/celebracion-magica-pdf-limpia.png",
+    description:
+      "Pieza digital personalizada para compartir una celebración con una composición visual cálida y memorable.",
+  },
+  {
+    title: "Invitación de princesas",
+    category: "Invitación PDF infantil",
+    url: "https://www.instagram.com/reel/C_I2-iMRdfE/",
+    image: "/prime-design-portfolio/princesas-pdf-limpia.png",
+    description:
+      "Diseño digital infantil en PDF con temática de princesas, adaptado a los datos y estilo de la celebración.",
+  },
+  {
+    title: "XV años",
+    category: "Invitación PDF",
+    url: "https://www.instagram.com/reel/C_f46_QRqc9/",
+    image: "/prime-design-portfolio/xv-anos-pdf-limpia.png",
+    description:
+      "Invitación digital para XV años con presentación editorial y formato práctico para compartir desde el celular.",
   },
 ];
