@@ -97,6 +97,9 @@ const embeddableUrls = new Set([
   "https://rifaselguero.com.mx/",
 ]);
 
+/** Sitios que hoy no responden: se usan las capturas guardadas del portafolio anterior. */
+const offlineShots = new Set(["sorteo-mike", "inapecc"]);
+
 const accents = ["#38bdf8", "#a78bfa", "#34d399", "#fb7185", "#fbbf24", "#22d3ee", "#f472b6", "#60a5fa", "#4ade80", "#f97316"];
 
 const slugFromImage = (path: string) => path.split("/").pop()!.replace(/-desktop\.png$/, "");
