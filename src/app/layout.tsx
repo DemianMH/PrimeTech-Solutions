@@ -1,14 +1,19 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import "./v7.css";
 import { MetaPixel } from "@/components/site/MetaPixel";
 import { SiteFooter, SiteHeader, WhatsAppFloat } from "@/components/site/SiteShell";
 import { siteConfig } from "@/lib/site";
 
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+const grotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-grotesk", display: "swap" });
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.domain),
   title: {
-    default: "PrimeTech Solutions | Tecnología, IA, sitios web y soporte para negocios",
+    default: "Diseño web, chatbots IA y automatización en Guadalajara | PrimeTech Solutions",
     template: "%s | PrimeTech Solutions",
   },
   description: siteConfig.description,
@@ -73,7 +78,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   };
 
   return (
-    <html lang="es">
+    <html lang="es-MX" className={`${inter.variable} ${grotesk.variable}`}>
       <body>
         <MetaPixel />
         <script

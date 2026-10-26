@@ -1,134 +1,258 @@
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, MousePointer2, ShieldCheck, Sparkles } from "lucide-react";
-import { MotionLines, PrimeRobot } from "@/components/site/Visuals";
-import { portfolio, processSteps, services, trustSignals } from "@/lib/site";
+import { ArrowRight, ArrowUpRight, CheckCircle2, MessageCircle, Sparkles } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
+import { HeroStage } from "@/components/three/HeroStage";
+import type { OrbitService } from "@/components/three/HeroScene";
+import { PrimeComputer } from "@/components/site/PrimeComputer";
+import { automationProjects, processSteps, services, siteConfig } from "@/lib/site";
+import { featuredShowcase, showcaseProjects } from "@/lib/showcase";
+
+const orbitServices: OrbitService[] = [
+  { slug: "sitios-web", label: "Sitios web", color: "#3b82f6", shape: "screen" },
+  { slug: "chatbots-agentes-ia", label: "Chatbots IA", color: "#a855f7", shape: "chat" },
+  { slug: "automatizaciones", label: "Automatización", color: "#14b8a6", shape: "bolt" },
+  { slug: "cctv", label: "CCTV", color: "#0ea5e9", shape: "camera" },
+  { slug: "nube", label: "Nube", color: "#22c55e", shape: "cloud" },
+  { slug: "infraestructura", label: "Redes", color: "#f59e0b", shape: "rack" },
+];
+
+/** Los tres servicios con más demanda van al frente con su propio bloque. */
+const topServices = [
+  {
+    slug: "sitios-web",
+    kicker: "El más pedido",
+    title: "Sitios web que se ven premium y generan cotizaciones",
+    points: ["Diseño a medida, rápido y responsivo", "SEO técnico y local desde el día uno", "WhatsApp, formularios y analítica integrados"],
+  },
+  {
+    slug: "chatbots-agentes-ia",
+    kicker: "Atención 24/7",
+    title: "Chatbots con IA para WhatsApp, Instagram y web",
+    points: ["Responde, califica y agenda sin esperar", "Entrenado con la información de tu negocio", "Pasa a una persona cuando hace falta"],
+  },
+  {
+    slug: "automatizaciones",
+    kicker: "Menos trabajo manual",
+    title: "Automatizaciones con n8n que conectan todo tu negocio",
+    points: ["CRM, hojas de cálculo, correo y APIs conectados", "Alertas y seguimiento sin capturas repetidas", "Servidor propio: tus datos bajo tu control"],
+  },
+];
+
+const faqs: [string, string][] = [
+  [
+    "¿Cuánto cuesta una página web para mi negocio en Guadalajara?",
+    "Depende del alcance: una landing de conversión cuesta menos que un sitio con catálogo, portal o panel administrable. Te damos una cotización cerrada después de un diagnóstico corto y sin costo.",
+  ],
+  [
+    "¿Cuánto tarda en estar lista?",
+    "Una landing puede estar en una a dos semanas; sitios con catálogo, portales o integraciones se entregan por etapas con avances visibles.",
+  ],
+  [
+    "¿Pueden conectar un chatbot de WhatsApp con IA a mi negocio?",
+    "Sí. Implementamos bots con IA conectados a WhatsApp, Instagram y Facebook, entrenados con tu información y con traspaso a una persona cuando el cliente lo necesita.",
+  ],
+  [
+    "¿Qué incluye el SEO?",
+    "Estructura limpia, velocidad, metadata, datos estructurados, sitemap, configuración en Google Search Console y contenido pensado para búsquedas locales.",
+  ],
+  [
+    "¿Cómo son los pagos?",
+    "En proyectos mayores a $2,500 MXN trabajamos 50% de anticipo y 50% al terminar. Incluimos 7 días hábiles de ajustes sobre el alcance aprobado.",
+  ],
+  [
+    "¿También dan soporte, CCTV y redes?",
+    "Sí. Además de software instalamos cámaras, redes, Wi-Fi y nube, y damos soporte a equipos, para que un solo equipo cubra tu tecnología.",
+  ],
+];
 
 export default function HomePage() {
+  const whatsapp = `https://wa.me/${siteConfig.phone}?text=${encodeURIComponent(
+    "Hola PrimeTech, quiero cotizar un proyecto."
+  )}`;
+  const projectCount = showcaseProjects.length + automationProjects.length;
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map(([question, answer]) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: { "@type": "Answer", text: answer },
+    })),
+  };
+
   return (
-    <>
-      <section className="hero-section">
-        <MotionLines />
-        <div className="hero-copy">
-          <span className="eyebrow">Tecnología clara para negocios que avanzan</span>
+    <div className="x-home">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+
+      <section className="x-hero">
+        <div className="x-hero-grid" aria-hidden="true" />
+        <div className="x-hero-copy">
+          <span className="x-eyebrow">
+            <i /> Agencia de tecnología en Guadalajara
+          </span>
           <h1>
-            Tu operacion puede verse
-            <span className="word-stage">
-              <span>más rápida</span>
-              <span>más segura</span>
-              <span>más inteligente</span>
-            </span>
+            Sitios web, chatbots con IA y automatizaciones <em>que venden por ti.</em>
           </h1>
           <p>
-            En PrimeTech Solutions construimos sitios web, automatizaciones, agentes IA, nube,
-            CCTV, redes y soporte con una meta: que tu negocio venda mejor y trabaje sin friccion.
+            Diseñamos y programamos la tecnología de tu negocio: páginas que posicionan en Google, bots de
+            WhatsApp que atienden 24/7 y flujos que eliminan el trabajo repetitivo. Además, CCTV, redes y nube.
           </p>
-          <div className="hero-actions">
-            <Link href="/servicios" className="primary-action">
-              Ver servicios <ArrowRight size={18} />
-            </Link>
-            <Link href="/portafolio" className="secondary-action">
-              Portafolio <MousePointer2 size={18} />
+          <div className="x-hero-actions">
+            <a href={whatsapp} target="_blank" rel="noreferrer" className="x-btn x-btn-primary">
+              <FaWhatsapp size={18} /> Cotizar por WhatsApp
+            </a>
+            <Link href="#proyectos" className="x-btn x-btn-ghost">
+              Ver proyectos en vivo <ArrowRight size={17} />
             </Link>
           </div>
+          <dl className="x-hero-stats">
+            <div>
+              <dt>{projectCount}+</dt>
+              <dd>proyectos publicados</dd>
+            </div>
+            <div>
+              <dt>24/7</dt>
+              <dd>bots atendiendo</dd>
+            </div>
+            <div>
+              <dt>7 días</dt>
+              <dd>de ajustes incluidos</dd>
+            </div>
+          </dl>
         </div>
-        <PrimeRobot />
+        <HeroStage services={orbitServices} />
       </section>
 
-      <section className="signal-band">
-        {trustSignals.map((signal) => (
-          <div key={signal.label}>
-            <strong>{signal.value}</strong>
-            <span>{signal.label}</span>
-          </div>
-        ))}
+      <section className="x-marquee" aria-label="Algunos clientes">
+        <div className="x-marquee-track">
+          {[...showcaseProjects, ...showcaseProjects].map((project, i) => (
+            <span key={`${project.slug}-${i}`} aria-hidden={i >= showcaseProjects.length}>
+              <i style={{ background: project.accent }} /> {project.title}
+            </span>
+          ))}
+        </div>
       </section>
 
-      <section className="section-wrap">
-        <div className="section-heading">
-          <span className="eyebrow">Servicios</span>
-          <h2>Todo lo tecnologico que tu negocio necesita, separado por especialidad.</h2>
-          <p>
-            Cada servicio tiene alcance, proceso y condiciones claras desde el inicio para que puedas
-            tomar decisiones rápido.
-          </p>
-        </div>
-        <div className="service-grid">
-          {services.map((service) => {
+      <section className="x-section">
+        <header className="x-head">
+          <span className="x-eyebrow dark">
+            <i /> Lo que más nos piden
+          </span>
+          <h2>Tres servicios que mueven las ventas de nuestros clientes.</h2>
+        </header>
+        <div className="x-top-services">
+          {topServices.map((item, i) => {
+            const service = services.find((s) => s.slug === item.slug)!;
             const Icon = service.icon;
             return (
-              <Link href={`/servicios/${service.slug}`} className="service-card" key={service.slug}>
-                <span className="service-icon" style={{ color: service.accent }}>
+              <Link href={`/servicios/${item.slug}`} key={item.slug} className="x-top-card" style={{ ["--c" as string]: service.accent }}>
+                <span className="x-top-index">0{i + 1}</span>
+                <span className="x-top-icon">
                   <Icon size={26} />
                 </span>
-                <h3>{service.shortTitle}</h3>
-                <p>{service.summary}</p>
-                <span className="card-link">
-                  Ver detalle <ArrowRight size={16} />
+                <span className="x-top-kicker">{item.kicker}</span>
+                <h3>{item.title}</h3>
+                <ul>
+                  {item.points.map((point) => (
+                    <li key={point}>
+                      <CheckCircle2 size={16} /> {point}
+                    </li>
+                  ))}
+                </ul>
+                <span className="x-link">
+                  Ver servicio <ArrowUpRight size={16} />
                 </span>
               </Link>
             );
           })}
         </div>
+
+        <div className="x-more-services">
+          <span>También resolvemos:</span>
+          {services
+            .filter((s) => !topServices.some((t) => t.slug === s.slug))
+            .map((service) => {
+              const Icon = service.icon;
+              return (
+                <Link key={service.slug} href={`/servicios/${service.slug}`} style={{ ["--c" as string]: service.accent }}>
+                  <Icon size={17} /> {service.shortTitle}
+                </Link>
+              );
+            })}
+        </div>
       </section>
 
-      <section className="process-section">
-        <div className="section-heading compact">
-          <span className="eyebrow">Proceso</span>
-          <h2>Trabajamos por diagnostico, avance y entrega medible.</h2>
+      <section className="x-showcase" id="proyectos">
+        <header className="x-head light">
+          <span className="x-eyebrow">
+            <i /> Portafolio interactivo
+          </span>
+          <h2>No te mostramos fotos: navega nuestros proyectos.</h2>
+          <p>
+            Usa la computadora como si fuera tuya: cambia de pestaña, mira la versión de celular, recorre cada
+            página y entra al sitio real.
+          </p>
+        </header>
+        <PrimeComputer projects={[...featuredShowcase, ...showcaseProjects.filter((p) => !p.featured)]} compact />
+        <div className="x-center">
+          <Link href="/portafolio" className="x-btn x-btn-ghost">
+            Ver los {showcaseProjects.length} proyectos y automatizaciones <ArrowRight size={17} />
+          </Link>
         </div>
-        <div className="timeline">
-          {processSteps.map((step, index) => (
-            <article key={step.title} className="timeline-item">
-              <span>{String(index + 1).padStart(2, "0")}</span>
+      </section>
+
+      <section className="x-section">
+        <header className="x-head">
+          <span className="x-eyebrow dark">
+            <i /> Cómo trabajamos
+          </span>
+          <h2>Del diagnóstico a la entrega, sin sorpresas.</h2>
+        </header>
+        <ol className="x-steps">
+          {processSteps.map((step, i) => (
+            <li key={step.title}>
+              <span>{String(i + 1).padStart(2, "0")}</span>
               <h3>{step.title}</h3>
               <p>{step.text}</p>
-            </article>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section className="x-section x-faq-wrap">
+        <header className="x-head">
+          <span className="x-eyebrow dark">
+            <i /> Preguntas frecuentes
+          </span>
+          <h2>Lo que nos preguntan antes de empezar.</h2>
+        </header>
+        <div className="x-faq">
+          {faqs.map(([question, answer]) => (
+            <details key={question}>
+              <summary>{question}</summary>
+              <p>{answer}</p>
+            </details>
           ))}
         </div>
       </section>
 
-      <section className="proof-section">
-        <div className="proof-copy">
-          <span className="eyebrow">Impacto</span>
-          <h2>Tu tecnología debe ayudar a vender, responder, proteger y ordenar.</h2>
-          <p>
-            Un buen proyecto no es solo bonito. Debe cargar rápido, dejar procesos claros, reducir
-            errores y convertir la confianza digital en oportunidades reales.
-          </p>
-          <ul className="check-list">
-            <li><CheckCircle2 size={18} /> Sitios preparados para cotizaciones y WhatsApp.</li>
-            <li><CheckCircle2 size={18} /> Automatizaciones para seguimiento y control.</li>
-            <li><CheckCircle2 size={18} /> Infraestructura lista para operar y crecer.</li>
-          </ul>
-        </div>
-        <div className="case-stack">
-          {portfolio.map((item) => (
-            <article key={item.title}>
-              <span>{item.category}</span>
-              <h3>{item.title}</h3>
-              <p>{item.result}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="cta-section">
+      <section className="x-cta">
         <div>
-          <span className="eyebrow">Siguiente paso</span>
-          <h2>Cuentalo en 3 minutos. Te regresamos una ruta clara.</h2>
+          <span className="x-eyebrow">
+            <i /> Diagnóstico sin costo
+          </span>
+          <h2>Cuéntanos tu proyecto y te respondemos hoy con una ruta clara.</h2>
         </div>
-        <Link href="/contacto" className="primary-action">
-          Solicitar diagnostico <Sparkles size={18} />
-        </Link>
+        <div className="x-cta-actions">
+          <a href={whatsapp} target="_blank" rel="noreferrer" className="x-btn x-btn-primary">
+            <FaWhatsapp size={18} /> Escribir por WhatsApp
+          </a>
+          <Link href="/contacto" className="x-btn x-btn-ghost">
+            <MessageCircle size={17} /> Formulario de contacto
+          </Link>
+        </div>
+        <Sparkles className="x-cta-spark" size={120} aria-hidden="true" />
       </section>
-
-      <section className="mini-seo-section">
-        <ShieldCheck size={22} />
-        <p>
-          Trabajamos con practicas SEO limpias: estructura, velocidad, contenido util, metadata,
-          sitemap y posicionamiento local. Sin palabras escondidas ni tecnicas que pongan en riesgo tu dominio.
-        </p>
-      </section>
-    </>
+    </div>
   );
 }
