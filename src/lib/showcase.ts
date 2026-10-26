@@ -8,6 +8,8 @@ export type ShowcaseProject = {
   /** El sitio permite mostrarse dentro de un iframe (sin X-Frame-Options / frame-ancestors). */
   embeddable: boolean;
   featured?: boolean;
+  /** El sitio ya no está en línea: solo se muestra la imagen, sin enlaces. */
+  offline?: boolean;
   accent: string;
   shots: { desktop: string; mobile: string };
   description: string;
@@ -97,6 +99,9 @@ const embeddableUrls = new Set([
   "https://rifaselguero.com.mx/",
 ]);
 
+/** Sitios que ya no responden (dominio vencido o servidor caído). */
+const offlineSlugs = new Set(["sorteo-mike", "inapecc"]);
+
 const accents = ["#38bdf8", "#a78bfa", "#34d399", "#fb7185", "#fbbf24", "#22d3ee", "#f472b6", "#60a5fa", "#4ade80", "#f97316"];
 
 const slugFromImage = (path: string) => path.split("/").pop()!.replace(/-desktop\.png$/, "");
@@ -109,6 +114,7 @@ const legacyProjects: ShowcaseProject[] = portfolioProjects.map((project, index)
     category: project.category,
     url: project.url,
     embeddable: embeddableUrls.has(project.url),
+    offline: offlineSlugs.has(slug),
     accent: accents[index % accents.length],
     shots: live(slug),
     description: project.description,

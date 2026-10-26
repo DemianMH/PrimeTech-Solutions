@@ -1355,3 +1355,181 @@ h3 {
     font-size: 9.5px;
   }
 }
+
+.pc-archived {
+  color: var(--x-dim);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* ---------- Header oscuro y jalador realista ---------- */
+
+body:has(.x-home) {
+  background: #04060d;
+}
+
+.site-header {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(8, 12, 26, 0.78);
+  box-shadow: 0 18px 50px rgba(2, 6, 23, 0.35);
+}
+
+.site-header .brand-text strong {
+  color: #fff;
+}
+
+.site-header .brand-text small {
+  color: #7cc4ff;
+}
+
+.site-header .nav-pill {
+  color: #cbd5e1;
+}
+
+.site-header .nav-pill:hover,
+.site-header .nav-pill.active {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.site-header .mega-menu,
+.site-header .mobile-menu {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(8, 12, 26, 0.96);
+}
+
+.site-header .mega-item,
+.site-header .mobile-menu a {
+  color: #e2e8f0;
+  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.site-header .mega-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.site-header .mobile-menu-button {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.pull-cord {
+  position: absolute;
+  top: 0;
+  right: max(0.9rem, calc((100vw - 1180px) / 2 - 3rem));
+  z-index: 35;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0;
+  transform-origin: top center;
+  animation: cordSway 4.5s ease-in-out infinite;
+}
+
+.cord-string {
+  width: 2px;
+  height: 70px;
+  background: repeating-linear-gradient(180deg, #e5e9f0 0 3px, #8e97a8 3px 6px);
+  transition: height 220ms cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+.cord-knot {
+  width: 8px;
+  height: 8px;
+  margin-top: -1px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #f8fafc, #8b95a7);
+}
+
+.cord-bob {
+  width: 22px;
+  height: 36px;
+  margin-top: -2px;
+  border-radius: 50% 50% 46% 46% / 34% 34% 66% 66%;
+  background: radial-gradient(circle at 34% 28%, #fff 0 7%, #e4e9f1 26%, #a2adbf 70%, #6a7487);
+  box-shadow: inset -3px -5px 7px rgba(0, 0, 0, 0.25), 0 12px 20px rgba(0, 0, 0, 0.35);
+}
+
+.pull-cord-design .cord-bob {
+  background: radial-gradient(circle at 34% 28%, #fff4e0 0 7%, #e9c48f 28%, #b47a43 70%, #7a4a22);
+}
+
+.cord-hint {
+  position: absolute;
+  top: 82px;
+  right: calc(100% + 12px);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(8, 12, 26, 0.9);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+  font: 700 0.78rem/1 var(--font-inter), Inter, sans-serif;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(8px);
+  pointer-events: none;
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.cord-hint svg {
+  animation: hintNudge 1s ease-in-out infinite;
+}
+
+.pull-cord:hover,
+.pull-cord:focus-visible {
+  animation-play-state: paused;
+}
+
+.pull-cord:hover .cord-string,
+.pull-cord:focus-visible .cord-string {
+  height: 84px;
+}
+
+.pull-cord:active .cord-string {
+  height: 104px;
+}
+
+.pull-cord:hover .cord-hint,
+.pull-cord:focus-visible .cord-hint {
+  opacity: 1;
+  transform: none;
+}
+
+.pull-cord:hover .cord-hint {
+  top: 96px;
+}
+
+@keyframes cordSway {
+  25% { transform: rotate(2.5deg); }
+  75% { transform: rotate(-2.5deg); }
+}
+
+@keyframes hintNudge {
+  50% { transform: translateX(3px); }
+}
+
+@media (max-width: 1300px) {
+  .cord-string {
+    height: 104px;
+  }
+
+  .pull-cord:hover .cord-string {
+    height: 116px;
+  }
+
+  .cord-hint,
+  .pull-cord:hover .cord-hint {
+    top: 120px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pull-cord,
+  .cord-hint svg {
+    animation: none;
+  }
+}

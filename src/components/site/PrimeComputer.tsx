@@ -179,10 +179,17 @@ export function PrimeComputer({ projects, compact = false }: { projects: Showcas
                   <button type="button" onClick={reload} aria-label="Recargar">
                     <RotateCw size={14} className={loading ? "spin" : ""} />
                   </button>
-                  <a className="pc-url" href={project.url} target="_blank" rel="noreferrer" title="Abrir sitio real">
-                    <Lock size={12} />
-                    <span>{host}</span>
-                  </a>
+                  {project.offline ? (
+                    <span className="pc-url">
+                      <Lock size={12} />
+                      <span>{host}</span>
+                    </span>
+                  ) : (
+                    <a className="pc-url" href={project.url} target="_blank" rel="noreferrer" title="Abrir sitio real">
+                      <Lock size={12} />
+                      <span>{host}</span>
+                    </a>
+                  )}
                   <div className="pc-switch" role="group" aria-label="Dispositivo">
                     <button type="button" className={view === "desktop" ? "on" : ""} onClick={() => setView("desktop")} aria-label="Vista escritorio">
                       <Monitor size={14} />
@@ -201,9 +208,11 @@ export function PrimeComputer({ projects, compact = false }: { projects: Showcas
                       </button>
                     </div>
                   )}
-                  <a className="pc-open" href={project.url} target="_blank" rel="noreferrer">
-                    Entrar <ArrowUpRight size={14} />
-                  </a>
+                  {!project.offline && (
+                    <a className="pc-open" href={project.url} target="_blank" rel="noreferrer">
+                      Entrar <ArrowUpRight size={14} />
+                    </a>
+                  )}
                 </div>
 
                 <div className={`pc-viewport pc-view-${view}`}>
@@ -236,7 +245,11 @@ export function PrimeComputer({ projects, compact = false }: { projects: Showcas
                     )}
                     {!showLive && (
                       <span className="pc-hint">
-                        {canEmbed ? "Captura navegable" : "Vista navegable · el sitio real se abre con «Entrar»"}
+                        {project.offline
+                          ? "Proyecto archivado"
+                          : canEmbed
+                            ? "Captura navegable"
+                            : "Vista navegable · el sitio real se abre con «Entrar»"}
                       </span>
                     )}
                   </div>
@@ -269,7 +282,7 @@ export function PrimeComputer({ projects, compact = false }: { projects: Showcas
 
       <article className="pc-info" aria-live="polite">
         <div className="pc-info-head">
-          <span className="pc-badge">{project.featured ? "Nuevo" : "Proyecto"}</span>
+          <span className="pc-badge">{project.featured ? "Nuevo" : project.offline ? "Archivo" : "Proyecto"}</span>
           <span className="pc-cat">{project.category}</span>
         </div>
         <h3>{project.title}</h3>
@@ -290,9 +303,13 @@ export function PrimeComputer({ projects, compact = false }: { projects: Showcas
           ))}
         </div>
         <div className="pc-actions">
-          <a href={project.url} target="_blank" rel="noreferrer" className="x-btn x-btn-primary">
-            Visitar sitio <ArrowUpRight size={16} />
-          </a>
+          {project.offline ? (
+            <span className="pc-archived">Este sitio ya no está en línea</span>
+          ) : (
+            <a href={project.url} target="_blank" rel="noreferrer" className="x-btn x-btn-primary">
+              Visitar sitio <ArrowUpRight size={16} />
+            </a>
+          )}
           <div className="pc-nav">
             <button type="button" onClick={() => open((index - 1 + projects.length) % projects.length)} aria-label="Proyecto anterior">
               <ArrowLeft size={18} />

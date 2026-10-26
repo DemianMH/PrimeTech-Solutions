@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, Palette, Rocket, Sparkles, X } from "lucide-react";
+import { ArrowRight, Menu, Palette, Rocket, X } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import { useState, type Dispatch, type SetStateAction } from "react";
 import { navItems, services, siteConfig } from "@/lib/site";
@@ -237,16 +237,11 @@ export function WhatsAppFloat() {
 function PullCord({ href, label, variant }: { href: string; label: string; variant: "tech" | "design" }) {
   return (
     <Link href={href} className={`pull-cord pull-cord-${variant}`} aria-label={label}>
-      <span className="cord-chain">
-        <i />
-        <i />
-        <i />
-        <i />
-        <i />
-      </span>
-      <span className="cord-handle">
-        <Sparkles size={16} />
-        <b>{variant === "tech" ? "Design" : "Tech"}</b>
+      <span className="cord-string" aria-hidden="true" />
+      <span className="cord-knot" aria-hidden="true" />
+      <span className="cord-bob" aria-hidden="true" />
+      <span className="cord-hint" aria-hidden="true">
+        {variant === "tech" ? "Cambiar a diseño" : "Cambiar a tech"} <ArrowRight size={14} />
       </span>
     </Link>
   );
