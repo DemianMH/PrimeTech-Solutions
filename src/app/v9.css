@@ -779,3 +779,111 @@ kbd {
     margin: -56px 0 0 -90px;
   }
 }
+
+/* ---------- Juego mejorado ---------- */
+
+.game-screen {
+  height: clamp(560px, 72vh, 700px);
+  border-color: rgba(255, 183, 3, 0.45);
+  box-shadow: 0 0 0 6px rgba(255, 140, 26, 0.08), 0 40px 90px rgba(0, 0, 0, 0.6);
+}
+
+.game-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.85rem;
+  border: 1px solid rgba(255, 183, 3, 0.5);
+  border-radius: 999px;
+  color: #ffd166;
+  background: rgba(255, 183, 3, 0.1);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.game-pick {
+  background:
+    radial-gradient(40rem 22rem at 50% 0%, rgba(255, 79, 163, 0.25), transparent 70%),
+    radial-gradient(30rem 20rem at 50% 100%, rgba(255, 140, 26, 0.2), transparent 70%),
+    rgba(10, 5, 24, 0.94);
+}
+
+.game-pick-goal {
+  margin: -0.4rem 0 0.4rem;
+  color: #d8d0ea;
+}
+
+.sprite-stage {
+  display: grid;
+  place-items: center;
+  width: 110px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 70%, rgba(255, 183, 3, 0.35), transparent 65%);
+}
+
+.game-pick-grid button:hover .sprite-stage,
+.game-pick-grid button.on .sprite-stage {
+  background: radial-gradient(circle at 50% 70%, rgba(255, 79, 163, 0.45), transparent 65%);
+}
+
+.sprite-preview {
+  height: 104px;
+}
+
+.game-done {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 0.8rem;
+  margin: auto;
+  text-align: center;
+}
+
+.game-done svg {
+  color: #ffb703;
+}
+
+.game-done p {
+  margin: 0;
+  color: #d8d0ea;
+}
+
+.game-done .pj-cta {
+  --pj: #ffb703;
+}
+
+.confetti {
+  position: absolute;
+  inset: -40vh -40vw;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.confetti i {
+  position: absolute;
+  top: -20px;
+  width: 9px;
+  height: 14px;
+  border-radius: 2px;
+  animation: confetti 2.6s ease-in infinite;
+}
+
+@keyframes confetti {
+  to {
+    transform: translateY(110vh) rotate(720deg);
+  }
+}
+
+@media (max-width: 900px) {
+  .game-count {
+    flex: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .confetti {
+    display: none;
+  }
+}
