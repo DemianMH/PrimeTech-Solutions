@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { ArrowDown, ArrowUpRight, Check } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
-import { HeroStage } from "@/components/three/HeroStage";
-import type { OrbitService } from "@/components/three/HeroScene";
+import { HeroShowcase } from "@/components/experience/HeroShowcase";
 import { IntroLoader } from "@/components/experience/IntroLoader";
 import { ChapterRail, type Chapter } from "@/components/experience/ChapterRail";
 import { RevealObserver } from "@/components/experience/RevealObserver";
@@ -11,15 +10,6 @@ import { ProjectsCarousel } from "@/components/projects/ProjectsCarousel";
 import { AutomationWorkflow } from "@/components/site/AutomationWorkflow";
 import { automationProjects, processSteps, services, siteConfig } from "@/lib/site";
 import { showcaseProjects } from "@/lib/showcase";
-
-const orbitServices: OrbitService[] = [
-  { slug: "sitios-web", label: "Sitios web", color: "#3b82f6", shape: "screen" },
-  { slug: "chatbots-agentes-ia", label: "Chatbots IA", color: "#a855f7", shape: "chat" },
-  { slug: "automatizaciones", label: "Automatización", color: "#14b8a6", shape: "bolt" },
-  { slug: "cctv", label: "CCTV", color: "#0ea5e9", shape: "camera" },
-  { slug: "nube", label: "Nube", color: "#22c55e", shape: "cloud" },
-  { slug: "infraestructura", label: "Redes", color: "#f59e0b", shape: "rack" },
-];
 
 const chapters: Chapter[] = [
   { id: "inicio", label: "Inicio" },
@@ -92,7 +82,7 @@ export default function HomePage() {
       <ChapterRail chapters={chapters} />
 
       <section id="inicio" className="ch ch-hero">
-        <HeroStage services={orbitServices} />
+        <HeroShowcase />
         <div className="hero-copy reveal">
           <span className="xp-kicker">Agencia de tecnología · Guadalajara</span>
           <h1>
