@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import "./v7.css";
+import "./v8.css";
 import { MetaPixel } from "@/components/site/MetaPixel";
 import { SiteFooter, SiteHeader, WhatsAppFloat } from "@/components/site/SiteShell";
 import { siteConfig } from "@/lib/site";

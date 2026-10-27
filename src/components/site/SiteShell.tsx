@@ -3,19 +3,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowRight, Menu, Palette, Rocket, X } from "lucide-react";
+import { ArrowRight, Menu, Palette, X } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import { useState, type Dispatch, type SetStateAction } from "react";
-import { navItems, services, siteConfig } from "@/lib/site";
+import { siteConfig } from "@/lib/site";
 import { designBrand, designNav } from "@/lib/prime-design";
+import { FloatingNav } from "@/components/experience/FloatingNav";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const isDesign = pathname?.startsWith("/prime-design");
-  const whatsappHref = `https://wa.me/${siteConfig.phone}?text=${encodeURIComponent(
-    "Hola PrimeTech, quiero una cotización para mi negocio."
-  )}`;
 
   if (isDesign) {
     return <DesignHeader open={open} setOpen={setOpen} pathname={pathname || ""} />;
@@ -24,95 +22,7 @@ export function SiteHeader() {
   return (
     <>
       <PullCord href="/prime-design" label="Jalar a Prime Design" variant="tech" />
-      <header className="site-header">
-        <Link href="/" className="brand-link" aria-label="PrimeTech Solutions inicio">
-          <Image
-            src="/logo-color.png"
-            width={46}
-            height={46}
-            alt="PrimeTech Solutions"
-            priority
-            className="brand-mark"
-          />
-          <span className="brand-text">
-            <strong>PrimeTech</strong>
-            <small>Solutions</small>
-          </span>
-        </Link>
-
-        <nav className="desktop-nav" aria-label="Navegacion principal">
-          <div className="nav-drop">
-            <Link
-              href="/servicios"
-              className={`nav-pill ${pathname?.startsWith("/servicios") ? "active" : ""}`}
-            >
-              Servicios
-            </Link>
-            <div className="mega-menu" role="menu">
-              <div className="mega-copy">
-                <span>Soluciones PrimeTech</span>
-                <strong>Elige un area y mira el alcance completo.</strong>
-              </div>
-              <div className="mega-grid">
-                {services.map((service) => {
-                  const Icon = service.icon;
-                  return (
-                    <Link href={`/servicios/${service.slug}`} className="mega-item" key={service.slug}>
-                      <span style={{ color: service.accent }}>
-                        <Icon size={20} />
-                      </span>
-                      <span>{service.shortTitle}</span>
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-          {navItems.slice(1).map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`nav-pill ${pathname === item.href ? "active" : ""}`}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-
-        <a className="quote-button desktop-quote" href={whatsappHref} target="_blank" rel="noreferrer">
-          <FaWhatsapp size={20} />
-          Cotizar
-        </a>
-
-        <button className="mobile-menu-button" type="button" onClick={() => setOpen((value) => !value)} aria-label="Abrir menu">
-          {open ? <X size={22} /> : <Menu size={22} />}
-        </button>
-
-        {open && (
-          <div className="mobile-menu">
-            <Link href="/servicios" onClick={() => setOpen(false)}>
-              <Rocket size={18} /> Servicios
-            </Link>
-            {services.map((service) => (
-              <Link key={service.slug} href={`/servicios/${service.slug}`} onClick={() => setOpen(false)}>
-                {service.shortTitle}
-              </Link>
-            ))}
-            <Link href="/portafolio" onClick={() => setOpen(false)}>
-              Portafolio
-            </Link>
-            <Link href="/nosotros" onClick={() => setOpen(false)}>
-              Nosotros
-            </Link>
-            <Link href="/contacto" onClick={() => setOpen(false)}>
-              Contacto
-            </Link>
-            <a href={whatsappHref} target="_blank" rel="noreferrer" className="mobile-whatsapp-link">
-              <FaWhatsapp size={18} /> WhatsApp
-            </a>
-          </div>
-        )}
-      </header>
+      <FloatingNav />
     </>
   );
 }

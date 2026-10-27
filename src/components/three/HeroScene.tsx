@@ -3,7 +3,7 @@
 import { useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Float, Html, MeshDistortMaterial, RoundedBox, Sparkles, Torus } from "@react-three/drei";
+import { Float, Html, MeshDistortMaterial, RoundedBox, Sparkles, Stars, Torus } from "@react-three/drei";
 import type { Group, Mesh } from "three";
 
 export type OrbitService = {
@@ -160,13 +160,15 @@ function PointerRig({ children, reducedMotion }: { children: React.ReactNode; re
   const ref = useRef<Group>(null);
   // En pantallas angostas la escena se acerca para ocupar el ancho disponible.
   const narrow = useThree((state) => state.size.width < 520);
+  // A pantalla completa en escritorio el núcleo se desplaza a la derecha, junto al texto.
+  const wide = useThree((state) => state.size.width > 1000);
   useFrame(({ pointer }) => {
     if (!ref.current || reducedMotion) return;
     ref.current.rotation.y += (pointer.x * 0.35 - ref.current.rotation.y) * 0.05;
     ref.current.rotation.x += (-pointer.y * 0.2 - ref.current.rotation.x) * 0.05;
   });
   return (
-    <group ref={ref} scale={narrow ? 0.98 : 0.78}>
+    <group ref={ref} scale={narrow ? 0.98 : 0.78} position={[wide ? 1.9 : 0, narrow ? -0.2 : 0, 0]}>
       {children}
     </group>
   );
@@ -192,6 +194,7 @@ export default function HeroScene({ services, active, reducedMotion }: SceneProp
           <OrbitNode key={service.slug} service={service} index={index} total={nodes.length} />
         ))}
       </PointerRig>
+      <Stars radius={60} depth={40} count={1800} factor={3} saturation={0} fade speed={0.6} />
       <Sparkles count={70} scale={[9, 5, 4]} size={2.2} speed={0.35} color="#9cc9ff" opacity={0.7} />
     </Canvas>
   );
