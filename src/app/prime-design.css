@@ -1,0 +1,493 @@
+/* ==========================================================================
+   Prime Design — identidad CMYK (colores de imprenta)
+   Cian, magenta, amarillo y negro sobre papel; marcas de registro y desfase de impresión.
+   ========================================================================== */
+
+:root {
+  --cy: #00a8e8;
+  --mg: #e6007e;
+  --ye: #ffd400;
+  --kk: #121212;
+  --paper: #fbf9f4;
+}
+
+body:has(.design-header) {
+  background:
+    radial-gradient(rgba(18, 18, 18, 0.06) 1px, transparent 1px) 0 0 / 14px 14px,
+    var(--paper);
+}
+
+/* Header */
+.design-header {
+  border: 1px solid rgba(18, 18, 18, 0.08);
+  background: rgba(251, 249, 244, 0.92);
+  box-shadow: 0 14px 36px rgba(18, 18, 18, 0.08);
+}
+
+.design-header::after {
+  content: "";
+  position: absolute;
+  left: 1.6rem;
+  right: 1.6rem;
+  bottom: -1px;
+  height: 4px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--cy) 0 25%, var(--mg) 25% 50%, var(--ye) 50% 75%, var(--kk) 75%);
+}
+
+.design-brand-mark {
+  background: conic-gradient(var(--cy), var(--mg), var(--ye), var(--cy)) !important;
+  color: #fff !important;
+}
+
+.design-nav a {
+  color: #2a2a2a;
+}
+
+.design-nav a:hover,
+.design-nav a.active {
+  color: var(--kk);
+  background: rgba(255, 212, 0, 0.35);
+}
+
+.design-quote,
+.design-primary,
+.design-submit {
+  border: 0;
+  color: #fff;
+  background: var(--kk);
+  box-shadow: 4px 4px 0 var(--mg), -3px -3px 0 var(--cy);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.design-quote:hover,
+.design-primary:hover,
+.design-submit:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 var(--mg), -4px -4px 0 var(--cy);
+}
+
+.design-secondary {
+  border: 2px solid var(--kk);
+  color: var(--kk);
+  background: var(--ye);
+}
+
+.design-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 1rem 1.2rem;
+  border-radius: 999px;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.design-file-note {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #3a3a3a;
+  font-weight: 500;
+}
+
+.design-file-note input {
+  width: auto;
+}
+
+/* Hero */
+.design-hero {
+  min-height: 680px;
+  overflow: visible;
+}
+
+.design-hero::before,
+.design-hero::after {
+  display: none;
+}
+
+.design-eyebrow {
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  color: var(--kk);
+  background: var(--ye);
+  letter-spacing: 0.08em;
+}
+
+.design-hero h1 {
+  color: var(--kk);
+  text-shadow: 3px 3px 0 rgba(230, 0, 126, 0.28), -2px -2px 0 rgba(0, 168, 232, 0.28);
+}
+
+.design-hero h1:hover,
+.design-section-head h1:hover,
+.design-section-head h2:hover,
+.design-split h1:hover {
+  font-family: inherit;
+  font-style: normal;
+}
+
+.design-hero p,
+.design-section-head p,
+.design-split p,
+.product-detail-copy p {
+  color: #3d3d3d;
+}
+
+.cmyk-art {
+  position: relative;
+  height: 560px;
+}
+
+.cmyk-blob {
+  position: absolute;
+  width: 46%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  mix-blend-mode: multiply;
+  opacity: 0.85;
+  filter: blur(0.5px);
+  animation: cmykFloat 9s ease-in-out infinite;
+}
+
+.cmyk-blob.c {
+  top: 6%;
+  left: 10%;
+  background: var(--cy);
+}
+
+.cmyk-blob.m {
+  top: 22%;
+  right: 4%;
+  background: var(--mg);
+  animation-delay: -3s;
+}
+
+.cmyk-blob.y {
+  bottom: 2%;
+  left: 26%;
+  background: var(--ye);
+  animation-delay: -6s;
+}
+
+@keyframes cmykFloat {
+  50% {
+    transform: translate(14px, -18px) scale(1.04);
+  }
+}
+
+.cmyk-piece {
+  position: absolute;
+  z-index: 2;
+  width: 44%;
+  margin: 0;
+  padding: 0.55rem 0.55rem 2.1rem;
+  background: #fff;
+  box-shadow: 0 24px 50px rgba(18, 18, 18, 0.22);
+  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1), z-index 0s;
+}
+
+.cmyk-piece img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 5 / 4;
+  object-fit: cover;
+}
+
+.cmyk-piece figcaption {
+  position: absolute;
+  left: 0.7rem;
+  bottom: 0.55rem;
+  color: var(--kk);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.cmyk-piece:hover {
+  z-index: 5;
+  transform: rotate(0deg) scale(1.06) !important;
+}
+
+.piece-a {
+  top: 4%;
+  left: 2%;
+  transform: rotate(-7deg);
+}
+
+.piece-b {
+  top: 2%;
+  right: 4%;
+  transform: rotate(6deg);
+}
+
+.piece-c {
+  bottom: 6%;
+  left: 8%;
+  transform: rotate(4deg);
+}
+
+.piece-d {
+  bottom: 2%;
+  right: 2%;
+  transform: rotate(-5deg);
+}
+
+.reg-mark {
+  position: absolute;
+  z-index: 3;
+  width: 34px;
+  fill: none;
+  stroke: var(--kk);
+  stroke-width: 1.5;
+}
+
+.reg-mark.r1 {
+  top: -10px;
+  left: 46%;
+}
+
+.reg-mark.r2 {
+  bottom: 40%;
+  right: -12px;
+}
+
+.cmyk-swatches {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  top: 46%;
+  display: flex;
+  border: 3px solid #fff;
+  box-shadow: 0 14px 30px rgba(18, 18, 18, 0.25);
+  transform: translate(-50%, -50%) rotate(-3deg);
+}
+
+.cmyk-swatches i {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.cmyk-swatches .c {
+  color: #fff;
+  background: var(--cy);
+}
+
+.cmyk-swatches .m {
+  color: #fff;
+  background: var(--mg);
+}
+
+.cmyk-swatches .y {
+  color: var(--kk);
+  background: var(--ye);
+}
+
+.cmyk-swatches .k {
+  color: #fff;
+  background: var(--kk);
+}
+
+/* Cinta de materiales */
+.cmyk-marquee {
+  overflow: hidden;
+  margin: 1rem 0 2rem;
+  padding: 1rem 0;
+  color: #fff;
+  background: var(--kk);
+  transform: rotate(-1.5deg) scale(1.02);
+}
+
+.cmyk-marquee > div {
+  display: flex;
+  gap: 2.4rem;
+  width: max-content;
+  animation: x-marquee 40s linear infinite;
+}
+
+.cmyk-marquee span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2vw, 1.6rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.cmyk-marquee i {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+
+.cmyk-marquee i.c {
+  background: var(--cy);
+}
+
+.cmyk-marquee i.m {
+  background: var(--mg);
+}
+
+.cmyk-marquee i.y {
+  background: var(--ye);
+}
+
+.cmyk-marquee i.k {
+  background: #fff;
+}
+
+/* Tarjetas de producto */
+.design-product-card {
+  position: relative;
+  border: 2px solid var(--kk);
+  border-radius: 1.1rem;
+  background: #fff;
+  box-shadow: 5px 5px 0 var(--kk);
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.design-product-card:nth-child(4n + 1):hover {
+  box-shadow: 9px 9px 0 var(--cy);
+}
+
+.design-product-card:nth-child(4n + 2):hover {
+  box-shadow: 9px 9px 0 var(--mg);
+}
+
+.design-product-card:nth-child(4n + 3):hover {
+  box-shadow: 9px 9px 0 var(--ye);
+}
+
+.design-product-card:nth-child(4n + 4):hover {
+  box-shadow: 9px 9px 0 var(--kk);
+}
+
+.design-product-card:hover {
+  transform: translate(-4px, -4px) rotate(-0.6deg);
+}
+
+.design-product-card > span {
+  color: var(--mg);
+}
+
+.design-product-card strong {
+  color: var(--kk);
+}
+
+/* Banda de servicios */
+.design-services-band article {
+  border: 2px solid var(--kk);
+  border-radius: 1.2rem;
+  box-shadow: 6px 6px 0 var(--kk);
+}
+
+.design-services-band article:nth-child(1) {
+  color: #fff;
+  background: #0067a8;
+}
+
+.design-services-band article:nth-child(2) {
+  color: #fff;
+  background: #c4006b;
+}
+
+.design-services-band article:nth-child(3) {
+  color: var(--kk);
+  background: var(--ye);
+}
+
+.design-services-band article h2,
+.design-services-band article p,
+.design-services-band article svg {
+  color: inherit;
+}
+
+/* CTA */
+.design-cta {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  background: var(--kk);
+}
+
+.design-cta::before {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 10px;
+  background: linear-gradient(90deg, var(--cy) 0 33%, var(--mg) 33% 66%, var(--ye) 66%);
+}
+
+.design-cta .design-eyebrow {
+  background: var(--ye);
+}
+
+.design-cta h2,
+.design-cta p {
+  color: #fff;
+}
+
+/* Jalador en páginas de diseño: fuera del header en pantallas anchas, colgando debajo en angostas */
+.pull-cord-design {
+  right: max(0.8rem, calc((100vw - 1180px) / 2 - 3.2rem));
+}
+
+@media (max-width: 1300px) {
+  .pull-cord-design .cord-string {
+    height: 96px;
+  }
+
+  .pull-cord-design:hover .cord-string {
+    height: 108px;
+  }
+
+  .pull-cord-design .cord-hint,
+  .pull-cord-design:hover .cord-hint {
+    top: 112px;
+  }
+}
+
+@media (max-width: 980px) {
+  .cmyk-art {
+    height: 420px;
+  }
+}
+
+@media (max-width: 640px) {
+  .cmyk-art {
+    height: 340px;
+  }
+
+  .cmyk-swatches i {
+    width: 34px;
+    height: 34px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cmyk-blob,
+  .cmyk-marquee > div {
+    animation: none;
+  }
+}
+
+/* Contraste AA en etiquetas del portafolio de invitaciones */
+.invitation-card-copy > span,
+.pdf-invitation-card > div > span {
+  color: #84483a;
+}
+
+.design-cta .design-eyebrow {
+  color: var(--kk);
+}

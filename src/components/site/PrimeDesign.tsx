@@ -1,31 +1,41 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, FileUp, Flag, Palette, PenTool, Ruler, Sparkles } from "lucide-react";
-import { designBrand, type DesignProduct } from "@/lib/prime-design";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
+import type { DesignProduct } from "@/lib/prime-design";
 
+/** Collage CMYK con piezas reales del catálogo, marcas de registro y muestras de color. */
 export function DesignHeroArt() {
+  const pieces = [
+    { src: "/diseño-grafico/lona-front.png", label: "Lona front", cls: "piece-a" },
+    { src: "/diseño-grafico/playera-dtf-adulto.png", label: "Playera DTF", cls: "piece-b" },
+    { src: "/diseño-grafico/tripticos.png", label: "Trípticos", cls: "piece-c" },
+    { src: "/diseño-grafico/vinil-color-impreso.jpg", label: "Vinil impreso", cls: "piece-d" },
+  ];
   return (
-    <div className="design-hero-art" aria-hidden="true">
-      <span className="organic-blob blob-yellow blob-top" />
-      <span className="organic-blob blob-sage blob-left" />
-      <span className="organic-blob blob-sage blob-bottom" />
-      <span className="organic-ring ring-top" />
-      <span className="organic-ring ring-bottom" />
-      <div className="abstract-sky" />
-      <div className="abstract-layer layer-one" />
-      <div className="abstract-layer layer-two" />
-      <div className="abstract-layer layer-three" />
-      <div className="abstract-flag flag-one">
-        <Flag size={18} />
+    <div className="cmyk-art" aria-hidden="true">
+      <span className="cmyk-blob c" />
+      <span className="cmyk-blob m" />
+      <span className="cmyk-blob y" />
+      {pieces.map((piece) => (
+        <figure key={piece.src} className={`cmyk-piece ${piece.cls}`}>
+          <Image src={piece.src} alt="" width={420} height={340} sizes="(max-width: 980px) 45vw, 22vw" />
+          <figcaption>{piece.label}</figcaption>
+        </figure>
+      ))}
+      <svg className="reg-mark r1" viewBox="0 0 40 40">
+        <circle cx="20" cy="20" r="11" />
+        <path d="M20 2v36M2 20h36" />
+      </svg>
+      <svg className="reg-mark r2" viewBox="0 0 40 40">
+        <circle cx="20" cy="20" r="11" />
+        <path d="M20 2v36M2 20h36" />
+      </svg>
+      <div className="cmyk-swatches">
+        <i className="c">C</i>
+        <i className="m">M</i>
+        <i className="y">Y</i>
+        <i className="k">K</i>
       </div>
-      <div className="abstract-flag flag-two">
-        <Sparkles size={18} />
-      </div>
-      <div className="abstract-flag flag-three">
-        <Palette size={18} />
-      </div>
-      <span className="sunken-dot dot-a" />
-      <span className="sunken-dot dot-b" />
     </div>
   );
 }
@@ -53,60 +63,21 @@ export function ProductCard({ product }: { product: DesignProduct }) {
   );
 }
 
-export function ProductQuoteForm({ product }: { product: DesignProduct }) {
-  const message = `Hola Prime Design, quiero cotizar ${product.title}.`;
-  const whatsappHref = `https://wa.me/${designBrand.whatsapp}?text=${encodeURIComponent(message)}`;
+export { ProductQuoteForm } from "./QuoteForm";
 
-  return (
-    <form className="design-form" action={whatsappHref} method="get">
-      <div className="form-title">
-        <FileUp size={22} />
-        <div>
-          <h2>Datos para cotizar</h2>
-          <p>Estos campos ayudan a darte una cotización más precisa y evitar vueltas.</p>
-        </div>
-      </div>
-      <label>
-        Nombre y WhatsApp
-        <input name="contacto" required placeholder="Tu nombre y telefono" />
-      </label>
-      <label>
-        Cantidad aproximada
-        <input name="cantidad" required placeholder="Ej. 100, 500, 1000 piezas" />
-      </label>
-      {product.formFields.slice(2).map((field) => (
-        <label key={field}>
-          {field}
-          {field.toLowerCase().includes("diseño") || field.toLowerCase().includes("diseno") ? (
-            <select name={field}>
-              <option>Con diseño desde cero</option>
-              <option>Con ajuste a diseño existente</option>
-              <option>Sin diseño, ya tengo archivo listo</option>
-            </select>
-          ) : field.toLowerCase().includes("subir") ? (
-            <input type="file" name="archivo" />
-          ) : (
-            <input name={field} placeholder="Escribe el dato si lo tienes" />
-          )}
-        </label>
-      ))}
-      <label>
-        Comentarios
-        <textarea name="comentarios" placeholder="Medidas, colores, referencias, instalación, urgencia o dudas." />
-      </label>
-      <a className="design-submit" href={whatsappHref} target="_blank" rel="noreferrer">
-        Enviar por WhatsApp <ArrowRight size={18} />
-      </a>
-    </form>
-  );
-}
+const materials = ["Lonas", "Viniles", "Tarjetas", "Roll ups", "Playeras DTF", "Volantes", "Trípticos", "Stickers", "Tazas", "Folders", "Branding", "Redes sociales"];
 
+/** Cinta de materiales en movimiento, con los colores de imprenta. */
 export function DesignVectorStrip() {
   return (
-    <div className="design-vector-strip" aria-hidden="true">
-      <div><PenTool size={22} /><span /></div>
-      <div><Ruler size={22} /><span /></div>
-      <div><Sparkles size={22} /><span /></div>
+    <div className="cmyk-marquee" aria-hidden="true">
+      <div>
+        {[...materials, ...materials].map((item, i) => (
+          <span key={`${item}-${i}`}>
+            <i className={["c", "m", "y", "k"][i % 4]} /> {item}
+          </span>
+        ))}
+      </div>
     </div>
   );
 }

@@ -6,8 +6,8 @@ import type { OrbitService } from "@/components/three/HeroScene";
 import { IntroLoader } from "@/components/experience/IntroLoader";
 import { ChapterRail, type Chapter } from "@/components/experience/ChapterRail";
 import { RevealObserver } from "@/components/experience/RevealObserver";
-import { AbisaiChapter, C444Chapter, CfnChapter } from "@/components/projects/ProjectChapters";
-import { ProjectReel } from "@/components/projects/ProjectReel";
+import { PapelPicado } from "@/components/experience/PapelPicado";
+import { ProjectsCarousel } from "@/components/projects/ProjectsCarousel";
 import { AutomationWorkflow } from "@/components/site/AutomationWorkflow";
 import { automationProjects, processSteps, services, siteConfig } from "@/lib/site";
 import { showcaseProjects } from "@/lib/showcase";
@@ -24,10 +24,7 @@ const orbitServices: OrbitService[] = [
 const chapters: Chapter[] = [
   { id: "inicio", label: "Inicio" },
   { id: "servicios", label: "Servicios" },
-  { id: "flotilla-nacional", label: "Flotilla Nacional" },
-  { id: "constructora-444", label: "Constructora 4:44" },
-  { id: "abisai", label: "Abisai Handbags" },
-  { id: "proyectos", label: "Más proyectos" },
+  { id: "proyectos", label: "Proyectos" },
   { id: "automatizaciones", label: "Automatizaciones" },
   { id: "proceso", label: "Proceso" },
   { id: "contacto", label: "Contacto" },
@@ -74,10 +71,8 @@ export default function HomePage() {
   const whatsapp = `https://wa.me/${siteConfig.phone}?text=${encodeURIComponent(
     "Hola PrimeTech, quiero cotizar un proyecto."
   )}`;
-  // Los sitios archivados van al final del recorrido.
-  const others = showcaseProjects
-    .filter((project) => !project.featured)
-    .sort((a, b) => Number(Boolean(a.offline)) - Number(Boolean(b.offline)));
+  // Los sitios archivados van al final del carrusel.
+  const carousel = [...showcaseProjects].sort((a, b) => Number(Boolean(a.offline)) - Number(Boolean(b.offline)));
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -92,6 +87,7 @@ export default function HomePage() {
     <div className="xp">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <IntroLoader />
+      <PapelPicado />
       <RevealObserver />
       <ChapterRail chapters={chapters} />
 
@@ -114,7 +110,7 @@ export default function HomePage() {
             <a href={whatsapp} target="_blank" rel="noreferrer" className="pj-cta">
               <FaWhatsapp size={17} /> Cotizar por WhatsApp
             </a>
-            <a href="#flotilla-nacional" className="xp-ghost">
+            <a href="#proyectos" className="xp-ghost">
               Ver proyectos
             </a>
           </div>
@@ -163,27 +159,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="flotilla-nacional" className="ch">
-        <CfnChapter />
-      </section>
-      <section id="constructora-444" className="ch">
-        <C444Chapter />
-      </section>
-      <section id="abisai" className="ch">
-        <AbisaiChapter />
-      </section>
-
-      <section id="proyectos" className="ch ch-reel">
+      <section id="proyectos" className="ch ch-ring">
         <header className="xp-head reveal">
-          <span className="xp-kicker">05 · Más proyectos</span>
-          <h2>Un proyecto a la vez. Recórrelo como si estuvieras dentro.</h2>
+          <span className="xp-kicker">02 · Proyectos</span>
+          <h2>Trabajo real, publicado y funcionando.</h2>
         </header>
-        <ProjectReel projects={others} />
+        <ProjectsCarousel projects={carousel} />
       </section>
 
       <section id="automatizaciones" className="ch ch-auto">
         <header className="xp-head reveal">
-          <span className="xp-kicker">06 · Automatizaciones</span>
+          <span className="xp-kicker">03 · Automatizaciones</span>
           <h2>Flujos con n8n, WhatsApp, CRM y APIs funcionando para clientes reales.</h2>
         </header>
         <div className="auto-list">
@@ -205,7 +191,7 @@ export default function HomePage() {
 
       <section id="proceso" className="ch ch-process">
         <header className="xp-head reveal">
-          <span className="xp-kicker">07 · Proceso</span>
+          <span className="xp-kicker">04 · Proceso</span>
           <h2>Del diagnóstico a la entrega, sin sorpresas.</h2>
         </header>
         <ol className="steps">
@@ -229,7 +215,7 @@ export default function HomePage() {
 
       <section id="contacto" className="ch ch-contact">
         <div className="contact-inner reveal">
-          <span className="xp-kicker">08 · Hablemos</span>
+          <span className="xp-kicker">05 · Hablemos</span>
           <h2>
             El siguiente proyecto <em>puede ser el tuyo.</em>
           </h2>

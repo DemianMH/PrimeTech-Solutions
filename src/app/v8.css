@@ -1605,7 +1605,7 @@ body:has(.fn-logo):not(:has(.xp)) main {
   background: rgba(255, 255, 255, 0.03);
 }
 
-.auto-card span {
+.auto-card > div > span {
   color: #7dd3fc;
   font-size: 0.75rem;
   font-weight: 800;
@@ -1613,19 +1613,19 @@ body:has(.fn-logo):not(:has(.xp)) main {
   text-transform: uppercase;
 }
 
-.auto-card h3 {
+.auto-card > div > h3 {
   margin: 0.6rem 0;
   color: #fff;
   font-size: 1.5rem;
 }
 
-.auto-card p {
+.auto-card > div > p {
   margin: 0 0 0.8rem;
   color: #a9b6d0;
   line-height: 1.6;
 }
 
-.auto-card small {
+.auto-card > div > small {
   color: #6b7a99;
 }
 

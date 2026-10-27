@@ -43,7 +43,7 @@ export function FloatingNav() {
       </Link>
 
       <div className="fn-actions">
-        <a href={whatsapp} target="_blank" rel="noreferrer" className="fn-quote">
+        <a href={whatsapp} target="_blank" rel="noreferrer" className="fn-quote" aria-label="Cotizar por WhatsApp">
           <FaWhatsapp size={16} /> <span>Cotizar</span>
         </a>
         <button
