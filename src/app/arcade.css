@@ -1,0 +1,428 @@
+/* ==========================================================================
+   Arcade secreto del portafolio y botón "Ver portafolio" del inicio
+   ========================================================================== */
+
+/* ---------- Botón del hero ---------- */
+
+.hero-game-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  width: fit-content;
+  padding: 0.7rem 1.1rem 0.7rem 0.8rem;
+  border: 1px dashed rgba(255, 183, 3, 0.55);
+  border-radius: 1rem;
+  color: #fff;
+  background: linear-gradient(120deg, rgba(255, 183, 3, 0.12), rgba(228, 0, 124, 0.12));
+  pointer-events: auto;
+  transition: transform 200ms ease, border-color 200ms ease;
+}
+
+.hero-game-link:hover {
+  border-style: solid;
+  border-color: #ffb703;
+  transform: translateY(-2px);
+}
+
+.hero-game-link > svg:first-child {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  padding: 9px;
+  border-radius: 0.7rem;
+  color: #0d0623;
+  background: #ffb703;
+}
+
+.hero-game-link span {
+  display: grid;
+  gap: 0.1rem;
+}
+
+.hero-game-link b {
+  font-size: 1rem;
+}
+
+.hero-game-link small {
+  color: #d8cfee;
+  font-size: 0.82rem;
+}
+
+/* ---------- Panel del arcade ---------- */
+
+.arcade {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 0.8rem;
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.arcade h3 {
+  margin: 0;
+}
+
+.arcade-intro {
+  margin: 0;
+  color: #d8d0ea;
+}
+
+.arcade-has {
+  margin: 0;
+  padding: 0.6rem 1rem;
+  border: 1px solid rgba(198, 244, 50, 0.4);
+  border-radius: 0.8rem;
+  color: #e8f7c0;
+  background: rgba(198, 244, 50, 0.08);
+}
+
+.arcade-has button {
+  border: 0;
+  color: #c6f432;
+  background: none;
+  font-weight: 800;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.cabinets {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  width: 100%;
+  margin-top: 0.4rem;
+}
+
+.cabinet {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+  padding: 1rem 1rem 1.2rem;
+  border: 2px solid color-mix(in srgb, var(--c) 60%, transparent);
+  border-radius: 1.4rem 1.4rem 0.8rem 0.8rem;
+  color: #fff;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--c) 18%, #1a0b2e), #120822);
+  box-shadow: 0 0 30px color-mix(in srgb, var(--c) 25%, transparent);
+  cursor: pointer;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.cabinet:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 46px color-mix(in srgb, var(--c) 45%, transparent);
+}
+
+.cabinet-screen {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 84px;
+  padding: 0.6rem;
+  border: 3px solid #0b0520;
+  border-radius: 0.7rem;
+  background:
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.25) 0 2px, transparent 2px 4px),
+    radial-gradient(circle, color-mix(in srgb, var(--c) 45%, #0b0520), #0b0520 80%);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+}
+
+.cabinet-prize {
+  color: var(--c);
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.cabinet small {
+  color: #d8d0ea;
+  line-height: 1.4;
+}
+
+.cabinet-level {
+  color: #b9addb;
+  font-size: 0.8rem;
+}
+
+.cabinet-play {
+  padding: 0.45rem 1.2rem;
+  border-radius: 999px;
+  color: #0d0623;
+  background: var(--c);
+  font-weight: 800;
+}
+
+.arcade-exit {
+  margin-top: 0.4rem;
+  border: 0;
+  color: #b9addb;
+  background: none;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.arcade-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  color: #d8d0ea;
+}
+
+.arcade-bar .xp-ghost,
+.arcade-bar .pj-cta {
+  gap: 0.4rem;
+  padding: 0.55rem 1rem;
+  cursor: pointer;
+}
+
+.arcade-bar .pj-cta {
+  --pj: #ffb703;
+  border: 0;
+}
+
+.arcade-bar b {
+  color: #ffb703;
+}
+
+/* ---------- Juego dentro del arcade ---------- */
+
+.arc-game {
+  display: grid;
+  gap: 0.6rem;
+  justify-items: center;
+  width: 100%;
+}
+
+.arc-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  width: min(100%, 420px);
+  text-align: left;
+}
+
+.arc-head b {
+  display: block;
+  color: #fff;
+}
+
+.arc-head small {
+  color: #b9addb;
+}
+
+.arc-status {
+  color: #d8d0ea;
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.arc-status b {
+  color: #ffb703;
+}
+
+.arc-board {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.arc-canvas {
+  display: block;
+  width: auto;
+  max-width: min(92vw, 420px);
+  height: min(46vh, 440px);
+  border: 3px solid #2a1250;
+  border-radius: 0.8rem;
+  background: #0d0623;
+  image-rendering: pixelated;
+}
+
+.arc-over {
+  position: absolute;
+  inset: auto 0.6rem 0.6rem;
+  padding: 0.6rem;
+  border-radius: 0.6rem;
+  color: #fff;
+  background: rgba(228, 0, 124, 0.85);
+  font-weight: 700;
+}
+
+.arc-touch {
+  display: none;
+  gap: 0.5rem;
+}
+
+.arc-touch button {
+  display: grid;
+  place-items: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  touch-action: none;
+  user-select: none;
+}
+
+@media (hover: none), (max-width: 900px) {
+  .arc-touch {
+    display: flex;
+  }
+}
+
+/* ---------- Tarjeta del bono ---------- */
+
+.bonus-card {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 0.7rem;
+  width: min(520px, 100%);
+  margin: 0 auto;
+  padding: 1.6rem;
+  border: 2px solid #ffb703;
+  border-radius: 1.4rem;
+  background:
+    radial-gradient(20rem 12rem at 50% 0%, rgba(255, 183, 3, 0.25), transparent 70%),
+    linear-gradient(160deg, #2a0f45, #120822);
+  box-shadow: 0 0 60px rgba(255, 183, 3, 0.25);
+}
+
+.bonus-card > svg {
+  color: #ffb703;
+}
+
+.bonus-card h3 {
+  color: #fff;
+  font-size: clamp(2.4rem, 7vw, 3.6rem);
+}
+
+.bonus-card h3 small {
+  display: block;
+  color: #d8d0ea;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.bonus-card p {
+  margin: 0;
+  color: #e8e0f7;
+}
+
+.bonus-code {
+  display: grid;
+  gap: 0.2rem;
+  width: 100%;
+  padding: 0.9rem;
+  border: 2px dashed rgba(255, 255, 255, 0.35);
+  border-radius: 0.9rem;
+  background: rgba(13, 6, 35, 0.6);
+}
+
+.bonus-code b {
+  color: #c6f432;
+  font-family: ui-monospace, "Cascadia Code", monospace;
+  font-size: clamp(1rem, 4vw, 1.35rem);
+  letter-spacing: 0.06em;
+}
+
+.bonus-code small {
+  color: #b9addb;
+}
+
+.bonus-shot {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+}
+
+.bonus-terms {
+  color: #b9addb;
+}
+
+.bonus-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.bonus-actions .pj-cta {
+  --pj: #25d366;
+}
+
+.bonus-actions .xp-ghost {
+  cursor: pointer;
+  background: transparent;
+}
+
+@media (max-width: 900px) {
+  .cabinets {
+    grid-template-columns: 1fr;
+  }
+
+  .cabinet {
+    grid-template-columns: 1fr auto;
+    justify-items: start;
+    text-align: left;
+  }
+
+  .cabinet-screen {
+    grid-column: 1 / -1;
+    min-height: 56px;
+  }
+
+  .arc-canvas {
+    height: min(42vh, 400px);
+  }
+}
+
+/* ---------- Ajustes tras la prueba ---------- */
+
+.bonus-card h3.bonus-repeat {
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  line-height: 1.15;
+}
+
+.bonus-card {
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.arc-head {
+  width: min(100%, 460px);
+}
+
+.arc-head > div:first-child {
+  flex: 1 1 220px;
+}
+
+.arc-status {
+  white-space: nowrap;
+}
+
+.game-panel:has(.arcade) {
+  align-content: start;
+}
+
+/* En modo juego el botón flotante de WhatsApp tapaba el control "Entrar" */
+body:has(.ch-game) .whatsapp-float {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .game-screen {
+    height: min(560px, calc(100svh - 9rem));
+  }
+}

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowDown, ArrowUpRight, Check } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Check, Gamepad2 } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import { HeroShowcase } from "@/components/experience/HeroShowcase";
 import { IntroLoader } from "@/components/experience/IntroLoader";
@@ -104,6 +104,14 @@ export default function HomePage() {
               Ver proyectos
             </a>
           </div>
+          <Link href="/portafolio?vista=juego" className="hero-game-link">
+            <Gamepad2 size={18} />
+            <span>
+              <b>Ver portafolio</b>
+              <small>Recórrelo como videojuego · hay premios escondidos</small>
+            </span>
+            <ArrowUpRight size={16} />
+          </Link>
         </div>
         <a href="#servicios" className="scroll-cue" aria-label="Bajar a servicios">
           <span>Desliza</span>

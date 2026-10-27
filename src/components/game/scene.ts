@@ -9,7 +9,8 @@ import type { ShowcaseProject } from "@/lib/showcase";
 export type Exhibit =
   | { kind: "project"; x: number; project: ShowcaseProject }
   | { kind: "automation"; x: number; index: number; client: string; steps: string[] }
-  | { kind: "store"; x: number };
+  | { kind: "store"; x: number }
+  | { kind: "arcade"; x: number };
 
 export type Zone = { id: string; label: string; color: string; x: number; width: number };
 
@@ -560,7 +561,7 @@ export function drawFlame(ctx: CanvasRenderingContext2D, x: number, y: number, n
 
 export function drawFrame(
   ctx: CanvasRenderingContext2D,
-  item: Exclude<Exhibit, { kind: "store" }>,
+  item: Extract<Exhibit, { kind: "project" | "automation" }>,
   groundY: number,
   img: HTMLImageElement | undefined,
   active: boolean,
@@ -796,4 +797,69 @@ export function drawBubble(ctx: CanvasRenderingContext2D, x: number, y: number, 
   ctx.font = "800 15px Inter, system-ui, sans-serif";
   ctx.textAlign = "center";
   ctx.fillText("E", x, y - 12 + bob);
+}
+
+/** Callejón oscuro con la maquinita secreta del arcade. */
+export function drawSecretArcade(ctx: CanvasRenderingContext2D, x: number, groundY: number, now: number, active: boolean) {
+  // muro del callejón
+  ctx.fillStyle = "#140a22";
+  ctx.fillRect(x - 200, groundY - 300, 400, 300);
+  ctx.fillStyle = "rgba(255,255,255,0.03)";
+  for (let by = groundY - 290; by < groundY; by += 22) {
+    for (let bx = x - 196 + ((by / 22) % 2) * 20; bx < x + 196; bx += 40) ctx.fillRect(bx, by, 36, 18);
+  }
+  // halo de la pantalla
+  const glow = ctx.createRadialGradient(x, groundY - 110, 10, x, groundY - 110, 190);
+  glow.addColorStop(0, active ? "rgba(255, 79, 163, 0.35)" : "rgba(168, 85, 247, 0.22)");
+  glow.addColorStop(1, "rgba(168, 85, 247, 0)");
+  ctx.fillStyle = glow;
+  ctx.fillRect(x - 200, groundY - 300, 400, 300);
+  // gabinete
+  ctx.fillStyle = "#2a0f45";
+  ctx.beginPath();
+  ctx.moveTo(x - 46, groundY);
+  ctx.lineTo(x - 46, groundY - 150);
+  ctx.lineTo(x - 36, groundY - 196);
+  ctx.lineTo(x + 36, groundY - 196);
+  ctx.lineTo(x + 46, groundY - 150);
+  ctx.lineTo(x + 46, groundY);
+  ctx.closePath();
+  ctx.fill();
+  ctx.strokeStyle = "#ff4fa3";
+  ctx.lineWidth = 2;
+  ctx.shadowColor = "#ff4fa3";
+  ctx.shadowBlur = active ? 22 : 10;
+  ctx.stroke();
+  ctx.shadowBlur = 0;
+  // marquesina
+  ctx.fillStyle = "#ffb703";
+  ctx.fillRect(x - 36, groundY - 196, 72, 20);
+  ctx.fillStyle = "#0d0623";
+  ctx.font = "800 11px Inter, system-ui, sans-serif";
+  ctx.textAlign = "center";
+  ctx.fillText("ARCADE", x, groundY - 182);
+  // pantalla con estática y bloques
+  ctx.fillStyle = "#0b0520";
+  ctx.fillRect(x - 32, groundY - 168, 64, 50);
+  const colors = ["#22d3ee", "#ffb703", "#ff4fa3", "#a855f7"];
+  for (let i = 0; i < 6; i++) {
+    ctx.fillStyle = colors[(i + Math.floor(now / 400)) % colors.length];
+    ctx.fillRect(x - 26 + (i % 3) * 18, groundY - 160 + Math.floor(i / 3) * 18 + ((now / 30 + i * 7) % 6), 14, 14);
+  }
+  // controles
+  ctx.fillStyle = "#3b1f5c";
+  ctx.fillRect(x - 40, groundY - 112, 80, 20);
+  ctx.fillStyle = "#ef4444";
+  ctx.beginPath();
+  ctx.arc(x - 18, groundY - 106, 5, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = "#22c55e";
+  ctx.beginPath();
+  ctx.arc(x + 16, groundY - 104, 4, 0, Math.PI * 2);
+  ctx.arc(x + 26, groundY - 104, 4, 0, Math.PI * 2);
+  ctx.fill();
+  // letrero de premio
+  ctx.fillStyle = "#c6f432";
+  ctx.font = "800 13px Inter, system-ui, sans-serif";
+  ctx.fillText("¿Bono secreto?", x, groundY - 214 + Math.sin(now / 300) * 3);
 }

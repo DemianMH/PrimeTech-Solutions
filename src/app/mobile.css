@@ -1,0 +1,339 @@
+/* ==========================================================================
+   Contacto con el diseño oscuro y correcciones de la revisión en celular
+   ========================================================================== */
+
+/* ---------- Contacto ---------- */
+
+.ct {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 1.4rem;
+  align-items: start;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 7rem 1.5rem 5rem;
+}
+
+.ct-copy {
+  display: grid;
+  gap: 1.1rem;
+}
+
+.ct-copy h1 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  line-height: 1;
+}
+
+.ct-copy h1 em {
+  display: block;
+  font-style: normal;
+  background: linear-gradient(100deg, #7cc4ff, #22d3ee 45%, #c6f432);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+html.muertos .ct-copy h1 em {
+  background: linear-gradient(100deg, #ffb703, #ff6b35 40%, #ff4fa3 75%, #a855f7);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.ct-copy p {
+  margin: 0;
+  color: #a9b6d0;
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+.ct-methods {
+  display: grid;
+  gap: 0.6rem;
+  margin-top: 0.4rem;
+}
+
+.ct-methods a,
+.ct-methods > span {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-width: 0;
+  min-height: 52px;
+  padding: 0.8rem 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  color: #e8eefc;
+  background: rgba(255, 255, 255, 0.04);
+  font-weight: 700;
+}
+
+.ct-methods a:first-child svg {
+  color: #25d366;
+}
+
+.ct-methods a span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.ct-methods a:hover {
+  border-color: rgba(125, 211, 252, 0.5);
+}
+
+.ct-form,
+.ct-terms {
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.4rem;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.ct-form label {
+  display: grid;
+  gap: 0.45rem;
+  color: #e8eefc;
+  font-weight: 700;
+}
+
+.ct-form input,
+.ct-form select,
+.ct-form textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 0.9rem;
+  color: #fff;
+  background: #0b1122;
+  font: inherit;
+  font-weight: 500;
+}
+
+.ct-form select option {
+  color: #0b1122;
+}
+
+.ct-form textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+.ct-form input::placeholder,
+.ct-form textarea::placeholder {
+  color: #7d8aa6;
+}
+
+.ct-form input:focus,
+.ct-form select:focus,
+.ct-form textarea:focus {
+  outline: 2px solid #22d3ee;
+  outline-offset: 1px;
+}
+
+.ct-form .pj-cta {
+  --pj: #25d366;
+  justify-content: center;
+  width: 100%;
+  border: 0;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+html.muertos .ct-form .pj-cta {
+  --pj: #25d366;
+}
+
+.ct-sent {
+  margin: 0;
+  color: #4ade80;
+  font-weight: 600;
+}
+
+.ct-terms {
+  grid-column: 1 / -1;
+}
+
+.ct-terms h2 {
+  margin: 0;
+  color: #fff;
+  font-size: 1.3rem;
+}
+
+.ct-terms ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem 1.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ct-terms li {
+  position: relative;
+  padding-left: 1.2rem;
+  color: #c3cde2;
+  line-height: 1.5;
+}
+
+.ct-terms li::before {
+  content: "";
+  position: absolute;
+  top: 0.55em;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: #c6f432;
+}
+
+@media (max-width: 900px) {
+  .ct {
+    grid-template-columns: minmax(0, 1fr);
+    padding-top: 6rem;
+  }
+
+  .ct-terms ul {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- Correcciones de la revisión en celular ---------- */
+
+/* Área táctil del jalador más grande sin cambiar cómo se ve */
+.pull-cord {
+  padding: 0 14px 14px;
+  margin-right: -14px;
+}
+
+/* Enlaces de texto con altura cómoda para el dedo */
+.site-footer .footer-whatsapp,
+.site-footer .footer-links a,
+.design-footer .footer-links a,
+.back-link,
+.design-back,
+.invitation-card-copy a,
+.pdf-invitation-card a,
+.design-portfolio-card a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+/* Diagramas de automatización legibles en celular */
+@media (max-width: 640px) {
+  .workflow-node span {
+    font-size: 11px;
+  }
+
+  .workflow-log small {
+    font-size: 11px;
+  }
+
+  .tracker li span {
+    font-size: 0.7rem;
+  }
+
+  .tracker ol {
+    gap: 0.15rem;
+  }
+
+  /* Botones del hero a lo ancho para el pulgar */
+  .ch-hero .hero-actions > a,
+  .hero-game-link {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .hero-game-link {
+    justify-content: flex-start;
+  }
+
+  /* El texto del menú cabe aunque la pantalla sea angosta */
+  .fn-menu nav a {
+    font-size: clamp(1.9rem, 10vw, 2.8rem);
+  }
+}
+
+/* Capítulos de proyecto en pantallas angostas (360 px) */
+@media (max-width: 1040px) {
+  .pj-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pj-head,
+  .pj-stage {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 400px) {
+  .pj-grid {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .tracker {
+    padding: 0.8rem 0.6rem;
+  }
+
+  .tracker ol {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+
+  .tracker li i {
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 0.75rem;
+  }
+
+  .tracker li span {
+    font-size: 0.6rem;
+    word-break: break-word;
+  }
+}
+
+@media (max-width: 640px) {
+  .design-portfolio-cta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .design-portfolio-cta .design-primary {
+    max-width: 100%;
+    white-space: normal;
+  }
+}
+
+@media (max-width: 900px) {
+  .arcade-bar {
+    padding-right: 3rem;
+  }
+
+  .arc-canvas {
+    height: min(34svh, 360px);
+  }
+
+  .arc-head small {
+    display: none;
+  }
+
+  .arc-touch button {
+    width: 2.9rem;
+    height: 2.9rem;
+  }
+
+  .tracker li span {
+    font-size: 0.69rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .design-cta.design-portfolio-cta {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

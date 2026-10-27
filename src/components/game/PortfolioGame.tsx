@@ -7,6 +7,7 @@ import { ArrowLeft, ArrowRight, ArrowUp, ArrowUpRight, Flame, Hand, PartyPopper,
 import type { ShowcaseProject } from "@/lib/showcase";
 import { automationProjects, services, siteConfig } from "@/lib/site";
 import { characterOrder, characters, drawSprite, type CharacterId } from "./sprites";
+import { Arcade } from "./arcade/Arcade";
 import {
   drawAlebrijes,
   drawAltar,
@@ -19,6 +20,7 @@ import {
   drawHQ,
   drawMinimap,
   drawPapelPicado,
+  drawSecretArcade,
   drawSky,
   drawSpirits,
   drawTown,
@@ -44,13 +46,23 @@ const zonesFor: { id: string; label: string; color: string; slugs: string[] }[] 
 ];
 
 const keyOf = (item: Exhibit) =>
-  item.kind === "project" ? item.project.slug : item.kind === "automation" ? `auto-${item.index}` : "store";
+  item.kind === "project" ? item.project.slug : item.kind === "automation" ? `auto-${item.index}` : item.kind;
+
+/** Proyectos y automatizaciones cuentan para la ofrenda; la tienda y el arcade no. */
+const counts = (item: Exhibit) => item.kind === "project" || item.kind === "automation";
+
+/** El arcade queda en un callejón a la izquierda, fuera de la vista inicial. */
+const ARCADE_X = 200;
+const HQ_X = 1000;
 
 function buildWorld(projects: ShowcaseProject[]) {
   const zones: Zone[] = [];
   const exhibits: Exhibit[] = [];
   const altars: number[] = [];
-  let x = 220;
+  let x = HQ_X;
+
+  exhibits.push({ kind: "arcade", x: ARCADE_X });
+  altars.push(HQ_X - 260);
 
   zones.push({ id: "hq", label: "PrimeTech · Servicios", color: "#3b82f6", x, width: 620 });
   exhibits.push({ kind: "store", x: x + 310 });
@@ -93,15 +105,16 @@ type Panel =
   | { type: "project"; project: ShowcaseProject }
   | { type: "automation"; index: number }
   | { type: "done" }
+  | { type: "arcade" }
   | null;
 
 export function PortfolioGame({ projects }: { projects: ShowcaseProject[] }) {
   const world = useMemo(() => buildWorld(projects), [projects]);
-  const total = world.exhibits.filter((e) => e.kind !== "store").length;
+  const total = world.exhibits.filter(counts).length;
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
   const keys = useRef<Record<string, boolean>>({});
-  const player = useRef({ x: 330, y: 0, vy: 0, facing: 1, step: 0, onGround: true, squash: 0 });
+  const player = useRef({ x: HQ_X + 110, y: 0, vy: 0, facing: 1, step: 0, onGround: true, squash: 0 });
   const near = useRef<Exhibit | null>(null);
   const images = useRef<Record<string, HTMLImageElement>>({});
   const particles = useRef<Particle[]>([]);
@@ -144,7 +157,7 @@ export function PortfolioGame({ projects }: { projects: ShowcaseProject[] }) {
 
   const markVisited = useCallback(
     (key: string) => {
-      if (key === "store" || visitedRef.current.has(key)) return;
+      if (key === "store" || key === "arcade" || visitedRef.current.has(key)) return;
       visitedRef.current.add(key);
       const list = [...visitedRef.current];
       setVisited(list);
@@ -172,6 +185,7 @@ export function PortfolioGame({ projects }: { projects: ShowcaseProject[] }) {
     if (!item || panel) return;
     markVisited(keyOf(item));
     if (item.kind === "store") setPanel({ type: "store" });
+    if (item.kind === "arcade") setPanel({ type: "arcade" });
     if (item.kind === "project") setPanel({ type: "project", project: item.project });
     if (item.kind === "automation") setPanel({ type: "automation", index: item.index });
   }, [markVisited, panel]);
@@ -310,6 +324,10 @@ export function PortfolioGame({ projects }: { projects: ShowcaseProject[] }) {
         }
       });
       world.exhibits.forEach((item) => {
+        if (item.kind === "arcade") {
+          if (item.x > camX - 260 && item.x < camX + width + 260) drawSecretArcade(ctx, item.x, groundY, now, near.current === item);
+          return;
+        }
         if (item.kind === "store") return;
         if (item.x < camX - 220 || item.x > camX + width + 220) return;
         const img = item.kind === "project" ? images.current[item.project.slug] : undefined;
@@ -360,7 +378,9 @@ export function PortfolioGame({ projects }: { projects: ShowcaseProject[] }) {
       // Indicaciones en React (solo cuando cambian)
       const item = near.current as Exhibit | null;
       const nextPrompt = item
-        ? item.kind === "store"
+        ? item.kind === "arcade"
+          ? "Jugar en la maquinita secreta"
+          : item.kind === "store"
           ? "Entrar a la tienda de servicios"
           : item.kind === "project"
             ? `Ver ${item.project.title}`
@@ -541,6 +561,7 @@ export function PortfolioGame({ projects }: { projects: ShowcaseProject[] }) {
                 </a>
               </div>
             )}
+            {panel.type === "arcade" && <Arcade onExit={closePanel} />}
             {panel.type === "done" && (
               <div className="game-done">
                 <div className="confetti" aria-hidden="true">

@@ -54,7 +54,7 @@ export function PortfolioViews({ projects, children }: { projects: ShowcaseProje
             <h1>Recorre PrimeTech caminando.</h1>
             <p>
               Elige tu personaje, entra a la tienda de servicios y visita las galerías de proyectos. Acércate a un cuadro
-              y presiona <kbd>E</kbd> para verlo o ir al sitio.
+              y presiona <kbd>E</kbd> para verlo o ir al sitio. Pista: hay un arcade secreto con premios donde casi nadie camina.
             </p>
           </header>
           <PortfolioGame projects={projects} />
