@@ -1,6 +1,6 @@
 export const designBrand = {
   name: "Prime Design",
-  whatsapp: "523322555391",
+  whatsapp: "523330620287",
   email: "contacto@primetechsolutionsmx.org",
 };
 

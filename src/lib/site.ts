@@ -16,7 +16,7 @@ import {
 export const siteConfig = {
   name: "PrimeTech Solutions",
   domain: "https://primetechsolutionsmx.org",
-  phone: "523322555391",
+  phone: "523330620287",
   email: "contacto@primetechsolutionsmx.org",
   location: "Guadalajara, Jalisco, Mexico",
   description:
