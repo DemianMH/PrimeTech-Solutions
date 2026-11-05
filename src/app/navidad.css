@@ -175,3 +175,35 @@ html.navidad .sprite-stage {
   width: 120px;
   height: 130px;
 }
+
+/* Tres personajes: Santa, Duende y Reno */
+.game-pick-grid {
+  grid-template-columns: repeat(3, minmax(0, 180px));
+}
+
+@media (max-width: 900px) {
+  .game-pick-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .game-pick-grid small {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .game-pick-grid button {
+    padding: 0.8rem 0.3rem;
+    overflow: hidden;
+  }
+
+  .sprite-stage {
+    width: 100%;
+    height: 104px;
+  }
+
+  .sprite-preview {
+    width: 64px;
+    height: 90px;
+  }
+}
