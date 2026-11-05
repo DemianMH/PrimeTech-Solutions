@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { automationProjects } from "@/lib/site";
 import { showcaseProjects } from "@/lib/showcase";
 import { RevealObserver } from "@/components/experience/RevealObserver";
-import { PapelPicado } from "@/components/experience/PapelPicado";
+import { SeasonDecor } from "@/components/experience/SeasonDecor";
 import { AbisaiChapter, C444Chapter, CfnChapter } from "@/components/projects/ProjectChapters";
 import { ProjectReel } from "@/components/projects/ProjectReel";
 import { AutomationWorkflow } from "@/components/site/AutomationWorkflow";
@@ -24,7 +24,7 @@ export default function PortfolioPage() {
 
   return (
     <div className="xp xp-portfolio">
-      <PapelPicado />
+      <SeasonDecor />
       <RevealObserver />
       <PortfolioViews projects={showcaseProjects}>
         <section id="portafolio" className="ch ch-intro">

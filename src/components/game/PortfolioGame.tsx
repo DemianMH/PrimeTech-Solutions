@@ -3,10 +3,12 @@
 /* eslint-disable @next/next/no-img-element -- capturas de página completa dentro del modal */
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight, ArrowUp, ArrowUpRight, Flame, Hand, PartyPopper, Users, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUp, ArrowUpRight, Flame, Gift, Hand, Lightbulb, PartyPopper, Users, X } from "lucide-react";
 import type { ShowcaseProject } from "@/lib/showcase";
 import { automationProjects, services, siteConfig } from "@/lib/site";
-import { characterOrder, characters, drawSprite, type CharacterId } from "./sprites";
+import { SPRITE_H, SPRITE_W, characterOrder, characters, drawSprite, isCharacter, type CharacterId } from "./sprites";
+import { seasonCopy } from "@/lib/season";
+import { useSeason } from "@/lib/useSeason";
 import { Arcade } from "./arcade/Arcade";
 import {
   drawAlebrijes,
@@ -20,6 +22,7 @@ import {
   drawHQ,
   drawMinimap,
   drawPapelPicado,
+  setSceneSeason,
   drawSecretArcade,
   drawSky,
   drawSpirits,
@@ -35,7 +38,7 @@ import {
 /* ------------------------------------------------------------------ */
 
 const GROUND = 96; // alto del suelo
-const SCALE = 5; // tamaño de cada pixel del personaje
+const SCALE = 4; // tamaño de cada pixel del personaje (16×24 → 64×96 px)
 const FRAME_GAP = 250;
 const ALTAR_GAP = 240;
 
@@ -48,7 +51,7 @@ const zonesFor: { id: string; label: string; color: string; slugs: string[] }[] 
 const keyOf = (item: Exhibit) =>
   item.kind === "project" ? item.project.slug : item.kind === "automation" ? `auto-${item.index}` : item.kind;
 
-/** Proyectos y automatizaciones cuentan para la ofrenda; la tienda y el arcade no. */
+/** Proyectos y automatizaciones cuentan para el recorrido; la tienda y el arcade no. */
 const counts = (item: Exhibit) => item.kind === "project" || item.kind === "automation";
 
 /** El arcade queda en un callejón a la izquierda, fuera de la vista inicial. */
@@ -122,6 +125,9 @@ export function PortfolioGame({ projects }: { projects: ShowcaseProject[] }) {
   const lastZone = useRef<string>("");
   const visitedRef = useRef<Set<string>>(new Set());
 
+  const season = useSeason();
+  const copy = seasonCopy[season];
+  useEffect(() => setSceneSeason(season), [season]);
   const [character, setCharacter] = useState<CharacterId | null>(null);
   const [picking, setPicking] = useState(true);
   const [panel, setPanel] = useState<Panel>(null);
@@ -129,12 +135,14 @@ export function PortfolioGame({ projects }: { projects: ShowcaseProject[] }) {
   const [zoneLabel, setZoneLabel] = useState("");
   const [visited, setVisited] = useState<string[]>([]);
   const celebrated = useRef(false);
+  const streetRef = useRef(copy.street);
+  streetRef.current = copy.street;
 
   // Personaje y visitas recordados entre visitas.
   useEffect(() => {
     try {
       const saved = localStorage.getItem("pt-character") as CharacterId | null;
-      if (saved && characters[saved]) setCharacter(saved);
+      if (isCharacter(saved)) setCharacter(saved);
       const seen = JSON.parse(localStorage.getItem("pt-visited") || "[]") as string[];
       if (Array.isArray(seen)) {
         visitedRef.current = new Set(seen);
@@ -250,8 +258,8 @@ export function PortfolioGame({ projects }: { projects: ShowcaseProject[] }) {
       const p = player.current;
       const k = keys.current;
       const groundY = height - GROUND;
-      const spriteH = 16 * SCALE;
-      const spriteW = 12 * SCALE;
+      const spriteH = SPRITE_H * SCALE;
+      const spriteW = SPRITE_W * SCALE;
 
       // Física
       const left = !panel && (k["arrowleft"] || k["a"]);
@@ -387,7 +395,7 @@ export function PortfolioGame({ projects }: { projects: ShowcaseProject[] }) {
             : `Ver ${item.client}`
         : null;
       setPrompt((prev) => (prev === nextPrompt ? prev : nextPrompt));
-      const label = zone?.label ?? "Calle de las Ofrendas";
+      const label = zone?.label ?? streetRef.current;
       setZoneLabel((prev) => (prev === label ? prev : label));
 
       raf = requestAnimationFrame(draw);
@@ -426,9 +434,9 @@ export function PortfolioGame({ projects }: { projects: ShowcaseProject[] }) {
   return (
     <div ref={wrapRef} className="game">
       <div className="game-hud">
-        <span className="game-zone">{zoneLabel || "Calle de las Ofrendas"}</span>
+        <span className="game-zone">{zoneLabel || copy.street}</span>
         <span className="game-count" title="Proyectos visitados">
-          <Flame size={15} /> {visited.filter((v) => v !== "store").length}/{total}
+          {season === "navidad" ? <Gift size={15} /> : season === "muertos" ? <Flame size={15} /> : <Lightbulb size={15} />} {visited.filter((v) => v !== "store").length}/{total}
         </span>
         <div className="game-zones" role="group" aria-label="Ir a una zona">
           {world.zones.map((zone) => (
@@ -487,10 +495,10 @@ export function PortfolioGame({ projects }: { projects: ShowcaseProject[] }) {
 
         {picking && (
           <div className="game-pick" role="dialog" aria-label="Elige tu personaje">
-            <span className="game-pick-kicker">Noche de Día de Muertos</span>
+            <span className="game-pick-kicker">{copy.night}</span>
             <h3>Elige tu personaje</h3>
             <p className="game-pick-goal">
-              Visita los {total} proyectos: cada uno enciende una vela en la ofrenda.
+              {copy.goal(total)}
             </p>
             <div className="game-pick-grid">
               {characterOrder.map((id) => (
@@ -570,8 +578,8 @@ export function PortfolioGame({ projects }: { projects: ShowcaseProject[] }) {
                   ))}
                 </div>
                 <PartyPopper size={44} />
-                <span className="game-pick-kicker">¡Ofrenda completa!</span>
-                <h3>Visitaste los {total} proyectos.</h3>
+                <span className="game-pick-kicker">{copy.done}</span>
+                <h3>{copy.doneTitle(total)}</h3>
                 <p>Ya viste lo que hacemos. ¿Hablamos del tuyo?</p>
                 <a href={whatsapp} target="_blank" rel="noreferrer" className="pj-cta">
                   Cotizar por WhatsApp <ArrowUpRight size={17} />
@@ -592,13 +600,13 @@ function SpritePreview({ id }: { id: CharacterId }) {
     if (!ctx) return;
     let raf = 0;
     const tick = (now: number) => {
-      ctx.clearRect(0, 0, 72, 104);
+      ctx.clearRect(0, 0, 80, 112);
       const bob = Math.round(Math.sin(now / 300) * 2);
-      drawSprite(ctx, id, (Math.floor(now / 260) % 2) as 0 | 1, 0, 6 + bob, 6);
+      drawSprite(ctx, id, (Math.floor(now / 260) % 2) as 0 | 1, 0, bob - 4, 5);
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
   }, [id]);
-  return <canvas ref={ref} width={72} height={104} className="sprite-preview" aria-hidden="true" />;
+  return <canvas ref={ref} width={80} height={112} className="sprite-preview" aria-hidden="true" />;
 }

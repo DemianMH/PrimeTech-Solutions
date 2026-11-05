@@ -5,7 +5,7 @@ import { HeroShowcase } from "@/components/experience/HeroShowcase";
 import { IntroLoader } from "@/components/experience/IntroLoader";
 import { ChapterRail, type Chapter } from "@/components/experience/ChapterRail";
 import { RevealObserver } from "@/components/experience/RevealObserver";
-import { PapelPicado } from "@/components/experience/PapelPicado";
+import { SeasonDecor } from "@/components/experience/SeasonDecor";
 import { ProjectsCarousel } from "@/components/projects/ProjectsCarousel";
 import { AutomationWorkflow } from "@/components/site/AutomationWorkflow";
 import { automationProjects, processSteps, services, siteConfig } from "@/lib/site";
@@ -77,7 +77,7 @@ export default function HomePage() {
     <div className="xp">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <IntroLoader />
-      <PapelPicado />
+      <SeasonDecor />
       <RevealObserver />
       <ChapterRail chapters={chapters} />
 
