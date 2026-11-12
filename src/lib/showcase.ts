@@ -26,6 +26,48 @@ const live = (slug: string) => ({
 /** Proyectos más recientes: se muestran primero y destacados. */
 const featuredProjects: ShowcaseProject[] = [
   {
+    slug: "thu-crm",
+    title: "THU CRM de Reclutamiento",
+    category: "CRM de reclutamiento con IA",
+    url: "https://crm.thu.com.mx/",
+    embeddable: false,
+    featured: true,
+    accent: "#8b8ff0",
+    shots: live("thu-crm"),
+    description:
+      "Sistema completo para THU Talento Humano que reúne vacantes, candidatos, conversaciones, pruebas psicométricas y contrataciones en un solo lugar, instalado en su propio servidor.",
+    impact:
+      "Cada candidato recorre el mismo camino, de la primera respuesta a la contratación, y el equipo ve en qué etapa va, quién lo atiende y qué sigue, con la IA haciendo el seguimiento y una persona aprobando lo importante.",
+    highlights: [
+      "Captura de candidatos desde WhatsApp, anuncios, bolsas, referidos y formularios, sin duplicados.",
+      "Bandeja unificada de mensajes: WhatsApp oficial y no oficial, correo y más.",
+      "Psicometría propia con informes de apoyo de IA y agenda de entrevistas con recordatorios.",
+      "Permisos por rol y módulo, bloqueo por intentos y registro de lo que hace cada persona.",
+    ],
+    tags: ["CRM", "Reclutamiento", "IA", "WhatsApp", "Servidor propio"],
+  },
+  {
+    slug: "thu-empleos",
+    title: "THU Empleos",
+    category: "Bolsa de trabajo con IA",
+    url: "https://reclutamiento.thu.com.mx/",
+    embeddable: false,
+    featured: true,
+    accent: "#6fb6ff",
+    shots: live("thu-empleos"),
+    description:
+      "Bolsa de trabajo pública conectada al CRM: los candidatos buscan vacantes y se postulan, y las empresas publican vacantes con planes de suscripción mensual o anual.",
+    impact:
+      "Alimenta al CRM con candidatos calificados: la IA ayuda a cada persona a armar su CV, buscar en lenguaje natural y ver qué tanto encaja con cada vacante.",
+    highlights: [
+      "Creador de CV con IA en español o inglés, con descarga en PDF.",
+      "Búsqueda en lenguaje natural y «encaje» por vacante (habilidades, zona, sueldo y experiencia).",
+      "Planes para empresas: gratuito, básico, profesional y empresarial.",
+      "Privacidad: el candidato decide quién ve su perfil y puede borrar sus datos.",
+    ],
+    tags: ["Bolsa de trabajo", "Suscripciones", "IA", "Privacidad"],
+  },
+  {
     slug: "flotilla-nacional",
     title: "Flotilla Nacional (CFN)",
     category: "Plataforma de gestión de flotillas",

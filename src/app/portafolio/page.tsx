@@ -4,7 +4,8 @@ import { automationProjects } from "@/lib/site";
 import { showcaseProjects } from "@/lib/showcase";
 import { RevealObserver } from "@/components/experience/RevealObserver";
 import { SeasonDecor } from "@/components/experience/SeasonDecor";
-import { AbisaiChapter, C444Chapter, CfnChapter } from "@/components/projects/ProjectChapters";
+import { AbisaiChapter, C444Chapter, CfnChapter, ThuChapter } from "@/components/projects/ProjectChapters";
+import { ErpSection } from "@/components/projects/ErpSection";
 import { ProjectReel } from "@/components/projects/ProjectReel";
 import { AutomationWorkflow } from "@/components/site/AutomationWorkflow";
 import { PortfolioViews } from "@/components/game/PortfolioViews";
@@ -37,12 +38,15 @@ export default function PortfolioPage() {
               Baja para recorrerlos uno por uno: planos navegables, seguimientos en vivo, catálogos y las páginas
               completas de cada sitio.
             </p>
-            <a href="#flotilla-nacional" className="pj-cta">
+            <a href="#thu" className="pj-cta">
               Empezar recorrido <ArrowRight size={17} />
             </a>
           </div>
         </section>
 
+        <section id="thu" className="ch">
+          <ThuChapter />
+        </section>
         <section id="flotilla-nacional" className="ch">
           <CfnChapter />
         </section>
@@ -59,6 +63,25 @@ export default function PortfolioPage() {
             <h2>Un proyecto a la vez. Recórrelo como si estuvieras dentro.</h2>
           </header>
           <ProjectReel projects={others} />
+        </section>
+
+        <section id="erp" className="ch ch-erp">
+          <header className="xp-head reveal">
+            <span className="xp-kicker">Sistemas ERP a la medida</span>
+            <h2>Más de 30 módulos para Odoo que se adaptan a cualquier empresa.</h2>
+            <p className="muted" style={{ color: "#a9b6d0", margin: 0 }}>
+              Desarrollamos módulos sobre Odoo 18 para contabilidad, ventas, inventario, logística y dirección. Cada uno se
+              configura según el giro y el tamaño de la empresa.
+            </p>
+          </header>
+          <div className="erp-badges reveal">
+            <span><b>Odoo 18</b> · Community y Enterprise</span>
+            <span>Multiempresa</span>
+            <span>Facturación electrónica CFDI</span>
+            <span>Portales para clientes</span>
+            <span>Permisos por puesto</span>
+          </div>
+          <ErpSection />
         </section>
 
         <section id="automatizaciones" className="ch ch-auto">

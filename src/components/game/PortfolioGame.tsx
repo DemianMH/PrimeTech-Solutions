@@ -10,6 +10,8 @@ import { SPRITE_H, SPRITE_W, characterOrder, characters, drawSprite, isCharacter
 import { seasonCopy } from "@/lib/season";
 import { useSeason } from "@/lib/useSeason";
 import { Arcade } from "./arcade/Arcade";
+import { ErpSection } from "@/components/projects/ErpSection";
+import { SiteBrowser } from "@/components/projects/SiteBrowser";
 import {
   drawAlebrijes,
   drawAltar,
@@ -24,6 +26,7 @@ import {
   drawPapelPicado,
   setSceneSeason,
   drawSecretArcade,
+  drawErpKiosk,
   drawSky,
   drawSpirits,
   drawTown,
@@ -43,7 +46,7 @@ const FRAME_GAP = 250;
 const ALTAR_GAP = 240;
 
 const zonesFor: { id: string; label: string; color: string; slugs: string[] }[] = [
-  { id: "plataformas", label: "Plataformas y portales", color: "#ff4fa3", slugs: ["flotilla-nacional", "constructora-444", "bere-cardenas", "inapecc"] },
+  { id: "plataformas", label: "Plataformas y portales", color: "#ff4fa3", slugs: ["thu-crm", "thu-empleos", "flotilla-nacional", "constructora-444", "bere-cardenas", "inapecc"] },
   { id: "ventas", label: "Catálogos y ventas", color: "#ffb703", slugs: ["abisai-handbags", "rifas-el-guero", "sorteo-mike", "3a-rent"] },
   { id: "corporativos", label: "Sitios corporativos", color: "#2ec4b6", slugs: ["czc-projects", "tersus-clean", "revive-the-fire", "portofino-conway", "sadaca-industrial"] },
 ];
@@ -93,6 +96,12 @@ function buildWorld(projects: ShowcaseProject[]) {
     "#a855f7",
     automationProjects.map((p, index) => ({ kind: "automation", x: 0, index, client: p.client, steps: p.steps }) as Exhibit)
   );
+  // Quiosco de módulos ERP al final de la calle
+  altars.push(x + ALTAR_GAP / 2);
+  x += ALTAR_GAP;
+  zones.push({ id: "erp", label: "Sistemas ERP", color: "#c4a4f0", x, width: 420 });
+  exhibits.push({ kind: "erp", x: x + 260 });
+  x += 420;
   altars.push(x + ALTAR_GAP / 2);
   x += ALTAR_GAP + 120;
 
@@ -109,6 +118,7 @@ type Panel =
   | { type: "automation"; index: number }
   | { type: "done" }
   | { type: "arcade" }
+  | { type: "erp" }
   | null;
 
 export function PortfolioGame({ projects }: { projects: ShowcaseProject[] }) {
@@ -165,7 +175,7 @@ export function PortfolioGame({ projects }: { projects: ShowcaseProject[] }) {
 
   const markVisited = useCallback(
     (key: string) => {
-      if (key === "store" || key === "arcade" || visitedRef.current.has(key)) return;
+      if (key === "store" || key === "arcade" || key === "erp" || visitedRef.current.has(key)) return;
       visitedRef.current.add(key);
       const list = [...visitedRef.current];
       setVisited(list);
@@ -194,6 +204,7 @@ export function PortfolioGame({ projects }: { projects: ShowcaseProject[] }) {
     markVisited(keyOf(item));
     if (item.kind === "store") setPanel({ type: "store" });
     if (item.kind === "arcade") setPanel({ type: "arcade" });
+    if (item.kind === "erp") setPanel({ type: "erp" });
     if (item.kind === "project") setPanel({ type: "project", project: item.project });
     if (item.kind === "automation") setPanel({ type: "automation", index: item.index });
   }, [markVisited, panel]);
@@ -332,6 +343,10 @@ export function PortfolioGame({ projects }: { projects: ShowcaseProject[] }) {
         }
       });
       world.exhibits.forEach((item) => {
+        if (item.kind === "erp") {
+          if (item.x > camX - 260 && item.x < camX + width + 260) drawErpKiosk(ctx, item.x, groundY, now, near.current === item);
+          return;
+        }
         if (item.kind === "arcade") {
           if (item.x > camX - 260 && item.x < camX + width + 260) drawSecretArcade(ctx, item.x, groundY, now, near.current === item);
           return;
@@ -386,7 +401,9 @@ export function PortfolioGame({ projects }: { projects: ShowcaseProject[] }) {
       // Indicaciones en React (solo cuando cambian)
       const item = near.current as Exhibit | null;
       const nextPrompt = item
-        ? item.kind === "arcade"
+        ? item.kind === "erp"
+          ? "Ver módulos ERP"
+          : item.kind === "arcade"
           ? "Jugar en la maquinita secreta"
           : item.kind === "store"
           ? "Entrar a la tienda de servicios"
@@ -540,7 +557,7 @@ export function PortfolioGame({ projects }: { projects: ShowcaseProject[] }) {
             {panel.type === "project" && (
               <div className="exhibit">
                 <div className="exhibit-shot">
-                  <img src={panel.project.shots.desktop} alt={`Página de ${panel.project.title}`} />
+                  <SiteBrowser url={panel.project.url} desktop={panel.project.shots.desktop} mobile={panel.project.shots.mobile} title={panel.project.title} height="min(52vh, 460px)" offline={panel.project.offline} />
                 </div>
                 <div className="exhibit-info">
                   <span className="game-pick-kicker">{panel.project.category}</span>
@@ -570,6 +587,16 @@ export function PortfolioGame({ projects }: { projects: ShowcaseProject[] }) {
               </div>
             )}
             {panel.type === "arcade" && <Arcade onExit={closePanel} />}
+            {panel.type === "erp" && (
+              <div className="erp-panel">
+                <span className="game-pick-kicker">Sistemas ERP a la medida · Odoo 18</span>
+                <h3>Más de 30 módulos para cualquier empresa</h3>
+                <ErpSection compact />
+                <Link href="/portafolio?vista=normal#erp" className="pj-cta" style={{ justifySelf: "center" }}>
+                  Ver todos los módulos <ArrowUpRight size={17} />
+                </Link>
+              </div>
+            )}
             {panel.type === "done" && (
               <div className="game-done">
                 <div className="confetti" aria-hidden="true">

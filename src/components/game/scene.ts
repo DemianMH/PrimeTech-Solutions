@@ -12,7 +12,8 @@ export type Exhibit =
   | { kind: "project"; x: number; project: ShowcaseProject }
   | { kind: "automation"; x: number; index: number; client: string; steps: string[] }
   | { kind: "store"; x: number }
-  | { kind: "arcade"; x: number };
+  | { kind: "arcade"; x: number }
+  | { kind: "erp"; x: number };
 
 export type Zone = { id: string; label: string; color: string; x: number; width: number };
 
@@ -1435,4 +1436,38 @@ function drawSnowfall(ctx: CanvasRenderingContext2D, camX: number, w: number, gr
     ctx.fill();
   }
   ctx.globalAlpha = 1;
+}
+
+/** Quiosco de módulos ERP: pantalla con tablero, base y letrero. */
+export function drawErpKiosk(ctx: CanvasRenderingContext2D, x: number, groundY: number, now: number, active: boolean) {
+  const top = groundY - 210;
+  ctx.fillStyle = "#1f1340";
+  roundRect(ctx, x - 70, top, 140, 120, 12);
+  ctx.fill();
+  ctx.strokeStyle = active ? "#facc15" : "#c4a4f0";
+  ctx.lineWidth = 3;
+  ctx.shadowColor = ctx.strokeStyle;
+  ctx.shadowBlur = active ? 22 : 10;
+  ctx.stroke();
+  ctx.shadowBlur = 0;
+  // pantalla con barras de tablero
+  ctx.fillStyle = "#0b0d26";
+  ctx.fillRect(x - 58, top + 12, 116, 82);
+  const colors = ["#0ea5e9", "#22c55e", "#f59e0b", "#a855f7", "#ec4899"];
+  colors.forEach((c, i) => {
+    const h = 20 + ((Math.sin(now / 600 + i) + 1) / 2) * 44;
+    ctx.fillStyle = c;
+    ctx.fillRect(x - 50 + i * 21, top + 88 - h, 14, h);
+  });
+  ctx.fillStyle = "#c4a4f0";
+  ctx.font = "800 11px Inter, system-ui, sans-serif";
+  ctx.textAlign = "center";
+  ctx.fillText("ODOO · ERP", x, top + 110);
+  // poste y base
+  ctx.fillStyle = "#3a2a66";
+  ctx.fillRect(x - 8, top + 120, 16, groundY - top - 130);
+  ctx.fillRect(x - 40, groundY - 12, 80, 12);
+  ctx.fillStyle = "#facc15";
+  ctx.font = "800 13px Inter, system-ui, sans-serif";
+  ctx.fillText("Módulos ERP", x, top - 14 + Math.sin(now / 300) * 3);
 }

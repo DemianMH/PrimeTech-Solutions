@@ -3,6 +3,7 @@
 /* eslint-disable @next/next/no-img-element -- imágenes de proyectos con tamaños variables */
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, MoveHorizontal } from "lucide-react";
+import { SiteBrowser } from "./SiteBrowser";
 
 type HeadProps = {
   index: string;
@@ -103,7 +104,7 @@ function DayNight() {
 }
 
 export function C444Chapter() {
-  const [tab, setTab] = useState<"planos" | "fachada" | "interiores">("planos");
+  const [tab, setTab] = useState<"sitio" | "planos" | "fachada" | "interiores">("sitio");
   const [plano, setPlano] = useState(0);
 
   return (
@@ -111,7 +112,7 @@ export function C444Chapter() {
       <div className="pj-bg" style={{ backgroundImage: "url(/proyectos/c444/noche.webp)" }} aria-hidden="true" />
       <div className="pj-grid">
         <ProjectHead
-          index="02"
+          index="03"
           logo="/proyectos/c444/logo.svg"
           logoAlt="Constructora 4:44"
           kicker="Inmobiliaria · Guadalajara"
@@ -129,6 +130,7 @@ export function C444Chapter() {
           <div className="pj-tabs" role="tablist" aria-label="Secciones destacadas de Constructora 4:44">
             {(
               [
+                ["sitio", "Ver sitio"],
                 ["planos", "Planos"],
                 ["fachada", "Día / noche"],
                 ["interiores", "Interiores"],
@@ -139,6 +141,10 @@ export function C444Chapter() {
               </button>
             ))}
           </div>
+
+          {tab === "sitio" && (
+            <SiteBrowser url="https://constructora444.com/" desktop="/portafolio/live/constructora-444-desktop.jpg" mobile="/portafolio/live/constructora-444-mobile.jpg" title="Constructora 4:44" />
+          )}
 
           {tab === "planos" && (
             <div className="planos">
@@ -191,7 +197,7 @@ const etapas = ["Solicitud", "Cita", "Diagnóstico", "Autorización", "Servicio"
 
 export function CfnChapter() {
   const [step, setStep] = useState(0);
-  const [view, setView] = useState<"portal" | "mapa">("portal");
+  const [view, setView] = useState<"sitio" | "seguimiento" | "portal" | "mapa">("sitio");
 
   useEffect(() => {
     const timer = window.setInterval(() => setStep((value) => (value + 1) % etapas.length), 1400);
@@ -203,7 +209,7 @@ export function CfnChapter() {
       <div className="pj-bg" style={{ backgroundImage: "url(/proyectos/cfn/van.webp)" }} aria-hidden="true" />
       <div className="pj-grid">
         <ProjectHead
-          index="01"
+          index="02"
           logo="/proyectos/cfn/logo.svg"
           logoAlt="Flotilla Nacional CFN"
           kicker="Logística · Cobertura nacional"
@@ -218,39 +224,54 @@ export function CfnChapter() {
         />
 
         <div className="pj-stage reveal">
-          <div className="tracker" aria-label="Seguimiento del servicio en 7 etapas">
-            <div className="tracker-head">
-              <span>Operación CFN</span>
-              <b>Del requerimiento al cierre</b>
-              <em>Trazabilidad activa</em>
-            </div>
-            <ol>
-              {etapas.map((label, i) => (
-                <li key={label} className={i < step ? "done" : i === step ? "now" : ""}>
-                  <i>{i + 1}</i>
-                  <span>{label}</span>
-                </li>
-              ))}
-            </ol>
-            <div className="tracker-bar">
-              <i style={{ transform: `scaleX(${step / (etapas.length - 1)})` }} />
-            </div>
+          <div className="pj-tabs" role="tablist" aria-label="Vistas de Flotilla Nacional">
+            {(
+              [
+                ["sitio", "Ver sitio"],
+                ["seguimiento", "Seguimiento"],
+                ["portal", "Portal cliente"],
+                ["mapa", "Cobertura"],
+              ] as const
+            ).map(([key, label]) => (
+              <button key={key} type="button" role="tab" aria-selected={view === key} className={view === key ? "on" : ""} onClick={() => setView(key)}>
+                {label}
+              </button>
+            ))}
           </div>
 
-          <div className="pj-tabs small" role="tablist" aria-label="Vistas de Flotilla Nacional">
-            <button type="button" role="tab" aria-selected={view === "portal"} className={view === "portal" ? "on" : ""} onClick={() => setView("portal")}>
-              Portal cliente
-            </button>
-            <button type="button" role="tab" aria-selected={view === "mapa"} className={view === "mapa" ? "on" : ""} onClick={() => setView("mapa")}>
-              Mapa de cobertura
-            </button>
-          </div>
+          {view === "sitio" && (
+            <SiteBrowser url="https://flotillanacional.com/" desktop="/portafolio/live/flotilla-nacional-desktop.jpg" mobile="/portafolio/live/flotilla-nacional-mobile.jpg" title="Flotilla Nacional" />
+          )}
+
+          {view === "seguimiento" && (
+            <div className="tracker" aria-label="Seguimiento del servicio en 7 etapas">
+              <div className="tracker-head">
+                <span>Operación CFN</span>
+                <b>Del requerimiento al cierre</b>
+                <em>Trazabilidad activa</em>
+              </div>
+              <ol>
+                {etapas.map((label, i) => (
+                  <li key={label} className={i < step ? "done" : i === step ? "now" : ""}>
+                    <i>{i + 1}</i>
+                    <span>{label}</span>
+                  </li>
+                ))}
+              </ol>
+              <div className="tracker-bar">
+                <i style={{ transform: `scaleX(${step / (etapas.length - 1)})` }} />
+              </div>
+            </div>
+          )}
+
+          {(view === "portal" || view === "mapa") && (
           <figure className="cfn-screen" key={view}>
             <img
               src={view === "portal" ? "/proyectos/cfn/portal.webp" : "/proyectos/cfn/mapa.webp"}
               alt={view === "portal" ? "Portal cliente de Flotilla Nacional" : "Mapa de cobertura nacional de CFN"}
             />
           </figure>
+          )}
         </div>
       </div>
     </div>
@@ -279,6 +300,7 @@ const quiz = [
 export function AbisaiChapter() {
   const [active, setActive] = useState(0);
   const [answer, setAnswer] = useState<number | null>(null);
+  const [tab, setTab] = useState<"sitio" | "colecciones">("sitio");
   const paused = useRef(false);
 
   useEffect(() => {
@@ -293,7 +315,7 @@ export function AbisaiChapter() {
       <div className="pj-bg" style={{ backgroundImage: "url(/proyectos/abisai/campana.webp)" }} aria-hidden="true" />
       <div className="pj-grid">
         <ProjectHead
-          index="03"
+          index="04"
           logo="/proyectos/abisai/logo.png"
           logoAlt="Abisai Handbags"
           logoClass="on-light"
@@ -309,6 +331,21 @@ export function AbisaiChapter() {
         />
 
         <div className="pj-stage reveal">
+          <div className="pj-tabs" role="tablist" aria-label="Vistas de Abisai Handbags">
+            <button type="button" role="tab" aria-selected={tab === "sitio"} className={tab === "sitio" ? "on" : ""} onClick={() => setTab("sitio")}>
+              Ver sitio
+            </button>
+            <button type="button" role="tab" aria-selected={tab === "colecciones"} className={tab === "colecciones" ? "on" : ""} onClick={() => setTab("colecciones")}>
+              Colecciones
+            </button>
+          </div>
+
+          {tab === "sitio" && (
+            <SiteBrowser url="https://abisaihandbags.com/" desktop="/portafolio/live/abisai-handbags-desktop.jpg" mobile="/portafolio/live/abisai-handbags-mobile.jpg" title="Abisai Handbags" />
+          )}
+
+          {tab === "colecciones" && (
+          <>
           <div
             className="coverflow"
             onPointerEnter={() => (paused.current = true)}
@@ -363,6 +400,87 @@ export function AbisaiChapter() {
               </p>
             )}
           </div>
+          </>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* THU Talento Humano                                                  */
+/* ------------------------------------------------------------------ */
+
+const thuEtapas: [string, string][] = [
+  ["1", "Captura"],
+  ["2", "Conversa"],
+  ["3", "Evalúa"],
+  ["4", "Entrevista"],
+  ["5", "Contrata"],
+];
+
+const thuModulos = ["Dashboard", "Vacantes", "Candidatos", "Mensajes", "Psicometría e IA", "Integraciones", "Reportes", "Contratación"];
+
+export function ThuChapter() {
+  const [tab, setTab] = useState<"crm" | "empleos">("crm");
+
+  return (
+    <div className="pj pj-thu">
+      <div className="pj-bg" style={{ backgroundImage: "url(/portafolio/live/thu-crm-desktop.jpg)" }} aria-hidden="true" />
+      <div className="pj-grid">
+        <ProjectHead
+          index="01"
+          logo="/proyectos/thu/logo-white.svg"
+          logoAlt="THU Talento Humano"
+          kicker="Recursos humanos · Sistemas en servidor propio"
+          title="Todo el reclutamiento, de la primera respuesta a la contratación."
+          text="Dos sistemas conectados para THU Talento Humano: un CRM de reclutamiento con IA para su equipo y una bolsa de trabajo pública con planes para empresas. Instalados y operando en su propio servidor."
+          url="https://crm.thu.com.mx/"
+          stats={[
+            ["2", "sistemas conectados"],
+            ["8", "módulos de CRM"],
+            ["IA", "con aprobación humana"],
+          ]}
+        />
+
+        <div className="pj-stage reveal">
+          <div className="pj-tabs" role="tablist" aria-label="Sistemas de THU">
+            <button type="button" role="tab" aria-selected={tab === "crm"} className={tab === "crm" ? "on" : ""} onClick={() => setTab("crm")}>
+              CRM de reclutamiento
+            </button>
+            <button type="button" role="tab" aria-selected={tab === "empleos"} className={tab === "empleos" ? "on" : ""} onClick={() => setTab("empleos")}>
+              Bolsa de trabajo
+            </button>
+          </div>
+
+          {tab === "crm" ? (
+            <>
+              <div className="thu-flow" aria-label="Flujo del candidato">
+                {thuEtapas.map(([n, label]) => (
+                  <div key={n}>
+                    <b>{n}</b>
+                    {label}
+                  </div>
+                ))}
+              </div>
+              <SiteBrowser url="https://crm.thu.com.mx/" desktop="/portafolio/live/thu-crm-desktop.jpg" mobile="/portafolio/live/thu-crm-mobile.jpg" title="THU CRM" height="min(44vh, 400px)" />
+              <div className="thu-mods">
+                {thuModulos.map((m) => (
+                  <span key={m}>{m}</span>
+                ))}
+              </div>
+            </>
+          ) : (
+            <>
+              <SiteBrowser url="https://reclutamiento.thu.com.mx/" desktop="/portafolio/live/thu-empleos-desktop.jpg" mobile="/portafolio/live/thu-empleos-mobile.jpg" title="THU Empleos" height="min(48vh, 440px)" />
+              <div className="thu-mods">
+                {["CV con IA", "Búsqueda en lenguaje natural", "Encaje por vacante", "Planes para empresas", "Privacidad del candidato"].map((m) => (
+                  <span key={m}>{m}</span>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

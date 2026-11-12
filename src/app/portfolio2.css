@@ -1,0 +1,498 @@
+/* ==========================================================================
+   Portafolio: mini navegador de sitios, THU, módulos ERP y selector de vista
+   ========================================================================== */
+
+/* ---------- Mini navegador ---------- */
+
+.sb {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  background: #11162a;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
+}
+
+.sb-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  background: #161c33;
+}
+
+.sb-dots {
+  display: flex;
+  gap: 5px;
+}
+
+.sb-dots i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ff5f57;
+}
+
+.sb-dots i:nth-child(2) {
+  background: #febc2e;
+}
+
+.sb-dots i:nth-child(3) {
+  background: #28c840;
+}
+
+.sb-url {
+  display: inline-flex;
+  flex: 1;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  overflow: hidden;
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: #cbd5e1;
+  background: #0b0f1d;
+  font-size: 12px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.sb-url svg {
+  flex: none;
+  color: #4ade80;
+}
+
+.sb-tools {
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  border-radius: 9px;
+  background: #0b0f1d;
+}
+
+.sb-tools button {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 28px;
+  border: 0;
+  border-radius: 7px;
+  color: #cbd5e1;
+  background: transparent;
+  cursor: pointer;
+}
+
+.sb-tools button:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.sb-tools button.on {
+  color: #0b1220;
+  background: #7dd3fc;
+}
+
+.sb-stage {
+  position: relative;
+  background: #fff;
+}
+
+.sb-mobile .sb-stage {
+  display: grid;
+  place-items: center;
+  padding: 12px 0;
+  background: radial-gradient(circle at 50% 40%, rgba(125, 211, 252, 0.18), transparent 70%), #0d1222;
+}
+
+.sb-screen {
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  scrollbar-width: thin;
+  outline: none;
+}
+
+.sb-mobile .sb-screen {
+  width: min(270px, 70%);
+  border: 7px solid #05070f;
+  border-radius: 26px;
+  background: #fff;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  scrollbar-width: none;
+}
+
+.sb-screen img {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.sb-progress {
+  position: absolute;
+  top: 8px;
+  right: 4px;
+  bottom: 8px;
+  width: 4px;
+  border-radius: 4px;
+  background: rgba(15, 23, 42, 0.12);
+  pointer-events: none;
+}
+
+.sb-progress i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #3b82f6;
+  transform-origin: top;
+}
+
+.sb-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 12px;
+  color: #93a1bd;
+  background: #161c33;
+  font-size: 12.5px;
+}
+
+.sb-foot a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  color: #0b1220;
+  background: #7dd3fc;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.sb-off {
+  font-weight: 700;
+}
+
+/* El juego y el reel ya no necesitan sus marcos propios alrededor del navegador */
+.exhibit-shot {
+  overflow: visible;
+  border: 0;
+  background: transparent;
+}
+
+.reel-device {
+  overflow: visible;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.reel-device:hover {
+  transform: perspective(1600px) rotateY(6deg) rotateX(2deg);
+}
+
+/* ---------- Selector de vista arriba ---------- */
+
+.view-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 auto 1.4rem;
+}
+
+.view-top span {
+  color: #c9d4ea;
+  font-weight: 600;
+}
+
+.view-top button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.7rem 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.07);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.view-top button:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.view-top button.primary {
+  border-color: transparent;
+  color: #0b1220;
+  background: #facc15;
+}
+
+.ch-intro .view-top {
+  margin-top: 0.4rem;
+}
+
+/* ---------- Capítulo THU ---------- */
+
+.pj-thu {
+  --pj: #8b8ff0;
+  --pj-bg: #0d0f2a;
+  --pj-text: #e7e8fb;
+  --pj-on: #0b0d26;
+}
+
+.pj-thu .pj-logo {
+  height: 60px;
+}
+
+.thu-flow {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.thu-flow div {
+  padding: 8px 6px;
+  border: 1px solid rgba(139, 143, 240, 0.35);
+  border-radius: 10px;
+  color: #e7e8fb;
+  background: rgba(139, 143, 240, 0.1);
+  font-size: 12px;
+  text-align: center;
+}
+
+.thu-flow b {
+  display: block;
+  color: #a5a8ff;
+  font-size: 15px;
+}
+
+.thu-mods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.thu-mods span {
+  padding: 4px 10px;
+  border: 1px solid rgba(231, 232, 251, 0.18);
+  border-radius: 999px;
+  color: #d6d8fb;
+  font-size: 12.5px;
+}
+
+/* ---------- Módulos ERP ---------- */
+
+.ch-erp {
+  padding: 8rem max(1.5rem, calc((100vw - 1200px) / 2)) 6rem;
+  background:
+    radial-gradient(50rem 30rem at 85% 0%, rgba(113, 75, 103, 0.35), transparent 70%),
+    radial-gradient(40rem 26rem at 0% 100%, rgba(59, 130, 246, 0.18), transparent 70%),
+    #070b18;
+}
+
+.erp-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: -1.6rem 0 2.2rem;
+}
+
+.erp-badges span {
+  padding: 6px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  color: #dbe3f5;
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.erp-badges span b {
+  color: #c4a4f0;
+}
+
+.erp-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.erp-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 16px;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.015));
+  transition: transform 300ms ease, border-color 300ms ease;
+}
+
+.erp-card:hover {
+  transform: translateY(-6px);
+  border-color: color-mix(in srgb, var(--c) 55%, transparent);
+}
+
+.erp-card .ico {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  color: #fff;
+  background: var(--c);
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--c) 40%, transparent);
+}
+
+.erp-card h3 {
+  margin: 4px 0 0;
+  color: #fff;
+  font-size: 1.15rem;
+}
+
+.erp-card p {
+  margin: 0;
+  color: #a9b6d0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.erp-card ul {
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.erp-card li {
+  position: relative;
+  padding: 4px 0 4px 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  color: #dbe3f5;
+  font-size: 0.86rem;
+}
+
+.erp-card li::before {
+  content: "";
+  position: absolute;
+  top: 11px;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 2px;
+  background: var(--c);
+}
+
+/* Módulos ERP dentro del juego */
+.erp-panel {
+  display: grid;
+  gap: 0.8rem;
+  max-width: 1040px;
+  margin: auto;
+}
+
+.erp-panel .erp-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  text-align: left;
+}
+
+.erp-panel .erp-card {
+  padding: 14px;
+}
+
+.erp-panel .erp-card ul {
+  display: none;
+}
+
+@media (max-width: 1040px) {
+  .erp-grid,
+  .erp-panel .erp-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .erp-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .thu-flow {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 3px;
+  }
+
+  .thu-flow div {
+    padding: 6px 2px;
+    font-size: 10px;
+  }
+
+  .sb-foot span {
+    display: none;
+  }
+
+  .sb-foot {
+    justify-content: flex-end;
+  }
+
+  .ch-erp {
+    padding: 6rem 1.2rem 4rem;
+  }
+}
+
+.view-top-normal {
+  margin: 0;
+  padding: 6.5rem 1rem 0;
+  background: #04060d;
+}
+
+.view-top-normal + .ch-intro {
+  min-height: calc(100svh - 9rem);
+  padding-top: 2rem;
+}
+
+.game-title .view-top {
+  margin: 0.4rem 0 0;
+}
+
+.pj-thu .pj-bg {
+  opacity: 0.08;
+  filter: blur(2px);
+}
+
+.erp-panel {
+  padding-bottom: 4.5rem;
+}
+
+@media (hover: none), (max-width: 640px) {
+  .sb-tools button {
+    width: 38px;
+    height: 36px;
+  }
+
+  .sb-foot a {
+    min-height: 38px;
+    padding: 8px 14px;
+  }
+}
+
+.reel-device,
+.reel-info,
+.exhibit-shot,
+.pj-stage {
+  min-width: 0;
+}
+
+@media (max-width: 1040px) {
+  .reel-slide {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

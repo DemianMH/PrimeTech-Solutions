@@ -4,6 +4,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import type { ShowcaseProject } from "@/lib/showcase";
+import { SiteBrowser } from "./SiteBrowser";
 
 /** Un proyecto por pantalla: dispositivo con la página navegable y su ficha. */
 export function ProjectReel({ projects }: { projects: ShowcaseProject[] }) {
@@ -41,16 +42,7 @@ export function ProjectReel({ projects }: { projects: ShowcaseProject[] }) {
     >
       <div key={project.slug} className={`reel-slide ${dir > 0 ? "from-right" : "from-left"}`}>
         <div className="reel-device">
-          <div className="reel-bar">
-            <i />
-            <i />
-            <i />
-            <span>{new URL(project.url).host.replace(/^www\./, "")}</span>
-          </div>
-          <div ref={screen} className="reel-screen" tabIndex={0} aria-label={`Página de ${project.title}, desplázate para recorrerla`}>
-            <img src={project.shots.desktop} alt={`Sitio de ${project.title}`} loading="lazy" />
-          </div>
-          <span className="reel-scroll-hint">Desliza dentro de la pantalla</span>
+          <SiteBrowser url={project.url} desktop={project.shots.desktop} mobile={project.shots.mobile} title={project.title} offline={project.offline} />
         </div>
 
         <div className="reel-info">

@@ -59,11 +59,25 @@ export function PortfolioViews({ projects, children }: { projects: ShowcaseProje
               Elige tu personaje, entra a la tienda de servicios y visita las galerías de proyectos. Acércate a un cuadro
               y presiona <kbd>E</kbd> para verlo o ir al sitio. Pista: hay un arcade secreto con premios donde casi nadie camina.
             </p>
+            <div className="view-top">
+              <span>¿Prefieres verlo sin jugar?</span>
+              <button type="button" className="primary" onClick={() => change("normal")}>
+                <LayoutGrid size={17} /> Ver en vista normal
+              </button>
+            </div>
           </header>
           <PortfolioGame projects={projects} />
         </section>
       ) : (
-        children
+        <>
+          <div className="view-top view-top-normal">
+            <span>¿Quieres recorrerlo jugando?</span>
+            <button type="button" className="primary" onClick={() => change("juego")}>
+              <Gamepad2 size={17} /> Ver en modo juego
+            </button>
+          </div>
+          {children}
+        </>
       )}
     </>
   );

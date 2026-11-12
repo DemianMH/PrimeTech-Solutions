@@ -10,6 +10,7 @@ import "./hero.css";
 import "./arcade.css";
 import "./mobile.css";
 import "./navidad.css";
+import "./portfolio2.css";
 import { MetaPixel } from "@/components/site/MetaPixel";
 import { SiteFooter, SiteHeader, WhatsAppFloat } from "@/components/site/SiteShell";
 import { siteConfig } from "@/lib/site";
