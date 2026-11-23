@@ -30,7 +30,7 @@ export default function ContactPage() {
             <a href={whatsappHref} target="_blank" rel="noreferrer">
               <FaWhatsapp size={19} /> WhatsApp
             </a>
-            <a href={`mailto:${siteConfig.email}`}>
+            <a href={`mailto:${siteConfig.email}?subject=${encodeURIComponent("Quiero cotizar un proyecto")}`}>
               <Mail size={19} /> <span>{siteConfig.email}</span>
             </a>
             <span>

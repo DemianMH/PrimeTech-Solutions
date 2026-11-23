@@ -87,7 +87,9 @@ export function FloatingNav() {
           <p>
             {siteConfig.location}
             <br />
-            {siteConfig.email}
+            <a href={`mailto:${siteConfig.email}`} tabIndex={open ? 0 : -1}>
+              {siteConfig.email}
+            </a>
           </p>
         </aside>
       </div>
