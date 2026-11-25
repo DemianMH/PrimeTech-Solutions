@@ -10,9 +10,13 @@ import { siteConfig } from "@/lib/site";
 import { designBrand, designNav } from "@/lib/prime-design";
 import { FloatingNav } from "@/components/experience/FloatingNav";
 
+/** Rutas del sistema de tickets: no llevan el menú, pie ni botón flotante del sitio. */
+const isAppRoute = (p: string | null) => Boolean(p && (p.startsWith("/panel") || p.startsWith("/soporte")));
+
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  if (isAppRoute(pathname)) return null;
   const isDesign = pathname?.startsWith("/prime-design");
 
   if (isDesign) {
@@ -86,6 +90,7 @@ function DesignHeader({
 
 export function SiteFooter() {
   const pathname = usePathname();
+  if (isAppRoute(pathname)) return null;
   if (pathname?.startsWith("/prime-design")) {
     return (
       <footer className="design-footer">
@@ -129,6 +134,7 @@ export function SiteFooter() {
 
 export function WhatsAppFloat() {
   const pathname = usePathname();
+  if (isAppRoute(pathname)) return null;
   const isDesign = pathname?.startsWith("/prime-design");
   const message = isDesign ? "Hola Prime Design, quiero una cotización." : "Hola PrimeTech, quiero información.";
   return (
