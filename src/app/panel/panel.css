@@ -391,3 +391,84 @@ body:has(.pa-loading) {
   .pa-table th:nth-child(3), .pa-table td:nth-child(3) { display: none; }
   .pa-filters select { min-width: 0; width: 100% !important; }
 }
+
+/* ---------- Proyectos v2 ---------- */
+.pj2-toggle { display: inline-flex; padding: 3px; border-radius: 999px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.1); }
+.pj2-toggle button { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.4rem 0.85rem; border: 0; border-radius: 999px; background: transparent; color: #a9b6d0; font-weight: 700; font-size: 0.85rem; cursor: pointer; }
+.pj2-toggle button.active { background: #e8eefc; color: #0b1122; }
+.pj2-closed { margin: 0 0 0.9rem; }
+
+.pj2-board {
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 6), minmax(178px, 1fr));
+  gap: 0.75rem;
+  align-items: start;
+  overflow-x: auto;
+  padding-bottom: 0.8rem;
+  scrollbar-color: #334155 transparent;
+  scrollbar-width: thin;
+}
+.pj2-board::-webkit-scrollbar { height: 8px; }
+.pj2-board::-webkit-scrollbar-track { background: transparent; }
+.pj2-board::-webkit-scrollbar-thumb { background: #334155; border-radius: 8px; }
+.pj2-col { display: grid; gap: 0.6rem; padding: 0.75rem; border-radius: 1rem; background: #0a1020; border: 1px solid rgba(255, 255, 255, 0.05); border-top: 3px solid var(--c); }
+.pj2-col.empty { opacity: 0.7; }
+.pj2-col > header { display: flex; align-items: center; justify-content: space-between; color: #fff; font-weight: 700; font-size: 0.9rem; }
+.pj2-col > header span { display: inline-flex; align-items: center; gap: 0.45rem; }
+.pj2-col > header i { width: 8px; height: 8px; border-radius: 50%; background: var(--c); }
+.pj2-col > header b { min-width: 24px; padding: 0.05rem 0.45rem; border-radius: 999px; background: rgba(255, 255, 255, 0.08); color: #cbd5e1; font-size: 0.78rem; text-align: center; }
+.pj2-sum { margin-top: -0.4rem; color: #7d8aa6; font-size: 0.78rem; }
+.pj2-none { margin: 0; padding: 1rem 0.5rem; border: 1px dashed rgba(255, 255, 255, 0.1); border-radius: 0.8rem; text-align: center; color: #64748b; font-size: 0.82rem; }
+
+.pj2-card { display: grid; gap: 0.6rem; padding: 0.85rem; border-radius: 0.9rem; background: #111a33; border: 1px solid rgba(255, 255, 255, 0.07); border-left: 3px solid var(--c); cursor: pointer; transition: transform 120ms ease, border-color 120ms ease; }
+.pj2-card:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--c) 55%, transparent); }
+.pj2-card > header { display: flex; align-items: center; gap: 0.5rem; min-width: 0; }
+.pj2-card > header .pa-avatar { width: 28px; height: 28px; border-radius: 8px; font-size: 0.7rem; }
+.pj2-card > header span:last-child { color: #a9b6d0; font-size: 0.8rem; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pj2-title { color: #fff; font-size: 1rem; line-height: 1.25; }
+.pj2-type { justify-self: start; padding: 0.15rem 0.55rem; border-radius: 0.45rem; background: rgba(255, 255, 255, 0.06); color: #cbd5e1; font-size: 0.75rem; font-weight: 600; }
+.pj2-steps { display: grid; grid-template-columns: repeat(6, 1fr); gap: 3px; }
+.pj2-steps i { height: 5px; border-radius: 4px; background: rgba(255, 255, 255, 0.08); }
+.pj2-steps i.on { background: var(--c); }
+.pj2-paid { display: grid; gap: 0.35rem; }
+.pj2-paid > div { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.1rem 0.5rem; }
+.pj2-paid strong { color: #fff; font-size: 0.95rem; }
+.pj2-paid small { color: #7d8aa6; font-size: 0.75rem; white-space: nowrap; }
+.pj2-bar { display: block; height: 5px; border-radius: 4px; background: rgba(255, 255, 255, 0.07); overflow: hidden; }
+.pj2-bar i { display: block; height: 100%; background: #4ade80; }
+.pj2-card > footer { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+.pj2-due { font-size: 0.78rem; font-weight: 700; color: #a9b6d0; }
+.pj2-due.soon { color: #facc15; }
+.pj2-due.late { color: #f87171; }
+.pj2-due.ok { color: #4ade80; }
+.pj2-move { display: inline-flex; gap: 0.25rem; }
+.pj2-move button { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 7px; border: 1px solid rgba(255, 255, 255, 0.1); background: rgba(255, 255, 255, 0.05); color: #e8eefc; cursor: pointer; }
+.pj2-move button:hover:not(:disabled) { background: rgba(34, 211, 238, 0.2); }
+.pj2-move button:disabled { opacity: 0.3; cursor: default; }
+
+.pj2-table .pj2-steps { width: 120px; margin-top: 0.35rem; }
+.pj2-cell { display: flex; align-items: center; gap: 0.7rem; }
+.pj2-cell > span { display: grid; }
+.pj2-cell strong { color: #fff; }
+.pj2-cell small { color: #7d8aa6; font-size: 0.8rem; }
+.pj2-cell .pa-avatar { width: 34px; height: 34px; border-radius: 10px; font-size: 0.75rem; }
+
+.pj2-head { display: flex; align-items: center; gap: 0.9rem; }
+.pj2-head > div { display: grid; gap: 0.15rem; }
+.pj2-head strong { color: #fff; }
+.pj2-head small { color: #8f9bb5; }
+.pj2-stepper { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0.35rem; }
+.pj2-stepper button { display: grid; justify-items: center; gap: 0.3rem; padding: 0.55rem 0.2rem; border-radius: 0.7rem; border: 1px solid rgba(255, 255, 255, 0.08); background: rgba(255, 255, 255, 0.03); color: #7d8aa6; font-size: 0.72rem; font-weight: 700; cursor: pointer; }
+.pj2-stepper button i { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: rgba(255, 255, 255, 0.08); font-style: normal; font-size: 0.72rem; color: #cbd5e1; }
+.pj2-stepper button.done { color: #e8eefc; }
+.pj2-stepper button.done i { background: var(--c); color: #0b1122; }
+.pj2-stepper button.current { border-color: var(--c); background: color-mix(in srgb, var(--c) 14%, transparent); }
+.pj2-money { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 1rem; border-radius: 0.9rem; background: rgba(255, 255, 255, 0.03); }
+.pj2-money .pj2-paid { flex: 1; }
+.pj2-payments { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.3rem; font-size: 0.85rem; }
+.pj2-payments li { display: grid; grid-template-columns: 90px 1fr auto auto; gap: 0.6rem; align-items: center; color: #cbd5e1; }
+.pj2-payments li span:first-child { color: #7d8aa6; }
+@media (max-width: 640px) {
+  .pj2-stepper { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .pj2-table th:nth-child(3), .pj2-table td:nth-child(3), .pj2-table th:nth-child(5), .pj2-table td:nth-child(5) { display: none; }
+}
