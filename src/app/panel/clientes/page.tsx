@@ -11,7 +11,7 @@ import { subsSummary } from "@/lib/tickets";
 type C = {
   id: string; name: string; industry: string | null; contact_name: string | null; email: string | null; phone: string | null;
   status: string; support_enabled: boolean; color: string;
-  tickets: { status: string }[]; subscriptions: { amount: number; period: string; status: string; currency: string }[]; projects: { stage: string }[];
+  client_services: { name: string; active: boolean }[]; tickets: { status: string }[]; subscriptions: { amount: number; period: string; status: string; currency: string }[]; projects: { stage: string }[];
 };
 
 const ST: Record<string, { label: string; color: string }> = {
@@ -24,11 +24,11 @@ export default function ClientsPage() {
   const [q, setQ] = useState("");
   const [creating, setCreating] = useState(false);
   const clients = useQuery<C[]>((sb) =>
-    sb.from("clients").select("id,name,industry,contact_name,email,phone,status,support_enabled,color,tickets(status),subscriptions(amount,period,status,currency),projects(stage)").order("name") as never
+    sb.from("clients").select("id,name,industry,contact_name,email,phone,status,support_enabled,color,client_services(name,active),tickets(status),subscriptions(amount,period,status,currency),projects(stage)").order("name") as never
   );
   const rows = useMemo(() => {
     const s = q.trim().toLowerCase();
-    return (clients.data || []).filter((c) => !s || `${c.name} ${c.industry} ${c.contact_name} ${c.email}`.toLowerCase().includes(s));
+    return (clients.data || []).filter((c) => !s || `${c.name} ${c.industry} ${c.contact_name} ${c.email} ${c.client_services.map((x) => x.name).join(" ")}`.toLowerCase().includes(s));
   }, [clients.data, q]);
 
   return (
@@ -56,7 +56,7 @@ export default function ClientsPage() {
                   <span className="pa-avatar">{c.name.slice(0, 2).toUpperCase()}</span>
                   <div>
                     <strong>{c.name}</strong>
-                    <small>{c.industry || c.contact_name || "—"}</small>
+                    <small>{c.industry || c.contact_name || (c.phone ? `Tel. ${c.phone}` : "—")}</small>
                   </div>
                   <Badge {...ST[c.status]} />
                 </header>
@@ -77,6 +77,12 @@ export default function ClientsPage() {
                     <li>Sin suscripción activa</li>
                   )}
                 </ul>
+                <div className="pa-client-tags">
+                  {c.client_services.filter((x) => x.active).map((x) => (
+                    <span key={x.name} className="pa-tag">{x.name}</span>
+                  ))}
+                  {!c.client_services.some((x) => x.active) && !c.support_enabled && <span className="pa-tag off">Sin servicios registrados</span>}
+                </div>
                 {c.support_enabled && (
                   <span className="pa-chip">
                     <Wrench size={12} /> Soporte técnico y equipos
