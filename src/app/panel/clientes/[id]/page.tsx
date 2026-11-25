@@ -6,7 +6,7 @@ import { ArrowLeft, Copy, ExternalLink, Mail, Plus, Trash2, Wrench } from "lucid
 import { Badge, Empty, FormModal, Stat, notify, remove, save, useQuery } from "@/components/panel/ui";
 import { clientFields, projectFields, subscriptionFields } from "@/components/panel/forms";
 import { supabaseBrowser } from "@/lib/supabase";
-import { PERIODS, PRIORITY, STAGES, SUPPORT_CATEGORIES, TICKET_STATUS, fdate, money, monthlyValue, today } from "@/lib/tickets";
+import { PERIODS, PRIORITY, STAGES, SUPPORT_CATEGORIES, TICKET_STATUS, fdate, money, subsSummary, today } from "@/lib/tickets";
 
 type Client = Record<string, unknown> & {
   id: string; name: string; email: string | null; phone: string | null; contact_name: string | null; industry: string | null;
@@ -38,7 +38,8 @@ export default function ClientDetail({ params }: { params: { id: string } }) {
   const client = c.data;
   const link = typeof window !== "undefined" ? `${window.location.origin}/soporte/${client.portal_token}` : "";
   const open = client.tickets.filter((t) => !["resuelto", "cerrado"].includes(t.status));
-  const mrr = client.subscriptions.filter((s) => s.status === "activa").reduce((a, s) => a + monthlyValue(s.amount, s.period), 0);
+  const pays = subsSummary(client.subscriptions);
+  const nextCharge = client.subscriptions.filter((s) => s.status === "activa" && s.next_charge).map((s) => s.next_charge as string).sort()[0];
   const year = today().slice(0, 4);
   const billedYear = client.transactions.filter((t) => t.kind === "ingreso" && t.paid && t.date.startsWith(year)).reduce((a, t) => a + Number(t.amount), 0);
   const owed = client.transactions.filter((t) => t.kind === "ingreso" && !t.paid).reduce((a, t) => a + Number(t.amount), 0);
@@ -110,7 +111,7 @@ export default function ClientDetail({ params }: { params: { id: string } }) {
 
       <div className="pa-stats">
         <Stat label="Tickets abiertos" value={open.length} hint={`${client.tickets.length} en total`} accent="#38bdf8" />
-        <Stat label="Suscripciones" value={money(mrr)} hint="al mes" accent="#c084fc" />
+        <Stat label="Lo que paga" value={pays[0] || "—"} hint={[...pays.slice(1), nextCharge ? `próximo cobro ${fdate(nextCharge)}` : ""].filter(Boolean).join(" · ") || "Sin suscripción activa"} accent="#c084fc" />
         <Stat label={`Cobrado en ${year}`} value={money(billedYear)} hint={owed ? `${money(owed)} por cobrar` : "Sin adeudos"} accent="#4ade80" />
         <Stat label="Proyectos" value={client.projects.length} accent="#facc15" />
       </div>

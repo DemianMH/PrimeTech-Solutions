@@ -74,3 +74,24 @@ export function monthlyValue(amount: number, period: string) {
 }
 
 export const today = () => new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+
+const PER: Record<string, string> = {
+  mensual: "al mes", bimestral: "cada 2 meses", trimestral: "cada 3 meses",
+  semestral: "cada 6 meses", anual: "al año", unico: "pago único",
+};
+
+/** Resumen de lo que paga un cliente tal cual (sin prorratear): «$700 al año», «$500 al mes». */
+export function subsSummary(subs: { amount: number; period: string; status: string; currency?: string }[]) {
+  const by = new Map<string, number>();
+  subs.filter((s) => s.status === "activa").forEach((s) => {
+    const k = `${s.period}|${s.currency || "MXN"}`;
+    by.set(k, (by.get(k) || 0) + Number(s.amount));
+  });
+  const order = Object.keys(PERIODS);
+  return [...by.entries()]
+    .sort((a, b) => order.indexOf(a[0].split("|")[0]) - order.indexOf(b[0].split("|")[0]))
+    .map(([k, v]) => {
+      const [period, cur] = k.split("|");
+      return `${money(v, cur)} ${PER[period] || ""}`;
+    });
+}

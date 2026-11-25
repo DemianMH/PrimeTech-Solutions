@@ -6,12 +6,12 @@ import { Search, Wrench } from "lucide-react";
 import { Badge, Empty, FormModal, PageHead, useQuery } from "@/components/panel/ui";
 import { clientFields } from "@/components/panel/forms";
 import { supabaseBrowser } from "@/lib/supabase";
-import { money, monthlyValue } from "@/lib/tickets";
+import { subsSummary } from "@/lib/tickets";
 
 type C = {
   id: string; name: string; industry: string | null; contact_name: string | null; email: string | null; phone: string | null;
   status: string; support_enabled: boolean; color: string;
-  tickets: { status: string }[]; subscriptions: { amount: number; period: string; status: string }[]; projects: { stage: string }[];
+  tickets: { status: string }[]; subscriptions: { amount: number; period: string; status: string; currency: string }[]; projects: { stage: string }[];
 };
 
 const ST: Record<string, { label: string; color: string }> = {
@@ -24,7 +24,7 @@ export default function ClientsPage() {
   const [q, setQ] = useState("");
   const [creating, setCreating] = useState(false);
   const clients = useQuery<C[]>((sb) =>
-    sb.from("clients").select("id,name,industry,contact_name,email,phone,status,support_enabled,color,tickets(status),subscriptions(amount,period,status),projects(stage)").order("name") as never
+    sb.from("clients").select("id,name,industry,contact_name,email,phone,status,support_enabled,color,tickets(status),subscriptions(amount,period,status,currency),projects(stage)").order("name") as never
   );
   const rows = useMemo(() => {
     const s = q.trim().toLowerCase();
@@ -48,7 +48,7 @@ export default function ClientsPage() {
         <div className="pa-client-grid">
           {rows.map((c) => {
             const open = c.tickets.filter((t) => !["resuelto", "cerrado"].includes(t.status)).length;
-            const mrr = c.subscriptions.filter((s) => s.status === "activa").reduce((a, s) => a + monthlyValue(s.amount, s.period), 0);
+            const pays = subsSummary(c.subscriptions);
             const active = c.projects.filter((p) => !["soporte", "cancelado", "pausado"].includes(p.stage)).length;
             return (
               <Link key={c.id} href={`/panel/clientes/${c.id}`} className="pa-client" style={{ ["--c" as string]: c.color || "#22d3ee" }}>
@@ -67,9 +67,15 @@ export default function ClientsPage() {
                   <li>
                     <b>{active}</b> proyectos
                   </li>
-                  <li>
-                    <b>{money(mrr)}</b> al mes
-                  </li>
+                  {pays.length ? (
+                    pays.map((p) => (
+                      <li key={p}>
+                        <b>{p}</b>
+                      </li>
+                    ))
+                  ) : (
+                    <li>Sin suscripción activa</li>
+                  )}
                 </ul>
                 {c.support_enabled && (
                   <span className="pa-chip">

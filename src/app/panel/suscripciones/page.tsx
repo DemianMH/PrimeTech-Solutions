@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Badge, Empty, FormModal, PageHead, Stat, save, remove, useQuery } from "@/components/panel/ui";
 import { subscriptionFields } from "@/components/panel/forms";
 import { supabaseBrowser } from "@/lib/supabase";
-import { PERIODS, addMonths, fdate, money, monthlyValue, today } from "@/lib/tickets";
+import { PERIODS, addMonths, fdate, money, today } from "@/lib/tickets";
 
 type S = Record<string, unknown> & {
   id: string; client_id: string; name: string; amount: number; currency: string; period: string;
@@ -18,7 +18,8 @@ export default function SubscriptionsPage() {
   const [flash, setFlash] = useState("");
   const opts = (clients.data || []).map((c) => ({ value: c.id, label: c.name }));
   const active = (subs.data || []).filter((s) => s.status === "activa");
-  const mrr = active.reduce((a, s) => a + monthlyValue(s.amount, s.period), 0);
+  const perMonth = active.filter((s) => s.period === "mensual").reduce((a, s) => a + Number(s.amount), 0);
+  const perYear = active.filter((s) => s.period === "anual").reduce((a, s) => a + Number(s.amount), 0);
   const late = active.filter((s) => s.next_charge && s.next_charge < today());
   const monthEnd = today().slice(0, 7) + "-31";
   const dueThisMonth = active.filter((s) => s.next_charge && s.next_charge <= monthEnd).reduce((a, s) => a + Number(s.amount), 0);
@@ -43,8 +44,8 @@ export default function SubscriptionsPage() {
       <PageHead title="Suscripciones" sub="Servicios recurrentes de tus clientes y sus fechas de cobro." actions={<button className="pa-btn" onClick={() => setEdit({ currency: "MXN", period: "mensual", status: "activa", start_date: today(), next_charge: today() })}>Nueva suscripción</button>} />
       {flash && <p className="pa-flash" onClick={() => setFlash("")}>{flash}</p>}
       <div className="pa-stats">
-        <Stat label="Ingreso recurrente mensual" value={money(mrr)} hint={`${money(mrr * 12)} al año`} accent="#c084fc" />
-        <Stat label="Suscripciones activas" value={active.length} accent="#38bdf8" />
+        <Stat label="Mensualidades" value={`${money(perMonth)} al mes`} hint={`${active.filter((s) => s.period === "mensual").length} clientes pagan cada mes`} accent="#c084fc" />
+        <Stat label="Renovaciones anuales" value={`${money(perYear)} al año`} hint="Dominios y licencias anuales" accent="#38bdf8" />
         <Stat label="Por cobrar este mes" value={money(dueThisMonth)} accent="#4ade80" />
         <Stat label="Atrasadas" value={late.length} hint={late.length ? "Revisa los cobros en rojo" : "Al corriente"} accent="#f87171" />
       </div>

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Badge, Empty, PageHead, Stat, useQuery } from "@/components/panel/ui";
-import { TICKET_STATUS, PRIORITY, STAGES, fdate, money, monthlyValue, today } from "@/lib/tickets";
+import { TICKET_STATUS, PRIORITY, STAGES, fdate, money, today } from "@/lib/tickets";
 
 type T = { id: string; number: number; subject: string; status: string; priority: string; created_at: string; clients: { name: string } | null };
 type S = { id: string; name: string; amount: number; period: string; next_charge: string | null; status: string; clients: { name: string } | null };
@@ -24,7 +24,8 @@ export default function PanelHome() {
   const income = (txs.data || []).filter((t) => t.kind === "ingreso" && t.paid).reduce((a, t) => a + Number(t.amount), 0);
   const expense = (txs.data || []).filter((t) => t.kind === "gasto" && t.paid).reduce((a, t) => a + Number(t.amount), 0);
   const pending = (txs.data || []).filter((t) => t.kind === "ingreso" && !t.paid).reduce((a, t) => a + Number(t.amount), 0);
-  const mrr = (subs.data || []).reduce((a, s) => a + monthlyValue(s.amount, s.period), 0);
+  const perMonth = (subs.data || []).filter((s) => s.period === "mensual").reduce((a, s) => a + Number(s.amount), 0);
+  const perYear = (subs.data || []).filter((s) => s.period === "anual").reduce((a, s) => a + Number(s.amount), 0);
   const in15 = new Date(Date.now() + 15 * 864e5).toISOString().slice(0, 10);
   const upcoming = (subs.data || []).filter((s) => s.next_charge && s.next_charge <= in15);
   const urgent = (tickets.data || []).filter((t) => t.priority === "urgente" || t.priority === "alta").length;
@@ -37,7 +38,7 @@ export default function PanelHome() {
         <Stat label="Tickets abiertos" value={tickets.data?.length ?? "…"} hint={urgent ? `${urgent} con prioridad alta` : "Sin urgencias"} accent="#38bdf8" />
         <Stat label={`Ingresos de ${monthName}`} value={money(income)} hint={pending ? `${money(pending)} por cobrar` : "Todo cobrado"} accent="#4ade80" />
         <Stat label="Gastos del mes" value={money(expense)} hint={`Utilidad ${money(income - expense)}`} accent="#fb923c" />
-        <Stat label="Ingreso recurrente" value={money(mrr)} hint={`${subs.data?.length ?? 0} suscripciones · ${clients.data?.length ?? 0} clientes activos`} accent="#c084fc" />
+        <Stat label="Mensualidades" value={`${money(perMonth)} al mes`} hint={`+ ${money(perYear)} al año en renovaciones · ${clients.data?.length ?? 0} clientes activos`} accent="#c084fc" />
       </div>
 
       <div className="pa-cols">
