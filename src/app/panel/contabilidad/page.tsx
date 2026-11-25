@@ -4,7 +4,8 @@ import { useMemo, useState } from "react";
 import { ChevronLeft, ChevronRight, Download } from "lucide-react";
 import { Badge, Empty, FormModal, PageHead, Stat, remove, save, useQuery } from "@/components/panel/ui";
 import { txFields } from "@/components/panel/forms";
-import { fdate, money, today } from "@/lib/tickets";
+import { PERIODS, addMonths, fdate, money, today } from "@/lib/tickets";
+import { supabaseBrowser } from "@/lib/supabase";
 
 type Tx = Record<string, unknown> & {
   id: string; date: string; kind: "ingreso" | "gasto"; amount: number; concept: string; category: string | null; method: string | null;
@@ -20,6 +21,19 @@ const monthLabel = (ym: string, short = false) => {
   const s = new Date(ym + "-15T12:00:00").toLocaleString("es-MX", short ? { month: "short" } : { month: "long", year: "numeric" });
   return s.charAt(0).toUpperCase() + s.slice(1);
 };
+
+/** Borra un movimiento. Si era el cobro de una suscripción, regresa su «próximo cobro» un periodo. */
+async function deleteTx(row: Record<string, unknown>) {
+  const e = await remove("transactions", row.id as string);
+  if (e || !row.subscription_id) return e;
+  const sb = supabaseBrowser();
+  const { data: sub } = await sb.from("subscriptions").select("period,next_charge").eq("id", row.subscription_id as string).single();
+  const months = sub ? PERIODS[sub.period]?.months || 0 : 0;
+  if (!sub?.next_charge || !months) return;
+  const back = addMonths(sub.next_charge, -months);
+  if (confirm(`Este movimiento era el cobro de una suscripción. ¿Regreso su próximo cobro de ${fdate(sub.next_charge)} a ${fdate(back)}?`))
+    await sb.from("subscriptions").update({ next_charge: back }).eq("id", row.subscription_id as string);
+}
 
 export default function AccountingPage() {
   const [ym, setYm] = useState(today().slice(0, 7));
@@ -217,7 +231,7 @@ export default function AccountingPage() {
             txs.reload();
             return e;
           }}
-          onDelete={edit.row.id ? async () => { const e = await remove("transactions", edit.row.id as string); txs.reload(); return e; } : undefined}
+          onDelete={edit.row.id ? async () => { const e = await deleteTx(edit.row); txs.reload(); return e; } : undefined}
         />
       )}
     </>
