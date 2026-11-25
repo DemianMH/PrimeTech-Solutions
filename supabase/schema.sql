@@ -270,3 +270,37 @@ select date_trunc('month', date)::date as month,
        sum(amount) filter (where kind = 'gasto' and paid) as gastos,
        sum(amount) filter (where kind = 'ingreso' and not paid) as por_cobrar
 from public.transactions group by 1 order by 1 desc;
+
+-- ---------- Logos de clientes ----------
+alter table public.clients add column if not exists logo_url text;
+
+insert into storage.buckets (id, name, public, file_size_limit)
+values ('logos', 'logos', true, 2097152)
+on conflict (id) do update set public = true, file_size_limit = 2097152;
+
+drop policy if exists logos_admin on storage.objects;
+create policy logos_admin on storage.objects for all to authenticated
+  using (bucket_id = 'logos' and public.is_admin()) with check (bucket_id = 'logos' and public.is_admin());
+
+-- El portal también devuelve el logo del cliente
+create or replace function public.portal_info(p_token text) returns json
+language plpgsql stable security definer set search_path = public as $$
+declare c public.clients; cats text[];
+begin
+  select * into c from public.clients where portal_token = p_token and status <> 'inactivo';
+  if not found then return null; end if;
+  select coalesce(array_agg(s.name order by s.created_at), '{}') into cats
+    from public.client_services s where s.client_id = c.id and s.active;
+  if c.support_enabled then cats := cats || public.support_categories(); end if;
+  cats := cats || array['Otro'];
+  return json_build_object(
+    'name', c.name, 'color', c.color, 'logo_url', c.logo_url, 'categories', cats,
+    'tickets', coalesce((select json_agg(json_build_object(
+        'id', t.id, 'number', t.number, 'subject', t.subject, 'category', t.category,
+        'status', t.status, 'priority', t.priority, 'created_at', t.created_at, 'updated_at', t.updated_at,
+        'messages', coalesce((select json_agg(json_build_object('author', m.author, 'body', m.body, 'created_at', m.created_at) order by m.created_at)
+                    from public.ticket_messages m where m.ticket_id = t.id and not m.internal), '[]'::json),
+        'files', coalesce((select json_agg(json_build_object('name', f.name, 'path', f.path)) from public.ticket_files f where f.ticket_id = t.id), '[]'::json)
+      ) order by t.created_at desc) from public.tickets t where t.client_id = c.id), '[]'::json)
+  );
+end $$;

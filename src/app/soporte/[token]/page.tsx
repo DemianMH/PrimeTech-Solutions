@@ -12,7 +12,7 @@ type Ticket = {
   messages: { author: string; body: string; created_at: string }[];
   files: { name: string; path: string }[];
 };
-type Info = { name: string; color: string; categories: string[]; tickets: Ticket[] };
+type Info = { name: string; color: string; logo_url: string | null; categories: string[]; tickets: Ticket[] };
 
 const MAX_FILES = 8;
 const MAX_MB = 15;
@@ -64,7 +64,13 @@ export default function PortalPage({ params }: { params: { token: string } }) {
       </header>
 
       <section className="sp-hero">
-        <span className="sp-client">{info.name}</span>
+        <span className="sp-client">
+          {info.logo_url && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={info.logo_url} alt="" />
+          )}
+          {info.name}
+        </span>
         <h1>¿En qué te ayudamos?</h1>
         <p>Levanta un ticket y te avisamos por correo cada vez que avance. Aquí mismo puedes ver tus solicitudes pendientes y resueltas.</p>
       </section>

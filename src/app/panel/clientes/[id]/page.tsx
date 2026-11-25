@@ -3,14 +3,14 @@
 import Link from "next/link";
 import { useState } from "react";
 import { ArrowLeft, Copy, ExternalLink, Mail, Plus, Trash2, Wrench } from "lucide-react";
-import { Badge, Empty, FormModal, Stat, notify, remove, save, useQuery } from "@/components/panel/ui";
+import { Avatar, Badge, Empty, FormModal, Stat, notify, remove, save, useQuery } from "@/components/panel/ui";
 import { clientFields, projectFields, subscriptionFields } from "@/components/panel/forms";
 import { supabaseBrowser } from "@/lib/supabase";
 import { PERIODS, PRIORITY, STAGES, SUPPORT_CATEGORIES, TICKET_STATUS, fdate, money, subsSummary, today } from "@/lib/tickets";
 
 type Client = Record<string, unknown> & {
   id: string; name: string; email: string | null; phone: string | null; contact_name: string | null; industry: string | null;
-  status: string; support_enabled: boolean; portal_token: string; color: string; notes: string | null;
+  status: string; support_enabled: boolean; portal_token: string; color: string; notes: string | null; logo_url: string | null;
   client_services: { id: string; name: string; active: boolean }[];
   tickets: { id: string; number: number; subject: string; status: string; priority: string; created_at: string }[];
   projects: (Record<string, unknown> & { id: string; name: string; stage: string; amount: number; due_date: string | null })[];
@@ -49,6 +49,19 @@ export default function ClientDetail({ params }: { params: { id: string } }) {
     await save("clients", { support_enabled: !client.support_enabled }, client.id);
     c.reload();
   };
+  const uploadLogo = async (file?: File) => {
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) return setFlash("El logo debe pesar menos de 2 MB.");
+    const sb = supabaseBrowser();
+    const ext = (file.name.split(".").pop() || "png").toLowerCase();
+    const path = `${client.id}-${Date.now()}.${ext}`;
+    const { error } = await sb.storage.from("logos").upload(path, file, { contentType: file.type, upsert: true });
+    if (error) return setFlash(error.message);
+    const url = sb.storage.from("logos").getPublicUrl(path).data.publicUrl;
+    await save("clients", { logo_url: url }, client.id);
+    setFlash("Logo actualizado.");
+    c.reload();
+  };
   const addService = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!service.trim()) return;
@@ -64,9 +77,11 @@ export default function ClientDetail({ params }: { params: { id: string } }) {
       </Link>
       <header className="pa-head">
         <div className="pa-head-client">
-          <span className="pa-avatar big" style={{ ["--c" as string]: client.color }}>
-            {client.name.slice(0, 2).toUpperCase()}
-          </span>
+          <label className="pa-logo-edit" title="Cambiar logo">
+            <Avatar name={client.name} color={client.color} logo={client.logo_url} big />
+            <span>{client.logo_url ? "Cambiar" : "Subir logo"}</span>
+            <input type="file" accept="image/png,image/jpeg,image/svg+xml,image/webp" hidden onChange={(e) => uploadLogo(e.target.files?.[0])} />
+          </label>
           <div>
             <h1>{client.name}</h1>
             <p>{[client.industry, client.contact_name, client.phone, client.email].filter(Boolean).join(" · ") || "Sin datos de contacto"}</p>

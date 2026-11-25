@@ -3,14 +3,14 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { Search, Wrench } from "lucide-react";
-import { Badge, Empty, FormModal, PageHead, useQuery } from "@/components/panel/ui";
+import { Avatar, Badge, Empty, FormModal, PageHead, useQuery } from "@/components/panel/ui";
 import { clientFields } from "@/components/panel/forms";
 import { supabaseBrowser } from "@/lib/supabase";
 import { subsSummary } from "@/lib/tickets";
 
 type C = {
   id: string; name: string; industry: string | null; contact_name: string | null; email: string | null; phone: string | null;
-  status: string; support_enabled: boolean; color: string;
+  status: string; support_enabled: boolean; color: string; logo_url: string | null;
   client_services: { name: string; active: boolean }[]; tickets: { status: string }[]; subscriptions: { amount: number; period: string; status: string; currency: string }[]; projects: { stage: string }[];
 };
 
@@ -24,7 +24,7 @@ export default function ClientsPage() {
   const [q, setQ] = useState("");
   const [creating, setCreating] = useState(false);
   const clients = useQuery<C[]>((sb) =>
-    sb.from("clients").select("id,name,industry,contact_name,email,phone,status,support_enabled,color,client_services(name,active),tickets(status),subscriptions(amount,period,status,currency),projects(stage)").order("name") as never
+    sb.from("clients").select("id,name,industry,contact_name,email,phone,status,support_enabled,color,logo_url,client_services(name,active),tickets(status),subscriptions(amount,period,status,currency),projects(stage)").order("name") as never
   );
   const rows = useMemo(() => {
     const s = q.trim().toLowerCase();
@@ -53,7 +53,7 @@ export default function ClientsPage() {
             return (
               <Link key={c.id} href={`/panel/clientes/${c.id}`} className="pa-client" style={{ ["--c" as string]: c.color || "#22d3ee" }}>
                 <header>
-                  <span className="pa-avatar">{c.name.slice(0, 2).toUpperCase()}</span>
+                  <Avatar name={c.name} color={c.color} logo={c.logo_url} />
                   <div>
                     <strong>{c.name}</strong>
                     <small>{c.industry || c.contact_name || (c.phone ? `Tel. ${c.phone}` : "—")}</small>

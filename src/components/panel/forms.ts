@@ -23,6 +23,7 @@ export const clientFields: Field[] = [
     ],
   },
   { name: "color", label: "Color en el panel", type: "color" },
+  { name: "logo_url", label: "Logo (URL de la imagen)", type: "url", placeholder: "https://…/logo.png", hint: "También puedes subirlo dando clic en el logo de su ficha." },
   {
     name: "support_enabled", label: "Soporte técnico, reparaciones y compra de equipos", type: "checkbox", full: true,
   },

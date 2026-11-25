@@ -232,3 +232,17 @@ export async function notify(body: Record<string, unknown>) {
     body: JSON.stringify(body),
   }).catch(() => undefined);
 }
+
+/** Logo del cliente; si no tiene, sus iniciales en su color. */
+export function Avatar({ name, color, logo, big }: { name: string; color?: string | null; logo?: string | null; big?: boolean }) {
+  return (
+    <span className={`pa-avatar ${big ? "big" : ""} ${logo ? "logo" : ""}`} style={{ ["--c" as string]: color || "#22d3ee" }}>
+      {logo ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={logo} alt={name} />
+      ) : (
+        name.slice(0, 2).toUpperCase()
+      )}
+    </span>
+  );
+}
